@@ -1,10 +1,20 @@
-<head>
-<link rel="stylesheet" href="staticfiles/bootstrap/bootstrap.min.css"
-<h1>{{ "Add an Item to sell" }}</h1>
+<!DOCTYPE html>
+<html>
+	<head>
+	<link rel="stylesheet" href="/staticfiles/bootstrap/bootstrap.min.css">
 
-<form action="/marketplace/add-item/" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+	</head>
+	<body>
+		<nav class="navbar bg-dark">
+		    <p> Marketplace </p>
+		    <p> Add Item </p>
+		    <p> View Items </p>
+		  </nav>
+		<h1>{{ "Add an Item to sell" }}</h1>
 
-</head>
+		<form action="/marketplace/add-item/" method="post">{% csrf_token %}
+		    {{ form.as_p }}
+		    <button type="submit">Submit</button>
+		</form>
+	</body>
+</html>
