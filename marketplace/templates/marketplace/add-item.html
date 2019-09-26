@@ -1,6 +1,10 @@
+<head>
+<link rel="stylesheet" href="staticfiles/bootstrap/bootstrap.min.css"
 <h1>{{ "Add an Item to sell" }}</h1>
 
 <form action="/marketplace/add-item/" method="post">{% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit</button>
 </form>
+
+</head>
