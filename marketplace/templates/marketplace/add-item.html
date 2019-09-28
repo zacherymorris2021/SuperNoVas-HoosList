@@ -29,10 +29,20 @@
 			    </li>
 			</ul>
 		  </nav>
-		<h1>{{ "Add an Item to sell" }}</h1>
+		<h1> Add an Item to sell</h1>
 
 		<form action="/marketplace/add-item/" class = "form-group" method="post">{% csrf_token %}
-		    {{ form.as_p }}
+	 		<ul>
+				<il id = "name">{{form.item_name.label_tag}} {{form.item_name}}</il><br>
+				<il id = "seller">{{form.item_seller.label_tag}} {{form.item_seller}}</il><br>
+				<il id = "description">{{form.item_description.label_tag}} {{form.item_description}}</il><br>
+				<il id = "price">{{form.item_price.label_tag}} {{form.item_price}}</il><br>
+				<il id = "delivery">{{form.item_delivery.label_tag}} {{form.item_delivery}}</il><br>
+				<il id = "location">{{form.item_location.label_tag}} {{form.item_location}}</il><br>
+				<il id = "payment_method">{{form.item_preferred_payment_method.label_tag}} {{form.item_preferred_payment_method}}</il><br>
+				<il id = "condition">{{form.item_condition.label_tag}} {{form.item_condition}}</il><br>
+				<il id = "categories">{{form.item_categories.label_tag}} {{form.item_categories}}</il>
+			</ul>
 		    <button type="submit">Submit</button>
 		</form>
 	</body>
