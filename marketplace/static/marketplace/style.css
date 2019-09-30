@@ -1,8 +1,9 @@
 #title {
 	color: orange;
 }
-
-
+#add {
+	line-height: 10px;
+}
 h1 {
   font-size: 35px;
   font-family: sans-serif;
