@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.template import loader
+from django.db.models import Q
 from .models import Item, Seller
 from .myForms import ItemAddForm
 
@@ -28,3 +29,16 @@ def add_item(request):
     else:
         form = ItemAddForm()
     return render(request, 'marketplace/add-item.html', {'form': form})
+
+
+def search(request):
+    template = 'marketplace/search.html'
+    query = request.GET.get('q')
+    if query:
+        results = Item.objects.filter(Q(item_name__icontains=query) | Q(item_description__icontains = query))
+    else:
+        results = Item.objects.filter(status="Published")
+    context = {
+        'results' : results
+    }
+    return render(request, template, context)
