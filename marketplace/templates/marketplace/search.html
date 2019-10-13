@@ -1,0 +1,5 @@
+<h1> Search Results for <b> {{request.GET.q}}</b> </h1>
+{%for item in results %}
+{{item.item_name}}
+</br>
+{% endfor %}
