@@ -1,7 +1,10 @@
 language: python
 python:
   - "3.7"
-script: make test
+script: manage.py test
 env:
   - DJANGO_VERSION=2.1.7
-  
+deploy:
+  provider: heroku
+  api_key:
+    secure: "87c512ef-2379-47e1-a074-17f3df26d877"
