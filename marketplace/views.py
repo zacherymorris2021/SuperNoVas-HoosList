@@ -35,9 +35,9 @@ def search(request):
     template = 'marketplace/search.html'
     query = request.GET.get('q')
     if query:
-        results = Item.objects.filter(Q(item_name__icontains=query) | Q(item_description__icontains = query))
+        results = Item.objects.filter(Q(item_name__icontains=query) | Q(item_description__icontains = query) | Q(item_categories__icontains = query))
     else:
-        results = Item.objects.filter(status="Published")
+        results = "No items found"
     context = {
         'results' : results
     }
