@@ -4,3 +4,4 @@ django-multiselectfield==0.1.8
 gunicorn==19.9.0
 social-auth-app-django
 psycopg2-binary
+dj-database-url
