@@ -1,0 +1,14 @@
+language: python
+python:
+  - "3.7"
+script:
+  - python manage.py test
+env:
+  - DJANGO_VERSION=2.1.7
+deploy:
+  provider: heroku
+  api_key:
+    secure: "87c512ef-2379-47e1-a074-17f3df26d877"
+  app: project-102-supernovas
+  on:
+    repo: uva-cs3240-f19/project-102-supernovas
