@@ -20,7 +20,7 @@ from django.conf import settings
 from django.contrib.auth import logout
 
 urlpatterns = [
-    path('marketplace/', include('marketplace.urls')),
+    path('marketplace/', include('marketplace.urls'), name='marketplace'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     # path('accounts/', include('django.contrib.auth.urls')),

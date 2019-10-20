@@ -97,8 +97,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'qIzhUHytfX3Nr03Xfo2JNY3g'
 
 # Login and logout redirects
 LOGIN_URL = '/auth/login/google-oauth2/'
-LOGIN_REDIRECT_URL = '/marketplace/'
-LOGOUT_REDIRECT_URL = '/marketplace/' # will chnage later to a logout page
+LOGIN_REDIRECT_URL = 'marketplace'
+LOGOUT_REDIRECT_URL = 'marketplace' # will chnage later to a logout page
 
 # Key for logout
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
