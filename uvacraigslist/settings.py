@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'multiselectfield',
     'marketplace.apps.MarketplaceConfig',
     'accounts.apps.AccountsConfig',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +85,23 @@ DATABASES = {
     }
 }
 
+# Google OAuth
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+) 
+
+# Keys for OAuth
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '367811443666-18jtirp9ll15mu4vgj9g1oqmpab101an.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'qIzhUHytfX3Nr03Xfo2JNY3g'
+
+# Login and logout redirects
+LOGIN_URL = '/auth/login/google-oauth2/'
+LOGIN_REDIRECT_URL = '/marketplace/'
+LOGOUT_REDIRECT_URL = '/marketplace/' # will chnage later to a logout page
+
+# Key for logout
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
