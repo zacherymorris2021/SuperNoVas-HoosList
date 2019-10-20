@@ -106,7 +106,7 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 # For travis
 import dj_database_url
 db_from_env = dj_database_url.config()
-DATABASES['default'].update(dj_database_url)
+DATABASES['default'].update(db_from_env)
 django_heroku.settings(locals(), test_runner=False)
 
 # Password validation
