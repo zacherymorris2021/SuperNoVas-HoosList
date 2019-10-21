@@ -3,7 +3,7 @@ from .models import Seller, Item
 from django.urls import reverse, resolve
 from . import views
 from . import urls
-from marketplace.views import index, detail, add_item
+from .views import index, detail, add_item
 
 
 
@@ -31,3 +31,8 @@ class addItemTest(TestCase):
         i.save()
         record = Item.objects.get(pk=1)
         self.assertEquals(record, i)
+
+class homeTest(TestCase):
+    def test_home(self):
+        resp = self.client.get('')
+        self.assertEquals(resp.status_code, 200)
