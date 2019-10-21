@@ -5,6 +5,10 @@ script:
   - python manage.py test
 env:
   - DJANGO_VERSION=2.1.7
+before_script:
+  - python manage.py collectstatic
+  - python manage.py makemigrations
+  - python manage.py migrate
 deploy:
   provider: heroku
   api_key:
