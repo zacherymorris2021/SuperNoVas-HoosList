@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.template import loader
 from django.db.models import Q
 from .models import Item, Seller
-from .myForms import ItemAddForm
+from .myForms import ItemAddForm, ratingForm
 
 # views
 def index(request):

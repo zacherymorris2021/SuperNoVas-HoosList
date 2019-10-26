@@ -1,5 +1,6 @@
 from django import forms
 from .models import Item
+from .choices import RATING_CHOICES
 
 class ItemAddForm(forms.ModelForm):
     class Meta:
@@ -8,7 +9,7 @@ class ItemAddForm(forms.ModelForm):
         'item_name':forms.TextInput(attrs={'style':'line-height:7px;'}),
         'item_description':forms.TextInput(attrs={'style':'padding:0px;'}),
         'item_location':forms.TextInput(attrs={'style':'padding:0px;'})
-        
+
         }
         fields = [
         'item_name',
@@ -21,3 +22,7 @@ class ItemAddForm(forms.ModelForm):
         'item_condition',
         'item_categories'
         ]
+
+
+class ratingForm(forms.Form):
+    rating = forms.ChoiceField(choices= RATING_CHOICES, label='Rating')
