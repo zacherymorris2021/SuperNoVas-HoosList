@@ -42,3 +42,20 @@ def search(request):
         'results' : results
     }
     return render(request, template, context)
+
+def user(request, seller_id):
+    seller = get_object_or_404(Seller, pk=seller_id)
+    return render(request, 'marketplace/user.html',{'seller':seller})
+
+def rate(request, seller_id):
+    seller = get_object_or_404(Seller, pk=seller_id)
+    if request.method == "POST":
+        form = ratingForm(request.POST)
+        if form.is_valid():
+            rating = request.POST.get('rating')
+            seller.rating +=rating
+            seller.save()
+            return redirect('/marketplace')
+    else:
+        form = ratingForm()
+    return render(request, 'marketplace/rate.html', {'form': form})

@@ -12,7 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
 	<body>
-		{% include navbar.html %}
+		{% include 'marketplace/navbar.html' %}
 		<h1> Add an Item to sell</h1>
 
 		<form action="/marketplace/add-item/" class = "form-group" method="post">{% csrf_token %}

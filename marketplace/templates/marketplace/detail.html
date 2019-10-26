@@ -12,8 +12,8 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
 	<body>
-		{% include navbar.html %}
-	
+		{% include 'marketplace/navbar.html' %}
+
 		<h1>{{ item.item_name }}</h1>
 		    Description: {{item.item_description}}<br>
 		    Seller: {{item.seller}}<br>

@@ -11,21 +11,37 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
-
 	<body>
 		{% include 'marketplace/navbar.html' %}
-		<form action="{%url 'marketplace:search' %}" method = "GET">
-			<input type ="text" name= 'q' placeholder="Search..." value = "{{request.GET.q}}">
-			<button type ="submit" class ="submit"> Search </button>
-		</form>
-		{% if latest_item_list %}
-		    <ul>
-		    {% for item in latest_item_list %}
-		        <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-		    {% endfor %}
-		    </ul>
-		{% else %}
-		    <p>No items are available.</p>
-		{% endif %}
+		<h1>{{ seller.seller_name }}</h1>
+			Seller rating:
+				{{seller.seller_rating}}<br>
+				<!-- display only if > 3 transactions -->
+			<a href = "{% url 'marketplace:rate' seller.pk %}">Rate this seller</a>
+			<br><br>
+		    Items for sale:
+        {% if seller.item_set.all %}
+    		    <ul>
+    		    {% for item in seller.item_set.all %}
+							{% if item.item_sold == False %}
+    		       	<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
+							{% endif %}
+    		    {% endfor %}
+    		    </ul>
+    		{% else %}
+    		    <p>No items for sale.</p>
+    		{% endif %}
+				Items sold:
+				{% if seller.item_set.all %}
+					<ul>
+						{% for item in seller.item_set.all %}
+							{% if item.item_sold %}
+								<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
+							{% endif %}
+    		    {% endfor %}
+  		    </ul>
+				{% endif %}
+		</ul>
+
 	</body>
 </html>
