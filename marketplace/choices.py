@@ -26,12 +26,3 @@ CATEGORIES = (
     ('electronics', 'ELECTRONICS'),
     ('other', 'OTHER')
 )
-RATING_CHOICES = (
-    (0.0,'0-Awful'),
-    (1.0,'1-Bad'),
-    (2.0,'2-Poor'),
-    (3.0,'3-Fair'),
-    (4.0,'4-Good'),
-    (5.0,'5-Great'),
-
-)

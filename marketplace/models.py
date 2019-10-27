@@ -9,6 +9,7 @@ from .choices import CATEGORIES, CONDITION_CHOICES, PAYMENT_METHODS
 class Seller(models.Model):
     seller_name = models.CharField (max_length = 50)
     seller_computing_id = models.CharField(max_length=7, default="")
+    num_transactions = models.PositiveIntegerField(default=0)
     def __str__(self):
         return self.seller_name
 
@@ -27,3 +28,10 @@ class Item(models.Model):
     item_add_date = models.DateTimeField('date published', default=datetime.now)
     def __str__(self):
         return self.item_name
+
+class RatingInfo(models.Model):
+    seller = models.ForeignKey(Seller, on_delete = models.CASCADE)
+    info_field = models.CharField (max_length=200)
+    count = models.PositiveIntegerField(default=0)
+    def __str__(self):
+        return self.seller.seller_name+"\'s "+self.info_field+" votes"

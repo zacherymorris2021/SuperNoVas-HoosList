@@ -1,6 +1,6 @@
 from django import forms
 from .models import Item
-from .choices import RATING_CHOICES
+
 
 class ItemAddForm(forms.ModelForm):
     class Meta:
@@ -22,7 +22,3 @@ class ItemAddForm(forms.ModelForm):
         'item_condition',
         'item_categories'
         ]
-
-
-class ratingForm(forms.Form):
-    rating = forms.ChoiceField(choices= RATING_CHOICES, label='Rating')

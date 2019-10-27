@@ -13,12 +13,19 @@
 	</head>
 	<body>
 		{% include 'marketplace/navbar.html' %}
-
 		<h1>{{ item.item_name }}</h1>
-		    Description: {{item.item_description}}<br>
-		    Seller: {{item.seller}}<br>
+		    Seller: <a id = "items" href="{% url 'marketplace:user' item.seller.pk %}">{{ item.seller }}</a><br>
+				Description: {{item.item_description}}<br>
+				Condition: {{item.item_condition}}<br>
 		    Price: ${{item.item_price}}<br>
+				Preferred method of payment: {{item.item_preferred_payment_method}}<br>
 		    Location: {{item.item_location}}<br>
+				{% if item.item_delivery %}
+					Item can be delivered. <br>
+				{% endif %}
+				{% if item.item_sold %}
+					Item has been sold. <br>
+				{% endif %}
 		</ul>
 
 	</body>

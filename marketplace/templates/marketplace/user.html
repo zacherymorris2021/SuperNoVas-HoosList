@@ -14,8 +14,10 @@
 	<body>
 		{% include 'marketplace/navbar.html' %}
 		<h1>{{ seller.seller_name }}</h1>
-			Seller rating:
-				{{seller.seller_rating}}<br>
+			Seller rating:<br>
+			{% for field in seller.ratinginfo_set.all %}
+				{{field.count}} {{field.info_field}} votes<br>
+			{% endfor %}
 				<!-- display only if > 3 transactions -->
 			<a href = "{% url 'marketplace:rate' seller.pk %}">Rate this seller</a>
 			<br><br>
