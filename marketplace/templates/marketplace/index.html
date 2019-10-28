@@ -14,19 +14,20 @@
 	</head>
 
 	<body>
-		{% include 'marketplace/navbar.html' %}
-		<form action="{%url 'marketplace:search' %}" method = "GET">
-			<input type ="text" name= 'q' placeholder="Search..." value = "{{request.GET.q}}">
-			<button type ="submit" class ="submit"> Search </button>
-		</form>
-		{% if latest_item_list %}
-		    <ul>
-		    {% for item in latest_item_list %}
-		        <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-		    {% endfor %}
-		    </ul>
-		{% else %}
-		    <p>No items are available.</p>
-		{% endif %}
+		<div class="navBar">
+			{% include 'marketplace/navbar.html' %}
+		</div>
+		<div class ="content" style="padding-left:300px">
+			<h2>Items currently for sale</h2>
+			{% if latest_item_list %}
+			    <ul>
+			    {% for item in latest_item_list %}
+			        <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
+			    {% endfor %}
+			    </ul>
+			{% else %}
+			    <p>No items are available.</p>
+			{% endif %}
+		</div>
 	</body>
 </html>
