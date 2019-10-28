@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from .models import Seller, Item
 from django.urls import reverse, resolve
 from . import views
@@ -32,7 +32,58 @@ class addItemTest(TestCase):
         record = Item.objects.get(pk=1)
         self.assertEquals(record, i)
 
+    def test_to_add_page(self):
+        resp = self.client.get('/marketplace/add-item/')
+
+        self.assertEquals(resp.status_code, 200)
+
+
 class homeTest(TestCase):
     def test_home(self):
         resp = self.client.get('')
         self.assertEquals(resp.status_code, 200)
+    def test_index(self):
+        resp = self.client.get('/marketplace/')
+        self.assertTemplateUsed(resp, 'marketplace/index.html')
+
+class searchTest(TestCase):
+    def test_search(self):
+        i = Item()
+        s = Seller()
+
+        s.seller_name = "Caroline"
+        s.seller_computing_id = "ch6yg"
+        s.save()
+        i.item_name = "Big Table"
+        i.seller = s
+        i.item_description = "wooden, large table for sale"
+        i.item_price = "100"
+        i.item_location = "uva"
+        i.item_condition = 'GOOD'
+        i.item_categories = "FURNITURE"
+        i.item_preferred_payment_method ="venmo"
+        i.save()
+
+        resp = self.client.get('/marketplace/search/', {'q' : 'table'} )
+        self.assertEquals(resp.status_code, 200)
+
+    def test_search_2(self):
+        i = Item()
+        s = Seller()
+
+        s.seller_name = "Caroline"
+        s.seller_computing_id = "ch6yg"
+        s.save()
+        i.item_name = "Big Table"
+        i.seller = s
+        i.item_description = "wooden, large table for sale"
+        i.item_price = "100"
+        i.item_location = "uva"
+        i.item_condition = 'GOOD'
+        i.item_categories = "FURNITURE"
+        i.item_preferred_payment_method ="venmo"
+        i.save()
+
+
+        resp = self.client.get('/marketplace/search/', {'q' : 'table'} )
+        self.assertContains(resp, 'Big Table')
