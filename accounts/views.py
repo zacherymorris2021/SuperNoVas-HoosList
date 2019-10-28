@@ -15,3 +15,6 @@ from django.shortcuts import render
 
 def index(request):
     return render(request, 'signup.html')
+
+def logout(request):
+    return render(request, 'logout.html')
