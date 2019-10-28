@@ -22,9 +22,9 @@ from django.contrib.auth import logout
 urlpatterns = [
     path('marketplace/', include('marketplace.urls'), name='marketplace'),
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('accounts.urls'), name='accounts'),
     # path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('auth/', include('social_django.urls', namespace='social')),
-    path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
+    #path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
 ]
