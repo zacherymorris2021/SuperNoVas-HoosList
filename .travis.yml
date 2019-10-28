@@ -16,7 +16,7 @@ env:
 deploy:
   provider: heroku
   api_key:
-    secure: "6a4cc436-2977-429f-8a62-8c0c4cb5f6f0"
+    secure: 6a4cc436-2977-429f-8a62-8c0c4cb5f6f0
   app: project-102-supernovas
   on:
     repo: uva-cs3240-f19/project-102-supernovas
