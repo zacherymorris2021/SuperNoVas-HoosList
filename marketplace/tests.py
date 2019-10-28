@@ -1,4 +1,3 @@
-
 from django.test import TestCase, Client, override_settings
 
 from .models import Seller, Item
@@ -42,6 +41,7 @@ class addItemTest(TestCase):
 
 
 class homeTest(TestCase):
+    @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')
     def test_home(self):
         resp = self.client.get('')
         self.assertEquals(resp.status_code, 200)
@@ -94,4 +94,3 @@ class searchTest(TestCase):
 
         resp = self.client.get('/marketplace/search/', {'q' : 'table'} )
         self.assertContains(resp, 'Big Table')
-
