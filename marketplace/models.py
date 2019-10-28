@@ -1,41 +1,15 @@
 from django.db import models
 from datetime import datetime
 from multiselectfield import MultiSelectField
+from .choices import CATEGORIES, CONDITION_CHOICES, PAYMENT_METHODS
 
-#default choice values
-PAYMENT_METHODS = (
-    ('venmo', 'VENMO'),
-    ('cash', 'CASH'),
-    ('check', 'CHECK'),
-    ('paypal', 'PAYPAL'),
-    ('applePay', 'APPLEPAY'),
-    ('none', 'NONE'),
-    ('other', 'OTHER')
-)
-CONDITION_CHOICES = (
-    ('new', 'NEW'),
-    ('like new', 'LIKE NEW'),
-    ('very good', 'VERY GOOD'),
-    ('good', 'GOOD'),
-    ('acceptable', 'ACCEPTABLE')
-)
-CATEGORIES = (
-    ('furniture', 'FURNITURE'),
-    ('textbooks', 'TEXTBOOKS'),
-    ('clothing', 'CLOTHING'),
-    ('class supplies', 'CLASS SUPPLIES'),
-    ('kitchen', 'KITCHEN'),
-    ('dorm', 'DORM'),
-    ('uva gear', 'UVA GEAR'),
-    ('electronics', 'ELECTRONICS'),
-    ('other', 'OTHER')
-)
 
 
 # Create your models here.
 class Seller(models.Model):
     seller_name = models.CharField (max_length = 50)
     seller_computing_id = models.CharField(max_length=7, default="")
+    num_transactions = models.PositiveIntegerField(default=0)
     def __str__(self):
         return self.seller_name
 
@@ -54,3 +28,10 @@ class Item(models.Model):
     item_add_date = models.DateTimeField('date published', default=datetime.now)
     def __str__(self):
         return self.item_name
+
+class RatingInfo(models.Model):
+    seller = models.ForeignKey(Seller, on_delete = models.CASCADE)
+    info_field = models.CharField (max_length=200)
+    count = models.PositiveIntegerField(default=0)
+    def __str__(self):
+        return self.seller.seller_name+"\'s "+self.info_field+" votes"

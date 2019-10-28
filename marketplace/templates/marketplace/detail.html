@@ -12,28 +12,20 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
 	<body>
-		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-			<a class="navbar-brand" href="#">
-    			<img src="{% static 'marketplace/images/logo.png'%}"" id = "title" width="30" height="30" class="d-inline-block align-top" alt="">
-    				HoosList
- 			</a>
-		    <ul class="navbar-nav">
-			    <li class="nav-item active">
-			      <a class="nav-link" href="#">Search</a>
-			    </li>
-			    <li class="nav-item">
-			      <a class="nav-link" href="../">View All Items</a>
-			    </li>
-			    <li class="nav-item">
-			      <a class="nav-link" href="../add-item">Add Item</a>
-			    </li>
-			</ul>
-		  </nav>
+		{% include 'marketplace/navbar.html' %}
 		<h1>{{ item.item_name }}</h1>
-		    Description: {{item.item_description}}<br>
-		    Seller: {{item.seller}}<br>
+		    Seller: <a id = "items" href="{% url 'marketplace:user' item.seller.pk %}">{{ item.seller }}</a><br>
+				Description: {{item.item_description}}<br>
+				Condition: {{item.item_condition}}<br>
 		    Price: ${{item.item_price}}<br>
+				Preferred method of payment: {{item.item_preferred_payment_method}}<br>
 		    Location: {{item.item_location}}<br>
+				{% if item.item_delivery %}
+					Item can be delivered. <br>
+				{% endif %}
+				{% if item.item_sold %}
+					Item has been sold. <br>
+				{% endif %}
 		</ul>
 
 	</body>
