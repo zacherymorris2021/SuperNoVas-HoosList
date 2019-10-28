@@ -5,15 +5,17 @@
   <title>Django Auth Tutorial</title>
 </head>
 <body>
-    <h2>Hello world</h2>
+  {% include 'marketplace/navbar.html' %}
+    <h2>Hey, there!</h2>
+    Already have an account?
     <a href="{% url 'social:begin' 'google-oauth2' %}">
-            <button type="button">Login</button> 
+            <button type="button">Login</button>
     </a>
     <head>
         <meta charset="utf-8">
-      
-        <title>My fake blog!</title>
-      
+
+        <title>Welcome to UVA Craigslist!</title>
+
         <link
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
