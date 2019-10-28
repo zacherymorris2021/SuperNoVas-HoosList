@@ -2,6 +2,7 @@
 {% load static %}
 <html>
 	<head>
+		<title>Search Results</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 		</script>
@@ -13,13 +14,7 @@
 	</head>
 	<body>
 		{% include 'marketplace/navbar.html' %}
-
-      <form action="{%url 'marketplace:search' %}" method = "GET">
-    		<input type ="text" name= 'q' placeholder="Search..." value = "{{request.GET.q}}">
-    		<button type ="submit" class ="submit"> Search </button>
-    	</form>
-
-<h1> Search Results for <b> {{request.GET.q}}</b> </h1>
+<h1> Search results for <b> {{request.GET.q}}</b> </h1>
 {% if results %}
     <ul>
       {%for item in results %}
@@ -27,7 +22,7 @@
       {% endfor %}
     </ul>
 {% else %}
-  <p>No items are available.</p>
+  <p>No items match your query.</p>
 {% endif %}
 
 </body>
