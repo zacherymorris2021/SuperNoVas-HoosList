@@ -1,4 +1,6 @@
+
 from django.test import TestCase, Client, override_settings
+
 from .models import Seller, Item
 from django.urls import reverse, resolve
 from . import views
@@ -92,3 +94,4 @@ class searchTest(TestCase):
 
         resp = self.client.get('/marketplace/search/', {'q' : 'table'} )
         self.assertContains(resp, 'Big Table')
+

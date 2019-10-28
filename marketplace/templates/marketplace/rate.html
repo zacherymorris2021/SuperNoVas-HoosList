@@ -11,21 +11,16 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
-
 	<body>
 		{% include 'marketplace/navbar.html' %}
-		<form action="{%url 'marketplace:search' %}" method = "GET">
-			<input type ="text" name= 'q' placeholder="Search..." value = "{{request.GET.q}}">
-			<button type ="submit" class ="submit"> Search </button>
-		</form>
-		{% if latest_item_list %}
-		    <ul>
-		    {% for item in latest_item_list %}
-		        <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-		    {% endfor %}
-		    </ul>
-		{% else %}
-		    <p>No items are available.</p>
-		{% endif %}
+		<h1> Was {{seller.seller_name}} good or bad?</h1>
+		<form action="{% url 'marketplace:rate' seller.id %}" method="post">
+        {% csrf_token %}
+          <input type="radio" name="field"  value="1">
+          <label>Good</label><br>
+					<input type="radio" name="field"  value="2">
+          <label>Bad</label><br>
+        <input type="submit" value="Vote">
+        </form>
 	</body>
 </html>

@@ -1,14 +1,21 @@
 language: python
 python:
   - "3.7"
+services:
+  - postgresql
+install:
+  - pip install -r requirements-travis.txt
+before_script:
+  - python manage.py collectstatic
+  - python manage.py makemigrations
+  - python manage.py migrate
 script:
   - python manage.py test
 env:
   - DJANGO_VERSION=2.1.7
 deploy:
   provider: heroku
-  api_key:
-    secure: "87c512ef-2379-47e1-a074-17f3df26d877"
+  api_key: 6a4cc436-2977-429f-8a62-8c0c4cb5f6f0
   app: project-102-supernovas
   on:
     repo: uva-cs3240-f19/project-102-supernovas
