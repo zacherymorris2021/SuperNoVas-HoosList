@@ -15,7 +15,8 @@ env:
   - DJANGO_VERSION=2.1.7
 deploy:
   provider: heroku
-  api_key: 6a4cc436-2977-429f-8a62-8c0c4cb5f6f0
+  api_key:
+    secure: "fZXe1wwd5PPhdVkPwGzVsKJiHYn82Ovx1B3tcEMAs8G2ZqgQ6CSF1Cl71oC+3fjCVBdG34hkPpr8SX+lSPHgBw6Wu/KGahX03L++Iwj8z3SW0jcESM5jtYv4Kfe4xabWYYf7xJ+DAR3qfZKYt4cGK57MHR4Y7UF9/Nd21tzc/flXWJXJ/BsWU/hono1qpFZPLig23ebWXHbcnVl0hcxmVN8T7SrpMGqXRVNIsdvoEqI+U0my6XYCzCWcweIcOURtgzFnVxDhSBvA1tWoV4ICtIEfdA38DOzFW8V3YPl2u+5CmREszI7n8wO+P2nQk5lKB//2veLCjwO5jRogNkTydAQcopXMvb3haXT2Rd++G6XdussXHS2b6Nfq2ybDZpWgJfAsKjMOXafP2ydUh3Hv6CcUsBPqCnKTnHz6wU4Ja5USvgujIbcAiVsdHfVjbOXoy+xwQ4f800ri4CndyTrSeeQIV4iL3u0OqRN8qzHC+bf1SRBbz3rlEsWHVnWqsGqoeHdYaL8elZtuRqlqUg46xp7x35E6ZjeDlvOpuIdRc/zasyCeeCOUuhE8FMnFEU2i8c7ZOHC5T/Vt5dWS/vnMny1j05Hfe9lUbIF4Q2uN8p9b7IF4jDB76BLik07sbWnQUdHvC+aaybKcpwgQ/Xqvb9Kjc6RYc6MoCndBoy3G0RA="
   app: project-102-supernovas
   on:
     repo: uva-cs3240-f19/project-102-supernovas
