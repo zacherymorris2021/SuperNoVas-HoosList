@@ -16,7 +16,7 @@
 		<div class="navBar">
 			{% include 'marketplace/navbar.html' %}
 		</div>
-		<div class="content" style="padding-left:300px">
+		<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
 			<h1> Was {{seller.seller_name}} good or bad?</h1>
 			<form action="{% url 'marketplace:rate' seller.id %}" method="post">
 	        {% csrf_token %}
