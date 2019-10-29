@@ -7,19 +7,17 @@
 <body>
   {% include 'marketplace/navbar.html' %}
     <head>
-        <meta charset="utf-8">
-
-        <title>Welcome to UVA Craigslist!</title>
-
-        <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-          crossorigin="anonymous">
-      </head>
+      <meta charset="utf-8">
+      <title>Welcome to UVA Craigslist!</title>
+      <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    </head>
       <body>
         <div class="jumbotron">
-          <h1>Welcome to UVA Craigslist!</h1>
+          <p style="text-align:center;"><img src="{% static 'biglogo.png'%}" alt="Logo"><br>
           {% if user.is_authenticated %}
             <p>Logged in as {{ user.username }}</p>
             <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
@@ -30,6 +28,7 @@
             Already have an account?
                 <a href="{% url 'social:begin' 'google-oauth2' %}">Login</a><br>
           {% endif %}
+          </p>
         </div>
 </body>
 </html>
