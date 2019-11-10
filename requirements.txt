@@ -5,3 +5,4 @@ gunicorn==19.9.0
 social-auth-app-django
 psycopg2-binary
 dj-database-url
+pillow
