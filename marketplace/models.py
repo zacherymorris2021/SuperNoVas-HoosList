@@ -36,3 +36,8 @@ class RatingInfo(models.Model):
     count = models.PositiveIntegerField(default=0)
     def __str__(self):
         return self.seller.seller_name+"\'s "+self.info_field+" votes"
+
+class Conversation(models.Model):
+    message = models.CharField(max_length = 1000)
+    time_sent = models.DateTimeField('time sent', default= datetime.now)
+    sender = models.ForeignKey(Seller, on_delete = models.CASCADE)
