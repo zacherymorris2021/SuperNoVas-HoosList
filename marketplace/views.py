@@ -21,7 +21,7 @@ def detail(request, item_id):
 
 def add_item(request):
     if request.method == "POST":
-        form = ItemAddForm(request.POST)
+        form = ItemAddForm(request.POST, request.FILES)
         if form.is_valid():
             new_item = form.save(commit=False)
             new_item.save()
