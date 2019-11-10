@@ -20,7 +20,7 @@ class Item(models.Model):
     item_description = models.CharField (max_length=1000)
     item_price = models.PositiveIntegerField(default=0)
     item_delivery = models.BooleanField(default=False)
-    item_photo = models.ImageField(upload_to=os.path.join(BASE_DIR, 'media/'), default = os.path.join(BASE_DIR, 'static/marketplace/default.png'))
+    item_photo = models.ImageField(upload_to='media/', default = 'static/marketplace/default.png')
     item_location = models.CharField(max_length=200)
     item_preferred_payment_method = models.CharField(max_length=10, choices=PAYMENT_METHODS, default='venmo')
     item_condition = models.CharField(max_length=10, choices=CONDITION_CHOICES, default='good')

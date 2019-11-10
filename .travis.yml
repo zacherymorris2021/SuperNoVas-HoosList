@@ -5,6 +5,7 @@ services:
   - postgresql
 install:
   - pip install -r requirements-travis.txt
+  - pip install pillow
 script:
   - python manage.py test
 env:
