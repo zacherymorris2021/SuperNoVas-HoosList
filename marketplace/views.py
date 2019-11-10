@@ -5,8 +5,10 @@ from django.template import loader
 from django.db.models import Q
 from .models import Item, Seller, RatingInfo
 from .myForms import ItemAddForm
+from django.contrib.auth.decorators import login_required
 
 # views
+@login_required(login_url='home')
 def index(request):
     latest_item_list = Item.objects.order_by('-item_add_date')
     template = loader.get_template('marketplace/index.html')
@@ -15,10 +17,12 @@ def index(request):
     }
     return render(request, 'marketplace/index.html', context)
 
+@login_required(login_url='home')
 def detail(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
     return render(request, 'marketplace/detail.html', {'item':item})
 
+@login_required(login_url='home')
 def add_item(request):
     if request.method == "POST":
         form = ItemAddForm(request.POST, request.FILES)
@@ -30,7 +34,7 @@ def add_item(request):
         form = ItemAddForm()
     return render(request, 'marketplace/add-item.html', {'form': form})
 
-
+@login_required(login_url='home')
 def search(request):
     template = 'marketplace/search.html'
     query = request.GET.get('q')
@@ -43,10 +47,12 @@ def search(request):
     }
     return render(request, template, context)
 
+@login_required(login_url='home')
 def user(request, seller_id):
     seller = get_object_or_404(Seller, pk=seller_id)
     return render(request, 'marketplace/user.html',{'seller':seller})
 
+@login_required(login_url='home')
 def rate(request, seller_id):
     seller = get_object_or_404(Seller, pk=seller_id)
     try:
