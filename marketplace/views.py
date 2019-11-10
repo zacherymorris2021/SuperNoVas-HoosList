@@ -68,3 +68,7 @@ def rate(request, seller_id):
         selected_rating_field.save()
         seller.save()
     return HttpResponseRedirect(reverse('marketplace:user', args=(seller.id,)))
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
