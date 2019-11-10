@@ -62,3 +62,28 @@ def rate(request, seller_id):
         selected_rating_field.save()
         seller.save()
     return HttpResponseRedirect(reverse('marketplace:user', args=(seller.id,)))
+
+def filter(request):
+    template = 'marketplace/filter.html'
+    query = request.GET.get('f')
+    if query:
+        filters = Item.objects.filter(Q(item_categories__contains=query))
+    else:
+        filters = "No items found"
+    context = {
+        'filters' : filters
+    }
+    return render(request, template, context)
+
+def message(request):
+    seller = get_object_or_404(Seller, pk = seller_id)
+    message = Conversation(message= request.POST.get('message', ''), sender = seller)
+    message.save()
+    message = {'name': message.sender.seller_name, 'message' :message.message, }
+
+    return HttpResponse(message)
+
+def converstations(request):
+    data = Conversation.objects.all()
+    data = [{'name': send.sender.seller_name, 'message': send.message, 'id': send.id} for send in data]
+    return HttpResponse(data)
