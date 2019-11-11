@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.template import loader
 from django.db.models import Q
 from .models import Item, Seller, RatingInfo, Message
-from .myForms import ItemAddForm
+from .myForms import ItemAddForm, SendMessageForm
 
 # views
 def index(request):
@@ -82,8 +82,21 @@ def filter(request):
     }
     return render(request, template, context)
 
-def message(request):
+def inbox(request):
     context = {
-        'messages': Message.objects.filter(sender = request.user)
+        'messages': Message.objects.filter(receiver=request.user)
     }
-    return render(request, 'marketplace/messages.html', context)
+    return render(request, 'marketplace/inbox.html', context)
+
+def message(request):
+    if request.method == "POST":
+        form = SendMessageForm(request.POST)
+        if form.is_valid():
+            new_item = form.save(commit=False)
+            message.seller = request.user
+            new_item.save()
+            return HttpResponseRedirect(reverse('marketplace:user', args=(seller.id,)))
+    else:
+        form = SendMessageForm()
+    return render(request, 'marketplace/message.html', {'form': form})
+    #return HttpResponseRedirect()

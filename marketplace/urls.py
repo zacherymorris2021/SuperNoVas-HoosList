@@ -13,7 +13,8 @@ urlpatterns = [
     path('user-<int:seller_id>/rate/', views.rate, name='rate'),
     path('map/', views.map, name='map'),
     path('filter/', views.filter, name = 'filter'),
-    path('message/', views.message, name = 'messages')
+    path('inbox/', views.inbox, name = 'inbox'),
+    path('message/', views.message, name = 'messsage')
 ]
 
 if settings.DEBUG:
