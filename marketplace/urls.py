@@ -14,7 +14,6 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('user-<int:user_id>/', views.user, name='user'),
     path('map/', views.map, name='map'),
-    path('filter/', views.filter, name = 'filter'),
     path('inbox/', views.inbox, name = 'inbox'),
     path('message/', views.message, name = 'messsage'),
     url(r'^advFilter/$', views.advFilter, name='advFilter'),
