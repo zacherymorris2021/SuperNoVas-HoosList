@@ -24,7 +24,7 @@ def add_item(request):
         form = ItemAddForm(request.POST, request.FILES)
         if form.is_valid():
             new_item = form.save(commit=False)
-            item.seller = request.user
+            new_item.seller = request.user
             new_item.save()
             return redirect('/marketplace')
     else:
