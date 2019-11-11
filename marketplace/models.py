@@ -37,8 +37,8 @@ class Item(models.Model):
 
 
 class Message(models.Model):
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    receiver = models.CharField(max_length = 30)
+    sender = models.CharField(max_length=30)
+    receiver = models.CharField(max_length=30)
     subject = models.CharField(max_length = 75)
     text = models.CharField(max_length = 250)
     def __str__(self):

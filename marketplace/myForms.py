@@ -29,6 +29,7 @@ class SendMessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = [
+        'sender',
         'receiver',
         'subject',
         'text'
