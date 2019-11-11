@@ -33,9 +33,9 @@ def add_item(request):
     return render(request, 'marketplace/add-item.html', {'form': form})
 
 def map(request):
-    latest_item_list = Item.objects.order_by('-item_add_date')
+    item_list = Item.objects.order_by('-item_add_date')
     context={
-        'latest_item_list': latest_item_list,
+        'item_list': item_list,
     }
     return render(request, 'marketplace/map.html', context)
 
