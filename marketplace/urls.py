@@ -15,7 +15,7 @@ urlpatterns = [
     path('map/', views.map, name='map'),
     path('filter/', views.filter, name = 'filter'),
     path('inbox/', views.inbox, name = 'inbox'),
-    path('message/', views.message, name = 'messsage')
+    path('message/', views.message, name = 'message')
 ]
 
 if settings.DEBUG:
