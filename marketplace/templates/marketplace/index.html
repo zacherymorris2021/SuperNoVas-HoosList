@@ -17,36 +17,35 @@
 		<div class="navBar">
 			{% include 'marketplace/navbar.html' %}
 		</div>
-		<h2> Filter by </h2>
-		<form method = "GET" action = "{% url 'marketplace:filter' %}" >
-			{% csrf_token %}
-			<select name = "f" value = {{request.GET.f}}>
-					<option value = furniture> Furniture </option>
-					<option value = textbooks> Textbooks </option>
-					<option value = clothing> Clothing </option>
-					<option value = kitchen> Kitchen </option>
-					<option value = supplies> Class Supplies </option>
-					<option value = dorm> Dorm </option>
-					<option value = uva > UVA Gear </option>
-					<option value = electronics> Electronics </option>
-
-
-			</select>
-			<button type = "submit"> Filter </button>
-		</form>
-
-
 		<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-			<h2>Items currently for sale</h2>
-			{% if latest_item_list %}
-			    <ul>
-			    {% for item in latest_item_list %}
-			        <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-			    {% endfor %}
-			    </ul>
-			{% else %}
-			    <p>No items are available.</p>
-			{% endif %}
+			<div class="left-side" style="float:left">
+				<h2> Filter by </h2>
+				<form method = "GET" action = "{% url 'marketplace:filter' %}" >
+					{% csrf_token %}
+					<select name = "f" value = {{request.GET.f}}>
+							<option value = furniture> Furniture </option>
+							<option value = textbooks> Textbooks </option>
+							<option value = clothing> Clothing </option>
+							<option value = kitchen> Kitchen </option>
+							<option value = supplies> Class Supplies </option>
+							<option value = dorm> Dorm </option>
+							<option value = uva > UVA Gear </option>
+							<option value = electronics> Electronics </option>
+					</select>
+					<button type = "submit"> Filter </button>
+				</form>
+			</div>
+			<div class="right-side" style="float:right">
+				<h2>Items currently for sale</h2>
+				{% if latest_item_list %}
+				    <ul>
+				    {% for item in latest_item_list %}
+				        <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
+				    {% endfor %}
+				    </ul>
+				{% else %}
+				    <p>No items are available.</p>
+				{% endif %}
 		</div>
 	</body>
 </html>

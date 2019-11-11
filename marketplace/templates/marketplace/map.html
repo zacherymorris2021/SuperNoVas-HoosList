@@ -46,9 +46,34 @@
           }
 
         map = new google.maps.Map(document.getElementById('map'), myOptions);
-        var item = {lat: 38.035618,  lng: -78.503415};
-        var marker = new google.maps.Marker({position: item, map: map});
+        setMarkers();
       }
+
+      function setMarkers() {
+          var marker = null;
+          var infowindow = new google.maps.InfoWindow();
+
+          {% for item in item_list %}
+          var contentString =
+            '<h1 id="firstHeading" class="firstHeading">{{ item }}</h1>'+
+            '<div><b>Name: </b>{{item.item_name}}</div>'+
+            '<div><b>Seller: </b>{{item.seller}}</div>'
+            ;
+            var marker = new google.maps.Marker({
+                draggable: false,
+                position: new google.maps.LatLng({{item.latitude}}, {{item.longitude}}),
+                map: map,
+                title: '{{ item }}',
+                info: contentString,
+            });
+
+              google.maps.event.addListener(marker, 'click', function () {
+                  infowindow.setContent(this.info);
+                  infowindow.open(map, this);
+              });
+          {% endfor %}
+        }
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-noulcCvpGQZwZJGdCfzhf5dZ0fa6eWs&callback=initMap"
     async defer></script>

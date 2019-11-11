@@ -20,5 +20,7 @@ class ItemAddForm(forms.ModelForm):
         'item_preferred_payment_method',
         'item_condition',
         'item_categories',
-        'item_photo'
+        'item_photo',
+        'latitude',
+        'longitude'
         ]

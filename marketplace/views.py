@@ -3,7 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.template import loader
 from django.db.models import Q
-from .models import Item, Seller, RatingInfo
+from .models import Item, Seller
+from django.contrib.auth.models import User
 from .myForms import ItemAddForm
 
 # views
@@ -32,9 +33,9 @@ def add_item(request):
     return render(request, 'marketplace/add-item.html', {'form': form})
 
 def map(request):
-    latest_item_list = Item.objects.order_by('-item_add_date')
+    item_list = Item.objects.order_by('-item_add_date')
     context={
-        'latest_item_list': latest_item_list,
+        'item_list': item_list,
     }
     return render(request, 'marketplace/map.html', context)
 
@@ -50,25 +51,11 @@ def search(request):
     }
     return render(request, template, context)
 
-def user(request, seller_id):
-    seller = get_object_or_404(Seller, pk=seller_id)
+def user(request, user_id ):
+    seller = get_object_or_404(User, pk=request.user.id)
     return render(request, 'marketplace/user.html',{'seller':seller})
 
-def rate(request, seller_id):
-    seller = get_object_or_404(Seller, pk=seller_id)
-    try:
-        selected_rating_field = seller.ratinginfo_set.get(pk=request.POST['field'])
-    except (KeyError, RatingInfo.DoesNotExist):
-        return render(request, 'marketplace/rate.html', {
-            'seller': seller,
-            'error_message': "Try again.",
-        })
-    else:
-        selected_rating_field.count +=1
-        seller.num_transactions +=1
-        selected_rating_field.save()
-        seller.save()
-    return HttpResponseRedirect(reverse('marketplace:user', args=(seller.id,)))
+
 
 def filter(request):
     template = 'marketplace/filter.html'
