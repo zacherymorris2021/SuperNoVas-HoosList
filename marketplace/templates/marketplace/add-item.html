@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-	<head>
-		<title>Add an Item</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <head>
+    <title>Hooslist: Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 94%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 		</script>
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -11,19 +26,50 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
-	</head>
-	<body>
-		<div class="navBar">
-			{% include 'marketplace/navbar.html' %}
-		</div>
-		<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-			<center><h1> Create a new listing as {{user.username}}</h1><center>
-			<form action="/marketplace/add-item/" class = "form-group"  method="post" enctype="multipart/form-data">{% csrf_token %}
-				<table id="add" class = "table table-striped">
-					{{form.as_table}}
-				</table>
-			    <button style="background-color:gray" type='submit' class="btn btn-primary btn-block">Add Item</button>
-			</form>
-		</div>
-	</body>
+  </head>
+  <body>
+    <div class="navBar">
+      {% include 'marketplace/navbar.html' %}
+    </div>
+    <div class="form" style="float:left; padding:50px">
+      <center><h1> Create a new listing as {{user.username}}</h1><center>
+      <form action="/marketplace/add-item/" class = "form-group"  method="post" enctype="multipart/form-data">{% csrf_token %}
+        <table id="add" class = "table table-striped">
+          {{form.as_table}}
+        </table>
+          <button style="background-color:gray" type='submit' class="btn btn-primary btn-block">Add Item</button>
+      </form>
+    </div>
+    <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        var uva = new google.maps.LatLng(38.033523,-78.507935);
+        var myOptions = {
+              zoom: 17,
+              minZoom:15,
+              center: uva,
+              draggable:true,
+              gestureHandling: 'greedy',
+              mapTypeId: google.maps.MapTypeId.TRAFFIC
+          }
+
+        map = new google.maps.Map(document.getElementById('map'), myOptions);
+
+				var marker = new google.maps.Marker({
+            position: uva,
+            draggable: true,
+            map: map,
+            title: 'selector'
+        });
+        google.maps.event.addListener(marker, 'dragend', function (event) {
+            document.getElementById("id_latitude").value = this.getPosition().lat();
+            document.getElementById("id_longitude").value = this.getPosition().lng();
+        })
+
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-noulcCvpGQZwZJGdCfzhf5dZ0fa6eWs&callback=initMap"
+    async defer></script>
+  </body>
 </html>

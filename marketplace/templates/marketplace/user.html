@@ -18,13 +18,6 @@
 		</div>
 		<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
 		<h1>{{ user.username }}</h1>
-			Seller rating:<br>
-			<!--{% for field in seller.ratinginfo_set.all %}
-				{{field.count}} {{field.info_field}} votes<br>
-			{% endfor %}
-				 display only if > 3 transactions -->
-			<a href = "{% url 'marketplace:rate' user.pk %}">Rate this seller</a>
-			<br><br>
 		    Items for sale:
         {% if user.item_set.all %}
     		    <ul>

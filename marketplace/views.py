@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.template import loader
 from django.db.models import Q
-from .models import Item, Seller, RatingInfo
+from .models import Item, Seller
 from django.contrib.auth.models import User
 from .myForms import ItemAddForm
 
@@ -25,7 +25,7 @@ def add_item(request):
         form = ItemAddForm(request.POST, request.FILES)
         if form.is_valid():
             new_item = form.save(commit=False)
-            item.seller = request.user
+            new_item.seller = request.user
             new_item.save()
             return redirect('/marketplace')
     else:
@@ -55,21 +55,7 @@ def user(request, user_id ):
     seller = get_object_or_404(User, pk=request.user.id)
     return render(request, 'marketplace/user.html',{'seller':seller})
 
-def rate(request, user_id):
-    seller = get_object_or_404(User, pk=request.user.id)
-    try:
-        selected_rating_field = user.ratinginfo_set.get(pk=request.POST['field'])
-    except (KeyError, RatingInfo.DoesNotExist):
-        return render(request, 'marketplace/rate.html', {
-            'user': seller,
-            'error_message': "Try again.",
-        })
-    else:
-        selected_rating_field.count +=1
-        seller.num_transactions +=1
-        selected_rating_field.save()
-        seller.save()
-    return HttpResponseRedirect(reverse('marketplace:user', args=(seller.id,)))
+
 
 def filter(request):
     template = 'marketplace/filter.html'

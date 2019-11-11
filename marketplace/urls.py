@@ -10,7 +10,6 @@ urlpatterns = [
     path('add-item/', views.add_item, name='add_item'),
     path('search/', views.search, name='search'),
     path('user-<int:user_id>/', views.user, name='user'),
-    path('user-<int:seller_id>/rate/', views.rate, name='rate'),
     path('map/', views.map, name='map'),
     path('filter/', views.filter, name = 'filter')
 ]
