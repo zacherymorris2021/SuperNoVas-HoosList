@@ -13,15 +13,16 @@
   {% include 'marketplace/navbar.html' %}
       <div style="text-align:center; padding-top:50px;">
         <p>Messages</p><br>
-        {% if user.is_authenticated %}
-          <p>Logged in as {{ user.username }}</p>
-          <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
-        {% else %}
-          <a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">
-            Sign Up </a><br>
-          Already have an account?
-              <a href="{% url 'social:begin' 'google-oauth2' %}">Login</a><br>
-        {% endif %}
-      </div>
+        {% if results %}
+          <ul>
+            {%for item in results %}
+              <li>{{ item.item_name }}</li>
+            {% endfor %}
+          </ul>
+      {% else %}
+        <p>No items match your query.</p>
+      {% endif %}
+    </div>
+  </div>
    </body>
 </html>
