@@ -84,7 +84,7 @@ if 'test' in sys.argv:
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'test',
             'USER': 'postgres',
-            'PASSWORD': 'password',
+            'PASSWORD': 'jakarta2010',
             'HOST': 'localhost',
             'PORT': '5432',
         }
@@ -110,7 +110,7 @@ else:
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
-) 
+)
 
 # Keys for OAuth
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '367811443666-18jtirp9ll15mu4vgj9g1oqmpab101an.apps.googleusercontent.com'
@@ -166,7 +166,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 STATIC_URL = '/static/'
