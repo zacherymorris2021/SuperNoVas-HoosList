@@ -21,7 +21,7 @@ def detail(request, item_id):
 
 def add_item(request):
     if request.method == "POST":
-        form = ItemAddForm(request.POST)
+        form = ItemAddForm(request.POST, request.FILES)
         if form.is_valid():
             new_item = form.save(commit=False)
             item.seller = request.user
@@ -69,3 +69,15 @@ def rate(request, seller_id):
         selected_rating_field.save()
         seller.save()
     return HttpResponseRedirect(reverse('marketplace:user', args=(seller.id,)))
+
+def filter(request):
+    template = 'marketplace/filter.html'
+    query = request.GET.get('f')
+    if query:
+        filters = Item.objects.filter(Q(item_categories__contains=query))
+    else:
+        filters = "No items found"
+    context = {
+        'filters' : filters
+    }
+    return render(request, template, context)
