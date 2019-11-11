@@ -95,7 +95,7 @@ def message(request):
             new_item = form.save(commit=False)
             message.seller = request.user
             new_item.save()
-            return HttpResponseRedirect(reverse('marketplace:user', args=(user.id,)))
+            return redirect('/marketplace')
     else:
         form = SendMessageForm()
     return render(request, 'marketplace/message.html', {'form': form})
