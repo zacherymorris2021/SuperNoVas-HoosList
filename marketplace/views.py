@@ -72,7 +72,7 @@ def filter(request):
 
 def inbox(request):
     context = {
-        'messages': Message.objects.filter(Q(receiver=request.user.user_id))
+        'messages': Message.objects.filter(receiver=request.user)
     }
     return render(request, 'marketplace/inbox.html', context)
 
