@@ -27,30 +27,31 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
   </head>
+  {% if user.is_authenticated %}
   <body>
     <div class="navBar">
       {% include 'marketplace/navbar.html' %}
     </div>
-		<div style="float:left; padding:50px">
-	    <h1>{{ item.item_name }}</h1>
-	      Seller: <a id = "items" href="{% url 'marketplace:user' item.seller.id %}">{{ item.seller }}</a><br>
-	      Description: {{item.item_description}}<br>
-	      Condition: {{item.item_condition}}<br>
-	      Price: ${{item.item_price}}<br>
-	      Preferred method of payment: {{item.item_preferred_payment_method}}<br>
-	      Location: {{item.item_location}}<br>
-	      {% if item.item_delivery %}
-	        Item can be delivered. <br>
-	      {% endif %}
-	      {% if item.item_sold %}
-	        Item has been sold. <br>
-	      {% endif %}
-			</div>
+    <div style="float:left; padding:50px">
+      <h1>{{ item.item_name }}</h1>
+        Seller: <a id = "items" href="{% url 'marketplace:user' item.seller.id %}">{{ item.seller }}</a><br>
+        Description: {{item.item_description}}<br>
+        Condition: {{item.item_condition}}<br>
+        Price: ${{item.item_price}}<br>
+        Preferred method of payment: {{item.item_preferred_payment_method}}<br>
+        Location: {{item.item_location}}<br>
+        {% if item.item_delivery %}
+          Item can be delivered. <br>
+        {% endif %}
+        {% if item.item_sold %}
+          Item has been sold. <br>
+        {% endif %}
+      </div>
     <div id="map"></div>
     <script>
       var map;
       function initMap() {
-				var item = {lat: parseFloat("{{ item.latitude }}"),  lng: parseFloat("{{ item.longitude }}")};
+        var item = {lat: parseFloat("{{ item.latitude }}"),  lng: parseFloat("{{ item.longitude }}")};
         var myOptions = {
               zoom: 17,
               minZoom:15,
@@ -68,4 +69,20 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-noulcCvpGQZwZJGdCfzhf5dZ0fa6eWs&callback=initMap"
     async defer></script>
   </body>
+  {% else %}
+    <body>
+      <div class="navBar">
+        {% include 'marketplace/navbar.html' %}
+      </div>
+      <div style="padding:50px">
+        <h1>Sorry!</h1>
+        <p class="lead">You are not authenticated to view this page. Please log in.</p>
+        <hr>
+        <p>This site takes the safety of its users seriously.</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="{% url 'social:begin' 'google-oauth2' %}" role="button">Log In</a>
+        </p>
+    </body>
+  {% endif %}
+
 </html>
