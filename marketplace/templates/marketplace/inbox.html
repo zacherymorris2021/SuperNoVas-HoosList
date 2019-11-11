@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Hooslist</title>
+  <title>HoosList</title>
   <link
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -11,13 +11,13 @@
 </head>
 <body>
   {% include 'marketplace/navbar.html' %}
-      <div style="text-align:center; padding-top:50px;">
+      <div style="padding-top:50px;">
+        <a href="{% url 'marketplace:message' %}">Send a Message</a>
         <p>Messages</p><br>
-        {% if results %}
+        {% if messages %}
           <ul>
-            {%for item in results %}
-              <li><p> {From: item.sender}<br>
-                To: {item.receiver}}<br>
+            {%for item in messages %}
+              <li><p> From: {{item.sender}}<br>
                 Subject: {{ item.subject }} <br>
                 {{item.text}}<br></p>
               </li>

@@ -3,7 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.template import loader
 from django.db.models import Q
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from .models import Item, Seller, Message
 from .myForms import ItemAddForm, SendMessageForm
 from django.contrib.auth.models import User
@@ -52,11 +53,16 @@ def search(request):
     }
     return render(request, template, context)
 
+def logout_user(request):
+    logout(request)
+    return redirect('home')
+
+def profile(request):
+    return render(request, 'marketplace/profile.html', {})
+
 def user(request, user_id ):
     seller = get_object_or_404(User, pk=request.user.id)
     return render(request, 'marketplace/user.html',{'seller':seller})
-
-
 
 def filter(request):
     template = 'marketplace/filter.html'
@@ -72,7 +78,7 @@ def filter(request):
 
 def inbox(request):
     context = {
-        'messages': Message.objects.filter(receiver=request.user)
+        'messages': Message.objects.filter(receiver_id=request.user.id)
     }
     return render(request, 'marketplace/inbox.html', context)
 
@@ -80,11 +86,10 @@ def message(request):
     if request.method == "POST":
         form = SendMessageForm(request.POST)
         if form.is_valid():
-            new_item = form.save(commit=False)
-            message.seller = request.user
-            new_item.save()
+            new_message = form.save(commit=False)
+            new_message.sender = request.user
+            new_message.save()
             return redirect('/marketplace')
     else:
         form = SendMessageForm()
     return render(request, 'marketplace/message.html', {'form': form})
-    #return HttpResponseRedirect()
