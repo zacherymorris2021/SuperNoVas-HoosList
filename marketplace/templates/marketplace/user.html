@@ -2,7 +2,7 @@
 {% load static %}
 <html>
 	<head>
-		<title>{{seller.seller_name}}</title>
+		<title>{{user.username}}</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 		</script>
@@ -12,42 +12,51 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
-	<body>
-		<div class="navBar">
-			{% include 'marketplace/navbar.html' %}
-		</div>
-		<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-		<h1>{{ seller.seller_name }}</h1>
-			Seller rating:<br>
-			{% for field in seller.ratinginfo_set.all %}
-				{{field.count}} {{field.info_field}} votes<br>
-			{% endfor %}
-				<!-- display only if > 3 transactions -->
-			<a href = "{% url 'marketplace:rate' seller.pk %}">Rate this seller</a>
-			<br><br>
-		    Items for sale:
-        {% if seller.item_set.all %}
-    		    <ul>
-    		    {% for item in seller.item_set.all %}
-							{% if item.item_sold == False %}
-    		       	<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-							{% endif %}
-    		    {% endfor %}
-    		    </ul>
-    		{% else %}
-    		    <p>No items for sale.</p>
-    		{% endif %}
-				Items sold:
-				{% if seller.item_set.all %}
-					<ul>
-						{% for item in seller.item_set.all %}
-							{% if item.item_sold %}
-								<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-							{% endif %}
-    		    {% endfor %}
-  		    </ul>
-				{% endif %}
-		</ul>
-		</div>
-	</body>
+	{% if user.is_authenticated %}
+		<body>
+			<div class="navBar">
+				{% include 'marketplace/navbar.html' %}
+			</div>
+			<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
+			<h1>{{ user.username }}</h1>
+			    Items for sale:
+	        {% if user.item_set.all %}
+	    		    <ul>
+	    		    {% for item in user.item_set.all %}
+								{% if item.item_sold == False %}
+	    		       	<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
+								{% endif %}
+	    		    {% endfor %}
+	    		    </ul>
+	    		{% else %}
+	    		    <p>No items for sale.</p>
+	    		{% endif %}
+					Items sold:
+					{% if user.item_set.all %}
+						<ul>
+							{% for item in user.item_set.all %}
+								{% if item.item_sold %}
+									<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
+								{% endif %}
+	    		    {% endfor %}
+	  		    </ul>
+					{% endif %}
+				</ul>
+			</div>
+		</body>
+	{% else %}
+		<body>
+			<div class="navBar">
+				{% include 'marketplace/navbar.html' %}
+			</div>
+			<div style="padding:50px">
+				<h1>Sorry!</h1>
+				<p class="lead">You are not authenticated to view this page. Please log in.</p>
+				<hr>
+				<p>This site takes the safety of its users seriously.</p>
+				<p class="lead">
+					<a class="btn btn-primary btn-lg" href="{% url 'social:begin' 'google-oauth2' %}" role="button">Log In</a>
+				</p>
+		</body>
+	{% endif %}
 </html>

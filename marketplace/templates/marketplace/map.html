@@ -32,15 +32,6 @@
       <div class="navBar">
         {% include 'marketplace/navbar.html' %}
       </div>
-      <div class="form" style="float:left; padding:50px">
-        <center><h1> Create a new listing as {{user.username}}</h1><center>
-        <form action="/marketplace/add-item/" class = "form-group"  method="post" enctype="multipart/form-data">{% csrf_token %}
-          <table id="add" class = "table table-striped">
-            {{form.as_table}}
-          </table>
-            <button style="background-color:gray" type='submit' class="btn btn-primary btn-block">Add Item</button>
-        </form>
-      </div>
       <div id="map"></div>
       <script>
         var map;
@@ -56,19 +47,33 @@
             }
 
           map = new google.maps.Map(document.getElementById('map'), myOptions);
-
-  				var marker = new google.maps.Marker({
-              position: uva,
-              draggable: true,
-              map: map,
-              title: 'selector'
-          });
-          google.maps.event.addListener(marker, 'dragend', function (event) {
-              document.getElementById("id_latitude").value = this.getPosition().lat();
-              document.getElementById("id_longitude").value = this.getPosition().lng();
-          })
-
+          setMarkers();
         }
+
+        function setMarkers() {
+            var marker = null;
+            var infowindow = new google.maps.InfoWindow();
+
+            {% for item in item_list %}
+            var contentString =
+              '<h1 id="firstHeading" class="firstHeading">{{ item }}</h1>'+
+              '<div><b>Seller: </b>{{item.seller}}</div>'+
+              '<a href="{% url 'marketplace:detail' item.id %}">Details</a>';
+              var marker = new google.maps.Marker({
+                  draggable: false,
+                  position: new google.maps.LatLng({{item.latitude}}, {{item.longitude}}),
+                  map: map,
+                  title: '{{ item }}',
+                  info: contentString,
+              });
+
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.setContent(this.info);
+                    infowindow.open(map, this);
+                });
+            {% endfor %}
+          }
+
       </script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-noulcCvpGQZwZJGdCfzhf5dZ0fa6eWs&callback=initMap"
       async defer></script>

@@ -5,3 +5,4 @@ psycopg2-binary==2.8.3
 dj-database-url
 django-heroku
 social-auth-app-django
+pillow

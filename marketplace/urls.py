@@ -9,10 +9,13 @@ urlpatterns = [
     path('<int:item_id>/', views.detail, name='detail'),
     path('add-item/', views.add_item, name='add_item'),
     path('search/', views.search, name='search'),
-    path('user-<int:seller_id>/', views.user, name='user'),
-    path('user-<int:seller_id>/rate/', views.rate, name='rate'),
     path('logout/', views.logout_user, name='logout'),
     path('profile/', views.profile, name='profile'),
+    path('user-<int:user_id>/', views.user, name='user'),
+    path('map/', views.map, name='map'),
+    path('filter/', views.filter, name = 'filter'),
+    path('inbox/', views.inbox, name = 'inbox'),
+    path('message/', views.message, name = 'messsage')
 ]
 
 if settings.DEBUG:

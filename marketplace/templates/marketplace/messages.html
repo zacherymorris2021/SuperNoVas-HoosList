@@ -11,18 +11,16 @@
 </head>
 <body>
   {% include 'marketplace/navbar.html' %}
-      <div style="text-align:center;" class="jumbotron">
-        <p><img src="{% static 'biglogo.png'%}" alt="Logo"></p><br>
-        Welcome to hooslist, a buying and selling website, specifically for University of Virginia students.<br>
-        Click login below to enter the world of hooslist!<br>
-        If you are allready logged in, click logout to leave!<br>
+      <div style="text-align:center; padding-top:50px;">
+        <p>Messages</p><br>
         {% if user.is_authenticated %}
           <p>Logged in as {{ user.username }}</p>
-          <!-- <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a> -->
-          <a class="btn btn-primary" href="/marketplace/logout/">Logout</a>
+          <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
         {% else %}
           <a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">
-            Login </a><br>
+            Sign Up </a><br>
+          Already have an account?
+              <a href="{% url 'social:begin' 'google-oauth2' %}">Login</a><br>
         {% endif %}
       </div>
    </body>

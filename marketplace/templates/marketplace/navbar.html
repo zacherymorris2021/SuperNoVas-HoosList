@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="background-color = lightgreen">
   <div class="container-fluid">
     <div class="left">
       <ul class="navbar-nav">
@@ -18,13 +18,25 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'marketplace:add_item' %}">Add Item</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'marketplace:map' %}">Map</a>
+        </li>
       </ul>
     </div>
-
     <div class="nav navbar-nav navbar-right">
-        <form action="{%url 'marketplace:search' %}" method = "GET">
+        <form action="{%url 'marketplace:search' %}" method = "GET" style="padding-right: 10px">
           <input width=align="right" class="form-control" type ="text" name= 'q' placeholder="Search..." value = "{{request.GET.q}}">
         </form>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'marketplace:user' user.id %}">{{request.user}}</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Log In</a>
+          </li>
+        {% endif %}
+
     </div>
   </div>
 </nav>
