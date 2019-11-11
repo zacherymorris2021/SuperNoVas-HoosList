@@ -6,6 +6,7 @@ from django.db.models import Q
 from .models import Item, Seller, RatingInfo
 from .myForms import ItemAddForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 # views
 @login_required(login_url='home')
@@ -69,6 +70,10 @@ def rate(request, seller_id):
         seller.save()
     return HttpResponseRedirect(reverse('marketplace:user', args=(seller.id,)))
 
-def logout_user(request):
+def logout_user(request):   
     logout(request)
     return redirect('home')
+
+@login_required(login_url='home')
+def profile(request):
+    return render(request, 'marketplace/profile.html', {})
