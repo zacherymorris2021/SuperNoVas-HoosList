@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.template import loader
 from django.db.models import Q
 from .models import Item, Seller, RatingInfo
+from django.contrib.auth.models import User
 from .myForms import ItemAddForm
 
 # views
@@ -50,17 +51,17 @@ def search(request):
     }
     return render(request, template, context)
 
-def user(request, seller_id):
-    seller = get_object_or_404(Seller, pk=seller_id)
+def user(request, user_id ):
+    seller = get_object_or_404(User, pk=request.user.id)
     return render(request, 'marketplace/user.html',{'seller':seller})
 
-def rate(request, seller_id):
-    seller = get_object_or_404(Seller, pk=seller_id)
+def rate(request, user_id):
+    seller = get_object_or_404(User, pk=request.user.id)
     try:
-        selected_rating_field = seller.ratinginfo_set.get(pk=request.POST['field'])
+        selected_rating_field = user.ratinginfo_set.get(pk=request.POST['field'])
     except (KeyError, RatingInfo.DoesNotExist):
         return render(request, 'marketplace/rate.html', {
-            'seller': seller,
+            'user': seller,
             'error_message': "Try again.",
         })
     else:
