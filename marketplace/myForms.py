@@ -1,5 +1,5 @@
 from django import forms
-from .models import Item
+from .models import Item, Message
 
 
 class ItemAddForm(forms.ModelForm):
@@ -23,4 +23,13 @@ class ItemAddForm(forms.ModelForm):
         'item_photo',
         'latitude',
         'longitude'
+        ]
+
+class SendMessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = [
+        'receiver',
+        'subject',
+        'text'
         ]

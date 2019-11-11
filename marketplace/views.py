@@ -3,9 +3,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.template import loader
 from django.db.models import Q
-from .models import Item, Seller
+
+from .models import Item, Seller, Message
+from .myForms import ItemAddForm, SendMessageForm
 from django.contrib.auth.models import User
-from .myForms import ItemAddForm
 
 # views
 def index(request):
@@ -68,3 +69,22 @@ def filter(request):
         'filters' : filters
     }
     return render(request, template, context)
+
+def inbox(request):
+    context = {
+        'messages': Message.objects.filter(receiver=request.user)
+    }
+    return render(request, 'marketplace/inbox.html', context)
+
+def message(request):
+    if request.method == "POST":
+        form = SendMessageForm(request.POST)
+        if form.is_valid():
+            new_item = form.save(commit=False)
+            message.seller = request.user
+            new_item.save()
+            return redirect('/marketplace')
+    else:
+        form = SendMessageForm()
+    return render(request, 'marketplace/message.html', {'form': form})
+    #return HttpResponseRedirect()

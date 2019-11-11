@@ -33,3 +33,13 @@ class Item(models.Model):
     longitude =  models.FloatField(default=-78.503415)
     def __str__(self):
         return self.item_name
+
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    receiver = models.CharField(max_length = 30)
+    subject = models.CharField(max_length = 75)
+    text = models.CharField(max_length = 250)
+    def __str__(self):
+        return self.subject
