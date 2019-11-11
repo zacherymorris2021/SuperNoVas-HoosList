@@ -12,25 +12,24 @@
   {% if user.is_authenticated %}
     <body>
       {% include 'marketplace/navbar.html' %}
-          <div style="padding-top:50px;">
-            <a href="{% url 'marketplace:message' %}">Send a Message</a>
-            <p>Messages</p><br>
-            {% if messages %}
-              <ul>
-                {%for item in messages %}
-                  <li><p> From: {{item.sender}}<br>
-                    Subject: {{ item.subject }} <br>
-                    {{item.text}}<br></p>
-                  </li>
-                {% endfor %}
-              </ul>
-          {% else %}
-            <p>No messages to see.</p>
-          {% endif %}
-        </div>
+      <div style="padding-top:50px;">
+        <a href="{% url 'marketplace:message' %}">Send a Message</a>
+        <p>Messages</p><br>
+        {% if messages %}
+          <ul>
+            {%for item in messages %}
+              <li><p> From: {{item.sender}}<br>
+                Subject: {{ item.subject }} <br>
+                {{item.text}}<br></p>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No messages to see.</p>
+        {% endif %}
       </div>
-     </body>
-   {% else %}
-     {% include 'marketplace/notauth.html' %}
-   {% endif %}
+    </body>
+    {% else %}
+      {% include 'marketplace/notauth.html' %}
+    {% endif %}
 </html>
