@@ -27,54 +27,70 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
   </head>
-  <body>
-    <div class="navBar">
-      {% include 'marketplace/navbar.html' %}
-    </div>
-    <div id="map"></div>
-    <script>
-      var map;
-      function initMap() {
-        var uva = new google.maps.LatLng(38.033523,-78.507935);
-        var myOptions = {
-              zoom: 17,
-              minZoom:15,
-              center: uva,
-              draggable:true,
-              gestureHandling: 'greedy',
-              mapTypeId: google.maps.MapTypeId.TRAFFIC
-          }
+  {% if user.is_authenticated %}
+    <body>
+      <div class="navBar">
+        {% include 'marketplace/navbar.html' %}
+      </div>
+      <div id="map"></div>
+      <script>
+        var map;
+        function initMap() {
+          var uva = new google.maps.LatLng(38.033523,-78.507935);
+          var myOptions = {
+                zoom: 17,
+                minZoom:15,
+                center: uva,
+                draggable:true,
+                gestureHandling: 'greedy',
+                mapTypeId: google.maps.MapTypeId.TRAFFIC
+            }
 
-        map = new google.maps.Map(document.getElementById('map'), myOptions);
-        setMarkers();
-      }
-
-      function setMarkers() {
-          var marker = null;
-          var infowindow = new google.maps.InfoWindow();
-
-          {% for item in item_list %}
-          var contentString =
-            '<h1 id="firstHeading" class="firstHeading">{{ item }}</h1>'+
-            '<div><b>Seller: </b>{{item.seller}}</div>'+
-            '<a href="{% url 'marketplace:detail' item.id %}">Details</a>';
-            var marker = new google.maps.Marker({
-                draggable: false,
-                position: new google.maps.LatLng({{item.latitude}}, {{item.longitude}}),
-                map: map,
-                title: '{{ item }}',
-                info: contentString,
-            });
-
-              google.maps.event.addListener(marker, 'click', function () {
-                  infowindow.setContent(this.info);
-                  infowindow.open(map, this);
-              });
-          {% endfor %}
+          map = new google.maps.Map(document.getElementById('map'), myOptions);
+          setMarkers();
         }
 
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-noulcCvpGQZwZJGdCfzhf5dZ0fa6eWs&callback=initMap"
-    async defer></script>
-  </body>
+        function setMarkers() {
+            var marker = null;
+            var infowindow = new google.maps.InfoWindow();
+
+            {% for item in item_list %}
+            var contentString =
+              '<h1 id="firstHeading" class="firstHeading">{{ item }}</h1>'+
+              '<div><b>Seller: </b>{{item.seller}}</div>'+
+              '<a href="{% url 'marketplace:detail' item.id %}">Details</a>';
+              var marker = new google.maps.Marker({
+                  draggable: false,
+                  position: new google.maps.LatLng({{item.latitude}}, {{item.longitude}}),
+                  map: map,
+                  title: '{{ item }}',
+                  info: contentString,
+              });
+
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.setContent(this.info);
+                    infowindow.open(map, this);
+                });
+            {% endfor %}
+          }
+
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-noulcCvpGQZwZJGdCfzhf5dZ0fa6eWs&callback=initMap"
+      async defer></script>
+    </body>
+  {% else %}
+    <body>
+      <div class="navBar">
+        {% include 'marketplace/navbar.html' %}
+      </div>
+      <div style="padding:50px">
+        <h1>Sorry!</h1>
+        <p class="lead">You are not authenticated to view this page. Please log in.</p>
+        <hr>
+        <p>This site takes the safety of its users seriously.</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="{% url 'social:begin' 'google-oauth2' %}" role="button">Log In</a>
+        </p>
+    </body>
+  {% endif %}
 </html>
