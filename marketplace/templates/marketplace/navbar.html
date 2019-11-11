@@ -4,7 +4,14 @@
     <div class="left">
       <ul class="navbar-nav">
       <a class="navbar-brand" id="title" href="{% url 'home' %}">
-          <img src="{% static 'marketplace/images/orangelogo.png'%}" id = "title" height="30" class="d-inline-block align-top" alt=""></a>
+          <img src="{% static 'marketplace/images/orangelogo.png'%}" id = "title" height="30" class="d-inline-block align-top" alt="">
+      </a>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'marketplace:profile' %}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'marketplace:index' %}">Search</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'marketplace:index' %}">View All Items</a>
         </li>

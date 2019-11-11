@@ -19,6 +19,8 @@ from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.contrib.auth import logout
 
+app_name = 'uvacraigslist'
+
 urlpatterns = [
     path('marketplace/', include('marketplace.urls'), name='marketplace'),
     path('admin/', admin.site.urls),
