@@ -41,7 +41,7 @@ class Message(models.Model):
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, related_name = "receiver", on_delete=models.CASCADE)
     subject = models.CharField(max_length = 75)
     text = models.CharField(max_length = 2500)
-    #timesent = models.DateTimeField('time sent', default=datetime.now)
+    timesent = models.DateTimeField('time sent', default=datetime.now)
 
     def __str__(self):
         return self.subject
