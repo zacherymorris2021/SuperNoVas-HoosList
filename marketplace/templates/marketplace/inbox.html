@@ -12,10 +12,10 @@
   {% if user.is_authenticated %}
     <body>
       {% include 'marketplace/navbar.html' %}
-      
+
       <div style="padding-top:50px;">
+        <h1> Messages</h1>
         <a href="{% url 'marketplace:message' %}">Send a Message</a>
-        <p>Messages</p><br>
         {% if messages %}
           <ul>
             {%for item in messages %}
