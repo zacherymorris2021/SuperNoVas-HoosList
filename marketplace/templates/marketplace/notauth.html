@@ -1,0 +1,16 @@
+{% load static %}
+
+<body>
+  <div class="navBar">
+    {% include 'marketplace/navbar.html' %}
+  </div>
+  <div style="padding:50px">
+    <p><img     <p><img height="300" src="{% static 'sadowl.jpg'%}" alt="Logo"></p><br>
+    <h1>Sorry!</h1>
+    <p class="lead">You are not authenticated to view this page. Please log in.</p>
+    <hr>
+    <p>This site takes the safety of its users seriously.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="{% url 'social:begin' 'google-oauth2' %}" role="button">Log In</a>
+    </p>
+</body>
