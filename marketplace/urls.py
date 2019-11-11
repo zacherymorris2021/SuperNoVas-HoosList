@@ -12,7 +12,8 @@ urlpatterns = [
     path('user-<int:seller_id>/', views.user, name='user'),
     path('user-<int:seller_id>/rate/', views.rate, name='rate'),
     path('map/', views.map, name='map'),
-    path('filter/', views.filter, name = 'filter')
+    path('filter/', views.filter, name = 'filter'),
+    path('message/', views.message, name = 'messages')
 ]
 
 if settings.DEBUG:

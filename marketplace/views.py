@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.template import loader
 from django.db.models import Q
-from .models import Item, Seller, RatingInfo
+from .models import Item, Seller, RatingInfo, Message
 from .myForms import ItemAddForm
 
 # views
@@ -81,3 +81,9 @@ def filter(request):
         'filters' : filters
     }
     return render(request, template, context)
+
+def message(request):
+    context = {
+        'messages': Message.objects.filter(sender = request.user)
+    }
+    return render(request, 'marketplace/messages.html', context)

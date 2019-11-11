@@ -40,4 +40,10 @@ class RatingInfo(models.Model):
     def __str__(self):
         return self.seller.seller_name+"\'s "+self.info_field+" votes"
 
-
+class Message(models.Model):
+    sender = models.CharField(max_length = 30)
+    receiver = models.CharField(max_length = 30)
+    subject = models.CharField(max_length = 75)
+    text = models.CharField(max_length = 250)
+    def __str__(self):
+        return self.subject
