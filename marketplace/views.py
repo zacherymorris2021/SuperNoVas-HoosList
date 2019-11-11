@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.template import loader
 from django.db.models import Q
+
 from .models import Item, Seller, Message
 from .myForms import ItemAddForm, SendMessageForm
 from django.contrib.auth.models import User
@@ -25,7 +26,7 @@ def add_item(request):
         form = ItemAddForm(request.POST, request.FILES)
         if form.is_valid():
             new_item = form.save(commit=False)
-            item.seller = request.user
+            new_item.seller = request.user
             new_item.save()
             return redirect('/marketplace')
     else:
@@ -33,9 +34,9 @@ def add_item(request):
     return render(request, 'marketplace/add-item.html', {'form': form})
 
 def map(request):
-    latest_item_list = Item.objects.order_by('-item_add_date')
+    item_list = Item.objects.order_by('-item_add_date')
     context={
-        'latest_item_list': latest_item_list,
+        'item_list': item_list,
     }
     return render(request, 'marketplace/map.html', context)
 
@@ -51,8 +52,8 @@ def search(request):
     }
     return render(request, template, context)
 
-def user(request, seller_id):
-    seller = get_object_or_404(Seller, pk=request.user_id)
+def user(request, user_id ):
+    seller = get_object_or_404(User, pk=request.user.id)
     return render(request, 'marketplace/user.html',{'seller':seller})
 
 

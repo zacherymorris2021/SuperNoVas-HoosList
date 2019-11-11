@@ -12,22 +12,37 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
-	<body>
-		<div class="navBar">
-			{% include 'marketplace/navbar.html' %}
-		</div>
-		<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-			<h1> Search results for <b> {{request.GET.q}}</b> </h1>
-			{% if results %}
-			    <ul>
-			      {%for item in results %}
-			        <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-			      {% endfor %}
-			    </ul>
-			{% else %}
-			  <p>No items match your query.</p>
-			{% endif %}
-		</div>
-
-</body>
+	{% if user.is_authenticated %}
+		<body>
+			<div class="navBar">
+				{% include 'marketplace/navbar.html' %}
+			</div>
+			<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
+				<h1> Search results for <b> {{request.GET.q}}</b> </h1>
+				{% if results %}
+				    <ul>
+				      {%for item in results %}
+				        <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
+				      {% endfor %}
+				    </ul>
+				{% else %}
+				  <p>No items match your query.</p>
+				{% endif %}
+			</div>
+		</body>
+	{% else %}
+		<body>
+			<div class="navBar">
+				{% include 'marketplace/navbar.html' %}
+			</div>
+			<div style="padding:50px">
+				<h1>Sorry!</h1>
+				<p class="lead">You are not authenticated to view this page. Please log in.</p>
+				<hr>
+				<p>This site takes the safety of its users seriously.</p>
+				<p class="lead">
+					<a class="btn btn-primary btn-lg" href="{% url 'social:begin' 'google-oauth2' %}" role="button">Log In</a>
+				</p>
+		</body>
+	{% endif %}
 </html>

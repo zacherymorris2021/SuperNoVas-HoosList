@@ -35,6 +35,7 @@ class Item(models.Model):
         return self.item_name
 
 
+
 class Message(models.Model):
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     receiver = models.CharField(max_length = 30)
