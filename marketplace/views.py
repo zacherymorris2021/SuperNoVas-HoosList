@@ -62,8 +62,8 @@ def logout_user(request):
 def profile(request):
     return render(request, 'marketplace/profile.html', {})
 
-def user(request, user_id ):
-    seller = get_object_or_404(User, pk=request.user.id)
+def user(request, seller_id ):
+    seller = get_object_or_404(User, pk=seller_id)
     return render(request, 'marketplace/user.html',{'seller':seller})
 
 def filter(request):
@@ -98,5 +98,5 @@ def message(request):
 
 def advFilter(request):
     item_list = Item.objects.all()
-    item_filter = ItemFilter(request.GET, queryset=item_list)   
+    item_filter = ItemFilter(request.GET, queryset=item_list)
     return render(request, 'marketplace/item_list.html', {'filter': item_filter})
