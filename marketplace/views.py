@@ -80,7 +80,7 @@ def filter(request):
 
 def inbox(request):
     context = {
-        'messages': Message.objects.filter(receiver_id=request.user.id).order_by('-timesent')
+        'messages': Message.objects.filter(receiver_id=request.user.id)
     }
     return render(request, 'marketplace/inbox.html', context)
 
