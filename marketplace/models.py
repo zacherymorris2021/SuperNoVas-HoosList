@@ -29,7 +29,7 @@ class Item(models.Model):
     item_categories = MultiSelectField(max_length=75, choices=CATEGORIES)
     item_add_date = models.DateTimeField('date published', default=datetime.now)
     latitude = models.FloatField(default=38.035618)
-    longtitude =  models.FloatField(default=-78.503415)
+    longitude =  models.FloatField(default=-78.503415)
     def __str__(self):
         return self.item_name
 
