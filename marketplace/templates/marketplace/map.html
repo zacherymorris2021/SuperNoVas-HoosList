@@ -56,9 +56,8 @@
           {% for item in item_list %}
           var contentString =
             '<h1 id="firstHeading" class="firstHeading">{{ item }}</h1>'+
-            '<div><b>Name: </b>{{item.item_name}}</div>'+
-            '<div><b>Seller: </b>{{item.seller}}</div>'
-            ;
+            '<div><b>Seller: </b>{{item.seller}}</div>'+
+            '<a href="{% url 'marketplace:detail' item.id %}">Details</a>';
             var marker = new google.maps.Marker({
                 draggable: false,
                 position: new google.maps.LatLng({{item.latitude}}, {{item.longitude}}),
