@@ -11,13 +11,12 @@
 </head>
 <body>
   {% include 'marketplace/navbar.html' %}
-      <div style="text-align:center; padding-top:50px;">
+      <div style="padding-top:50px;">
         <p>Messages</p><br>
-        {% if results %}
+        {% if messages %}
           <ul>
-            {%for item in results %}
-              <li><p> {From: item.sender}<br>
-                To: {item.receiver}}<br>
+            {%for item in messages %}
+              <li><p> From: {{item.sender}}<br>
                 Subject: {{ item.subject }} <br>
                 {{item.text}}<br></p>
               </li>
