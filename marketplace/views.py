@@ -78,7 +78,7 @@ def filter(request):
 
 def inbox(request):
     context = {
-        'messages': Message.objects.filter(receiver=request.user)
+        'messages': Message.objects.filter(Q(receiver__contains=request.user))
     }
     return render(request, 'marketplace/inbox.html', context)
 
@@ -86,9 +86,10 @@ def message(request):
     if request.method == "POST":
         form = SendMessageForm(request.POST)
         if form.is_valid():
-            new_item = form.save(commit=False)
-            message.seller = request.user
-            new_item.save()
+            new_message = form.save(commit=False)
+            new_message.sender = request.user
+            new_message.receiver = request.user
+            new_message.save()
             return redirect('/marketplace')
     else:
         form = SendMessageForm()
