@@ -80,7 +80,7 @@ def filter(request):
 
 def inbox(request):
     context = {
-        'messages': Message.objects.filter(receiver_id=request.user.id)
+        'messages': Message.objects.filter(receiver_id=request.user.id).order_by('-timesent')
     }
     return render(request, 'marketplace/inbox.html', context)
 
@@ -91,7 +91,7 @@ def message(request):
             new_message = form.save(commit=False)
             new_message.sender = request.user
             new_message.save()
-            return redirect('/marketplace')
+            return redirect('marketplace:inbox')
     else:
         form = SendMessageForm()
     return render(request, 'marketplace/message.html', {'form': form})
