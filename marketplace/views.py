@@ -3,8 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.template import loader
 from django.db.models import Q
-from .models import Item, Seller, RatingInfo, Message
+from .models import Item, Seller, Message
 from .myForms import ItemAddForm, SendMessageForm
+from django.contrib.auth.models import User
 
 # views
 def index(request):
@@ -51,24 +52,10 @@ def search(request):
     return render(request, template, context)
 
 def user(request, seller_id):
-    seller = get_object_or_404(Seller, pk=seller_id)
+    seller = get_object_or_404(Seller, pk=request.user_id)
     return render(request, 'marketplace/user.html',{'seller':seller})
 
-def rate(request, seller_id):
-    seller = get_object_or_404(Seller, pk=seller_id)
-    try:
-        selected_rating_field = seller.ratinginfo_set.get(pk=request.POST['field'])
-    except (KeyError, RatingInfo.DoesNotExist):
-        return render(request, 'marketplace/rate.html', {
-            'seller': seller,
-            'error_message': "Try again.",
-        })
-    else:
-        selected_rating_field.count +=1
-        seller.num_transactions +=1
-        selected_rating_field.save()
-        seller.save()
-    return HttpResponseRedirect(reverse('marketplace:user', args=(seller.id,)))
+
 
 def filter(request):
     template = 'marketplace/filter.html'
