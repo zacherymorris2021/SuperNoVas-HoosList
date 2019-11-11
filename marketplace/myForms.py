@@ -13,7 +13,6 @@ class ItemAddForm(forms.ModelForm):
         }
         fields = [
         'item_name',
-        'seller',
         'item_description',
         'item_price',
         'item_delivery',

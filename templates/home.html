@@ -11,8 +11,8 @@
 </head>
 <body>
   {% include 'marketplace/navbar.html' %}
-      <div style="text-align:center;" class="jumbotron">
-        <p><img src="{% static 'biglogo.png'%}" alt="Logo"></p><br>
+      <div style="text-align:center; padding-top:50px;">
+        <p><img src="{% static 'biglogo2.png'%}" alt="Logo"></p><br>
         {% if user.is_authenticated %}
           <p>Logged in as {{ user.username }}</p>
           <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
@@ -23,5 +23,5 @@
               <a href="{% url 'social:begin' 'google-oauth2' %}">Login</a><br>
         {% endif %}
       </div>
-    </body>
+   </body>
 </html>

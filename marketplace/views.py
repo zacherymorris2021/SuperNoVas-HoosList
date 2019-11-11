@@ -24,12 +24,19 @@ def add_item(request):
         form = ItemAddForm(request.POST, request.FILES)
         if form.is_valid():
             new_item = form.save(commit=False)
+            item.seller = request.user
             new_item.save()
             return redirect('/marketplace')
     else:
         form = ItemAddForm()
     return render(request, 'marketplace/add-item.html', {'form': form})
 
+def map(request):
+    latest_item_list = Item.objects.order_by('-item_add_date')
+    context={
+        'latest_item_list': latest_item_list,
+    }
+    return render(request, 'marketplace/map.html', context)
 
 def search(request):
     template = 'marketplace/search.html'
