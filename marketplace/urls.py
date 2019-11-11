@@ -1,5 +1,6 @@
 from django.urls import path, include
 from django.conf import settings
+from django.conf.urls import url
 from django.conf.urls.static import static
 from . import views
 
@@ -15,7 +16,9 @@ urlpatterns = [
     path('map/', views.map, name='map'),
     path('filter/', views.filter, name = 'filter'),
     path('inbox/', views.inbox, name = 'inbox'),
-    path('message/', views.message, name = 'messsage')
+    path('message/', views.message, name = 'messsage'),
+    url(r'^advFilter/$', views.advFilter, name='advFilter'),
+
 ]
 
 if settings.DEBUG:

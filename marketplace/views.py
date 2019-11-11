@@ -8,6 +8,8 @@ from django.contrib.auth import logout
 from .models import Item, Seller, Message
 from .myForms import ItemAddForm, SendMessageForm
 from django.contrib.auth.models import User
+from .filters import ItemFilter
+
 
 # views
 def index(request):
@@ -93,3 +95,8 @@ def message(request):
     else:
         form = SendMessageForm()
     return render(request, 'marketplace/message.html', {'form': form})
+
+def advFilter(request):
+    item_list = Item.objects.all()
+    item_filter = ItemFilter(request.GET, queryset=item_list)   
+    return render(request, 'marketplace/item_list.html', {'filter': item_filter})
