@@ -100,3 +100,7 @@ def advFilter(request):
     item_list = Item.objects.all()
     item_filter = ItemFilter(request.GET, queryset=item_list)
     return render(request, 'marketplace/item_list.html', {'filter': item_filter})
+
+def userRating(request):
+    form=UserRatingForm()
+    return render(request, 'marketplace/user.html', {'form': form})

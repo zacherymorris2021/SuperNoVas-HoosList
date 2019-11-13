@@ -33,3 +33,17 @@ class SendMessageForm(forms.ModelForm):
         'subject',
         'text'
         ]
+
+class UserRatingForm(forms.ModelForm):
+    class Meta:
+        model = Seller
+        fields = [
+        'posRate',
+        'negRate'
+        ]
+
+    options = [
+    ('positive', 'I had a positive shopping experience!'),
+    ('negative', 'I had a negative shopping experience!')
+    ]
+    question = forms.CharField(label="How was your experience with this user?", widget=forms.Select(choices=options))
