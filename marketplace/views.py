@@ -10,7 +10,6 @@ from .myForms import ItemAddForm, SendMessageForm, UserRatingForm
 from django.contrib.auth.models import User
 from .filters import ItemFilter
 
-
 # views
 def index(request):
     latest_item_list = Item.objects.order_by('-item_add_date')
@@ -105,3 +104,14 @@ def advFilter(request):
 def userRating(request):
     form=UserRatingForm()
     return render(request, 'marketplace/user.html', {'form': form})
+
+def thank(request):
+    if request.method == "POST":
+        review = request.POST.get('question')
+        seller2 = request.POST.get('user')
+        print(review )
+        print(seller2)
+        seller = get_object_or_404(User, pk=seller2)
+        print(seller)
+
+    return render(request, 'marketplace/thank.html')

@@ -38,10 +38,8 @@ class UserRatingForm(forms.ModelForm):
     class Meta:
         model = Seller
         fields = [
-        'posRate',
-        'negRate'
+        'user'
         ]
-
     options = [
     ('positive', 'I had a positive shopping experience!'),
     ('negative', 'I had a negative shopping experience!')

@@ -16,7 +16,8 @@ urlpatterns = [
     path('map/', views.map, name='map'),
     path('inbox/', views.inbox, name = 'inbox'),
     url(r'^advFilter/$', views.advFilter, name='advFilter'),
-    path('message/', views.message, name = 'message')
+    path('message/', views.message, name = 'message'),
+    path('thanks', views.thank, name = 'Thank you!')
 
 ]
 

@@ -43,11 +43,11 @@
 					{% endif %}
 				</ul>
 
-				<form action = "marketplace/seller.id//thanks/ " method="post">
-				{% csrf_token %}
-					 {{form}}
-					 <input type="submit" value="Submit User Rating"> 
-					<form>
+				<form action="/marketplace/thanks" method="post">
+					{% csrf_token %}
+					{{form}}
+					 <input type="submit" value="Submit User Rating">
+				<form>
 			</div>
 		</body>
 	{% else %}
