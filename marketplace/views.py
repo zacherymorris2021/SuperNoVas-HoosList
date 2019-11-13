@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from .models import Item, Seller, Message
-from .myForms import ItemAddForm, SendMessageForm
+from .myForms import ItemAddForm, SendMessageForm, UserRatingForm
 from django.contrib.auth.models import User
 from .filters import ItemFilter
 
@@ -64,7 +64,8 @@ def profile(request):
 
 def user(request, seller_id ):
     seller = get_object_or_404(User, pk=seller_id)
-    return render(request, 'marketplace/user.html',{'seller':seller})
+    form = UserRatingForm()
+    return render(request, 'marketplace/user.html',{'seller':seller, 'form':form})
 
 def filter(request):
     template = 'marketplace/filter.html'

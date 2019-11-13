@@ -42,25 +42,11 @@
 	  		    </ul>
 					{% endif %}
 				</ul>
-				
-				<form action = "{url 'marketplace:detail' item.id %} " method="post">
-				{% csrf_token %} 
-					 <p>
-					  <label>Seller Rating: </label><br>            
-					  <input type = "radio"
-							 name = "rating"
-							 id = "good"
-							 value = "goodRating"
-							 checked = "checked" />
-					  <label for = "good">Postive</label><br>
-					  <input type = "radio"
-							 name = "rating"
-							 id = "bad"
-							 value = "badRating" />
-					  <label for = "bad">Negative</label><br>
-					  <input type="submit" value="Submit"> 
-					  
-					</p> 
+
+				<form action = "marketplace/seller.id//thanks/ " method="post">
+				{% csrf_token %}
+					 {{form}}
+					 <input type="submit" value="Submit User Rating"> 
 					<form>
 			</div>
 		</body>
