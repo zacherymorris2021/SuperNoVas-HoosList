@@ -19,6 +19,8 @@
 			</div>
 			<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
 			<h1>{{ seller.username }}</h1>
+			<a href = "{% url 'marketplace:message' %}?receiver={{seller.username}} " style="padding-right: 10px">
+			Send a message</a><br>
 			    Items for sale:
 	        {% if seller.item_set.all %}
 	    		    <ul>

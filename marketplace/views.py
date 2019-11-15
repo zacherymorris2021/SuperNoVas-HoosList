@@ -94,7 +94,12 @@ def message(request):
             return redirect('marketplace:inbox')
     else:
         form = SendMessageForm()
-    return render(request, 'marketplace/message.html', {'form': form})
+    if request.method == 'GET':
+        form.fields['receiver'].initial = request.GET['receiver']
+    context = {
+    'form': form
+    }
+    return render(request, 'marketplace/message.html', context)
 
 def advFilter(request):
     item_list = Item.objects.all()
