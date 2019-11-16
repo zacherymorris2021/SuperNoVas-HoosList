@@ -44,9 +44,9 @@
 				</ul>
 				<form action="/marketplace/thanks" method="post">
 					{% csrf_token %}
-					<input type="text" name="seller" disabled hidden class="form-control" value={{seller.posRate}}>
-					<input type="text" name="seller" disabled hidden class="form-control" value={{seller.positive}}>
-					<input type="text" name="seller" disabled hidden class="form-control" placeholder="Seller" value={{seller.username}}>
+					<input type="text" name="postiveRating" disabled hidden class="form-control" value={{seller.posRate}}>
+					<input type="text" name="posRating" disabled hidden class="form-control" value={{seller.positive}}>
+					<input type="text" name="sellerName" disabled hidden class="form-control" placeholder="Seller" value={{seller.username}}>
 					{{form}}
 					 <input type="submit" value="Submit">
 				<form>

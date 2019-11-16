@@ -37,12 +37,13 @@ class SendMessageForm(forms.ModelForm):
 class UserRatingForm(forms.ModelForm):
     class Meta:
         model = Seller
-        exclude = ('user', 'posRate',
-        'negRate', 'numTransactions')
+        exclude = ('user', 'posRate' , 'negRate',
+        'numTransactions')
 
     options = [
     ('positive', 'I had a positive shopping experience!'),
     ('negative', 'I had a negative shopping experience!')
     ]
 
+    user = forms.CharField(label="Seller")
     question = forms.CharField(label="How was your experience with this user? ", widget=forms.Select(choices=options))

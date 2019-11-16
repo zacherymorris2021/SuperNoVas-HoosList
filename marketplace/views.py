@@ -108,12 +108,17 @@ def userRating(request):
 def thank(request):
     if request.method == "POST":
         review = request.POST.get('question')
-        seller2 = request.POST.get('user')
+        seller = request.POST.get('user')
         print(review )
-        print(seller2)
-        #seller = get_object_or_404(User, id=seller2)
-        # seller = get_object_or_404(User, id=seller2)
-        #print(seller)
+        print(seller)
+        print(request.user)
+
+        # seller_list = Item.objects.all()
+
+        # search = get_object_or_404(Seller, id=seller)
+        sellerSearch = get_object_or_404(User, id=seller)
+        print(sellerSearch)
+
         #if(review == 'positive'):
         #    seller.Seller.posRate += 1
         #    print(seller.Seller.posRate)
