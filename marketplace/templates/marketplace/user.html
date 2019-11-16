@@ -42,6 +42,12 @@
 	  		    </ul>
 					{% endif %}
 				</ul>
+				<form action="/marketplace/thanks" method="post">
+					{% csrf_token %}
+					 <input type="text" name="seller" disabled class="form-control" placeholder="Seller" value={{seller.username}}>
+					{{form}}
+					 <input type="submit" value="Submit">
+				<form>
 			</div>
 		</body>
 	{% else %}
