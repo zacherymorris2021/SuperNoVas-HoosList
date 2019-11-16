@@ -34,6 +34,7 @@ class SendMessageForm(forms.ModelForm):
         'text'
         ]
 
+
 class UserRatingForm(forms.ModelForm):
     class Meta:
         model = Seller
