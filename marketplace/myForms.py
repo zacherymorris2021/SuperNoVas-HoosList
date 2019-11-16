@@ -37,7 +37,7 @@ class SendMessageForm(forms.ModelForm):
 class UserRatingForm(forms.ModelForm):
     class Meta:
         model = Seller
-        exclude = ('posRate',
+        exclude = ('user', 'posRate',
         'negRate', 'numTransactions')
 
     options = [
