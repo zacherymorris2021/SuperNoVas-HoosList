@@ -111,7 +111,8 @@ def thank(request):
         seller2 = request.POST.get('user')
         print(review )
         print(seller2)
-        seller = get_object_or_404(User, id=seller2)
+        seller = get_object_or_404(Seller, id=seller2)
+        # seller = get_object_or_404(User, id=seller2)
         print(seller)
         #if(review == 'positive'):
         #    seller.Seller.posRate += 1
