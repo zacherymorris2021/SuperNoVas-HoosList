@@ -116,8 +116,8 @@ def thank(request):
         # seller_list = Item.objects.all()
 
         # search = get_object_or_404(Seller, id=seller)
-        sellerSearch = get_object_or_404(User, id=seller)
-        print(sellerSearch)
+        #sellerSearch = get_object_or_404(User, id=seller)
+        #print(sellerSearch)
 
         #if(review == 'positive'):
         #    seller.Seller.posRate += 1
