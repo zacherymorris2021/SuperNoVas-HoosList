@@ -62,18 +62,30 @@ def logout_user(request):
 def profile(request):
     return render(request, 'marketplace/profile.html', {})
 
-def item_sold_delete_view(request, id=None):
-    item=get_object_or_404(Item, id=id)
+def delete(request, item_id):
+    item=get_object_or_404(Item, pk=item_id)
     creator=item.seller.username
     if request.method=="POST" and request.user.is_authenticated and request.user.username==creator:
         item.delete()
-        #messages.success(request, "Item successfully deleted!")
-        return HttpResponseRedirect('marketplace/profile/')
+        return HttpResponseRedirect(reverse('marketplace:profile'))
     context={'item': item,
             'creator': creator,
             }
-    return render(request, 'marketplace/item-delete-view.html', context)
-    
+    return render(request, 'marketplace/delete.html', context)
+
+
+def markSold(request, item_id):
+    item=get_object_or_404(Item, pk=item_id)
+    creator=item.seller.username
+    if request.method=="POST" and request.user.is_authenticated and request.user.username==creator:
+        item.item_sold=True
+        item.save()
+        return HttpResponseRedirect(reverse('marketplace:profile'))
+    context={'item': item,
+            'creator': creator,
+            }
+    return render(request, 'marketplace/markSold.html', context)
+
 def user(request, seller_id ):
     seller = get_object_or_404(User, pk=seller_id)
     form = UserRatingForm()
@@ -96,6 +108,12 @@ def inbox(request):
         'messages': Message.objects.filter(receiver_id=request.user.id).order_by('-timesent')
     }
     return render(request, 'marketplace/inbox.html', context)
+
+def outbox(request):
+    context = {
+        'messages': Message.objects.filter(sender_id=request.user.id).order_by('-timesent')
+    }
+    return render(request, 'marketplace/outbox.html', context)
 
 def message(request):
     if request.method == "POST":

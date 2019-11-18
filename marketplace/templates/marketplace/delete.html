@@ -12,23 +12,29 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
-	{% if user.is_authenticated and request.user.username == creator %}
-		<body>
-	        <div class="navBar">
-	                {% include 'marketplace/navbar.html' %}
-	        </div>
-            <div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-                <h1>Delete {{ item.item_name }}?</h1>
-                <hr>
-                <form method="POST" action='"'>
-                    {% csrf_token %}
-                    Are you sure you want to delete this item?
-                    <input type="submit" value="Yes"/>
-                    <a href="/marketplace/profile/">Cancel</a>
-                </form>
-                {% endif %}
-
-                {% if request.user.username != creator %}
-                <h1>You cannot see this entry!</h1>
-                {% endif %}
+	{% if user.is_authenticated %}
+		{% if request.user.username == creator %}
+			<body>
+		    <div class="navBar">
+		            {% include 'marketplace/navbar.html' %}
+		    </div>
+		      <div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
+		        <h1>Delete {{ item.item_name }}?</h1>
+		        <hr>
+		        <form method="POST" action="{% url 'marketplace:delete' item.id %}">
+		            {% csrf_token %}
+		            Are you sure you want to delete this item?
+		            <button style="background-color:gray" type='submit' class="btn btn-primary">Yes</button>
+		            <a href="/marketplace/profile/">   Cancel</a>
+		        </form>
+						<a href="{% url 'marketplace:markSold' item.id %}">Trying to mark this item as sold instead?</a>
+					</div>
+				</div>
+			</body>
+    {% else %}
+			{% include 'marketplace/notauth2.html' %}
+		{% endif %}
+	{% else %}
+    {% include 'marketplace/notauth.html' %}
+  {% endif %}
 </html>
