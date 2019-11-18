@@ -25,9 +25,13 @@
 	            {% if user.item_set.all %}
 	                    <ul>
 	                    {% for item in user.item_set.all %}
-	                                {% if item.item_sold == False %}
-	                           <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-	                                {% endif %}
+	                            {% if item.item_sold == False %}
+							   <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
+								<li>{% if item in user.item_set.all %}
+									<a class="btn btn-primary" href="{% url 'marketplace:delete' item.id %}">Delete</a>
+									{% endif %}
+								</li>
+	                            {% endif %}
 	                    {% endfor %}
 	                    </ul>
 	                {% else %}
