@@ -2,7 +2,7 @@
 {% load static %}
 <html>
 	<head>
-		<title>Search Results</title>
+		<title>Profile Page</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 		</script>
@@ -12,26 +12,23 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
-	{% if user.is_authenticated %}
+	{% if user.is_authenticated and request.user.username == creator %}
 		<body>
-			<div class="navBar">
-				{% include 'marketplace/navbar.html' %}
-			</div>
-			<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-				<h1> Search results for <b> {{request.GET.q}}</b> </h1>
-				<hr>
-				{% if results %}
-				    <ul>
-				      {%for item in results %}
-				        <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-				      {% endfor %}
-				    </ul>
-				{% else %}
-				  <p>No items match your query.</p>
-				{% endif %}
-			</div>
-		</body>
-	{% else %}
-    {% include 'marketplace/notauth.html' %}
-	{% endif %}
+	        <div class="navBar">
+	                {% include 'marketplace/navbar.html' %}
+	        </div>
+            <div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
+                <h1>Delete {{ item.item_name }}?</h1>
+                <hr>
+                <form method="POST" action='"'>
+                    {% csrf_token %}
+                    Are you sure you want to delete this item?
+                    <input type="submit" value="Yes"/>
+                    <a href="/marketplace/profile/">Cancel</a>
+                </form>
+                {% endif %}
+
+                {% if request.user.username != creator %}
+                <h1>You cannot see this entry!</h1>
+                {% endif %}
 </html>

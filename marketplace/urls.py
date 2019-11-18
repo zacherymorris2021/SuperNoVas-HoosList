@@ -17,7 +17,8 @@ urlpatterns = [
     path('inbox/', views.inbox, name = 'inbox'),
     url(r'^advFilter/$', views.advFilter, name='advFilter'),
     path('message/', views.message, name = 'message'),
-    path('thanks', views.thank, name = 'Thank you!')
+    path('thanks', views.thank, name = 'Thank you!'),
+    url(r'^(?P<id>\d+)/delete/$', views.item_sold_delete_view, name='delete')
 
 ]
 

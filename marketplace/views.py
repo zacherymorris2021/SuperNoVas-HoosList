@@ -9,6 +9,7 @@ from .models import Item, Seller, Message
 from .myForms import ItemAddForm, SendMessageForm, UserRatingForm
 from django.contrib.auth.models import User
 from .filters import ItemFilter
+from django.contrib import messages
 
 # views
 def index(request):
@@ -61,6 +62,18 @@ def logout_user(request):
 def profile(request):
     return render(request, 'marketplace/profile.html', {})
 
+def item_sold_delete_view(request, id=None):
+    item=get_object_or_404(Item, id=id)
+    creator=item.seller.username
+    if request.method=="POST" and request.user.is_authenticated and request.user.username==creator:
+        item.delete()
+        #messages.success(request, "Item successfully deleted!")
+        return HttpResponseRedirect('marketplace/profile/')
+    context={'item': item,
+            'creator': creator,
+            }
+    return render(request, 'marketplace/item-delete-view.html', context)
+    
 def user(request, seller_id ):
     seller = get_object_or_404(User, pk=seller_id)
     form = UserRatingForm()

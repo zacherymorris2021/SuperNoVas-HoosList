@@ -17,7 +17,8 @@
 			{% include 'marketplace/navbar.html' %}
 		</div>
 		<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-			<center><h1> Send the seller a message</h1><center>
+			<center><h1> Send the Seller a Message</h1><center>
+				<hr>
 			<form action="/marketplace/message/" class = "form-group"  method="post" enctype="multipart/form-data">{% csrf_token %}
 				<table id="add" class = "table table-striped">
 					{{form.as_table}}
