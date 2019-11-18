@@ -1,0 +1,14 @@
+{% load static %}
+
+<body>
+  <div class="navBar">
+    {% include 'marketplace/navbar.html' %}
+  </div>
+  <div style="padding:50px">
+    <p><img     <p><img height="300" src="{% static 'sadowl.jpg'%}" alt="Logo"></p><br>
+    <h1>Whoops!</h1>
+    <p class="lead">You are not authenticated to delete this item.</p>
+    <a href="{% url 'marketplace:detail' item.id %}">View item details</a>
+    <hr>
+    <p>This site takes the safety of its users seriously.</p>
+</body>

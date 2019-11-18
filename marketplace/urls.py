@@ -15,10 +15,12 @@ urlpatterns = [
     path('user-<int:seller_id>/', views.user, name='user'),
     path('map/', views.map, name='map'),
     path('inbox/', views.inbox, name = 'inbox'),
+    path('outbox/', views.outbox, name = 'outbox'),
     url(r'^advFilter/$', views.advFilter, name='advFilter'),
     path('message/', views.message, name = 'message'),
-    path('thanks', views.thank, name = 'Thank you!'),
-    url(r'^(?P<id>\d+)/delete/$', views.item_sold_delete_view, name='delete')
+    path('thanks/', views.thank, name = 'Thank you!'),
+    path('<int:item_id>/delete/', views.delete, name='delete'),
+    path('<int:item_id>/markSold/', views.markSold, name='markSold')
 
 ]
 

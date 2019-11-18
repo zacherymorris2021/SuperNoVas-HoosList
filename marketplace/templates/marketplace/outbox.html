@@ -18,17 +18,17 @@
 				{% include 'marketplace/navbar.html' %}
 			</div>
       <div style="padding-top:50px; padding-left:300px; padding-right:300px">
-        <h1> Inbox</h1>
-        <a href="{% url 'marketplace:outbox' %}">Sent</a>
+        <h1> Sent</h1>
+        <a href="{% url 'marketplace:inbox' %}">Inbox</a>
         <hr>
         <a href="{% url 'marketplace:message' %}">Send a Message</a>
 
         <br><br>
         {% if messages %}
             {%for item in messages %}
-              <p> <b>From: {{item.sender}}</b><br>
+              <p> <b>To: {{item.receiver}}</b><br>
                 Subject: {{ item.subject }} <br>
-                Received: {{item.timesent}}<br>
+                Sent: {{item.timesent}}<br>
                 {{item.text}}<br>
               </p>
               <hr>
