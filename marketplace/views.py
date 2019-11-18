@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from .models import Item, Seller, Message
-from .myForms import ItemAddForm, SendMessageForm, UserRatingForm
+from .myForms import ItemAddForm, SendMessageForm, SendReplyForm, UserRatingForm
 from django.contrib.auth.models import User
 from .filters import ItemFilter
 from django.contrib import messages
@@ -126,6 +126,26 @@ def message(request):
     else:
         form = SendMessageForm()
     return render(request, 'marketplace/message.html', {'form': form})
+
+def reply(request, message_id):
+
+    ogMessage = get_object_or_404(Message, id=message_id)
+    if request.method == "POST":
+        form = SendReplyForm(request.POST)
+        if form.is_valid():
+            new_message = form.save(commit=False)
+            new_message.sender = request.user
+            new_message.receiver = ogMessage.sender
+            new_message.subject = "RE: " + ogMessage.subject
+            new_message.save()
+            return redirect('marketplace:inbox')
+    else:
+        form = SendReplyForm()
+    context = {
+        'form' : form,
+        'message' : ogMessage
+    }
+    return render(request, 'marketplace/reply.html', context)
 
 def advFilter(request):
     item_list = Item.objects.all()

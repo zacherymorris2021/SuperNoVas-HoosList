@@ -30,6 +30,7 @@
                 Subject: {{ item.subject }} <br>
                 Received: {{item.timesent}}<br>
                 {{item.text}}<br>
+                <a href="{% url 'marketplace:reply' item.id %}">Reply</a>
               </p>
               <hr>
             {% endfor %}

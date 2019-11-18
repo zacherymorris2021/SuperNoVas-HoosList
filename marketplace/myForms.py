@@ -34,6 +34,12 @@ class SendMessageForm(forms.ModelForm):
         'text'
         ]
 
+class SendReplyForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = [
+        'text'
+        ]
 
 class UserRatingForm(forms.ModelForm):
     class Meta:
