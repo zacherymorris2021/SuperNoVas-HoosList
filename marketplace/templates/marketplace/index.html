@@ -20,27 +20,24 @@
 			<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
 				<h2>Items currently for sale</h2>
 				<hr>
-					{% if latest_item_list %}
-					    <ul>
-					    {% for item in latest_item_list %}
-				           <div class="row text-center">
-						      <div class="col-md-6 mb-4">
-						        <div class="card h-100">
-						          <img class="card-img-top" src="{{ item.item_photo.url }}" alt="">
-						          <div class="card-body">
-						            <h4 class="card-title">{{item.item_name}}</h4>
-						            <p class="card-text">{{item.item_description}}</p>
-						          </div>
-						          <div class="card-footer">
-						            <a href="{% url 'marketplace:detail' item.id %}" class="btn btn-primary">Find Out More!</a>
-						          </div>
-						        </div>
-						      </div>
-					    {% endfor %}
-					    </ul>
-					{% else %}
-					    <p>No items are available.</p>
-					{% endif %}
+				{% if latest_item_list %}
+					<div class="card-deck">
+						{% for item in latest_item_list %}
+						  <div class="card mt-3" style="min-width: 18rem;">
+								<div class="card-header">
+									<h5>{{item.item_name}}</h5>
+								</div>
+						    <div class="card-body">
+									<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+						      <p class="card-text">{{item.item_description}}</p>
+						    </div>
+						    <div class="card-footer">
+						      <small class="text-muted">Seller: {{item.seller}}</small>
+						    </div>
+						  </div>
+						{% endfor %}
+					</div>
+				{% endif %}
 			</div>
 		</body>
 	{% else %}
