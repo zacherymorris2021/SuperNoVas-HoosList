@@ -22,7 +22,6 @@ urlpatterns = [
     path('thanks/', views.thank, name = 'Thank you!'),
     path('<int:item_id>/delete/', views.delete, name='delete'),
     path('<int:item_id>/markSold/', views.markSold, name='markSold')
-
 ]
 
 if settings.DEBUG:

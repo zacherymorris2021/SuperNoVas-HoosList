@@ -33,6 +33,7 @@ class SendMessageForm(forms.ModelForm):
         'subject',
         'text'
         ]
+        widgets = {'receiver': forms.TextInput}
 
 class SendReplyForm(forms.ModelForm):
     class Meta:

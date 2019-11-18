@@ -52,6 +52,8 @@
       {% if item.item_sold %}
         <b>Item has been sold.</b> <br>
       {% endif %}
+      <a href = "{% url 'marketplace:message' %}?receiver={{item.seller.username}}&subject={{item.item_name}}" style="padding-right: 10px">
+      Message seller</a><br>
     </div>
     <div id="map"></div>
     <script>

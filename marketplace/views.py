@@ -125,7 +125,17 @@ def message(request):
             return redirect('marketplace:inbox')
     else:
         form = SendMessageForm()
-    return render(request, 'marketplace/message.html', {'form': form})
+        #code inspired from https://djangosnippets.org/snippets/1810/
+        for key in request.GET:
+            try:
+                form.fields[key].initial = request.GET[key]
+            except KeyError:
+                pass
+        # end of inspired code
+    context = {
+    'form': form
+    }
+    return render(request, 'marketplace/message.html', context)
 
 def reply(request, message_id):
 
