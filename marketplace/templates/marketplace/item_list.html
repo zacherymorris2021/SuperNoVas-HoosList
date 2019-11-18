@@ -4,7 +4,7 @@
 
 <html>
 	<head>
-		<title>Hooslist: All Products</title>
+		<title>Advanced Search</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 		</script>
@@ -23,6 +23,7 @@
         <form method="get">
 					<div class="well">
 						<h4 style="margin-top: 0">Filter</h4>
+						<hr>
 						<div class="row">
 							<div class="form-group col-sm-4 col-md-3">
 								{{ filter.form.item_name.label_tag }}
@@ -59,7 +60,7 @@
 						</div>
 						<button type="submit" class="btn btn-primary">
 							<span class="glyphicon glyphicon-search"></span> Search
-						</button> <hr>
+						</button>
         </form>
 				<hr>
 				{% if filter.qs %}

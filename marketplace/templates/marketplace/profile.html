@@ -18,33 +18,37 @@
 	                {% include 'marketplace/navbar.html' %}
 	        </div>
 	        <div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-	                <h1>{{ user.username }}</h1>
-	                <br>
-	                Items for sale:
-	            {% if user.item_set.all %}
-	                    <ul>
-	                    {% for item in user.item_set.all %}
-	                                {% if item.item_sold == False %}
-	                           <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-	                                {% endif %}
-	                    {% endfor %}
-	                    </ul>
-	                {% else %}
-	                    <p>No items for sale.</p>
-	                {% endif %}
-	                    Items sold:
-	                    {% if seller.item_set.all %}
-	                        <ul>
-	                            {% for item in seller.item_set.all %}
-	                                {% if item.item_sold %}
-	                                    <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-	                                {% endif %}
-	                    {% endfor %}
-	                    {% else %}
-	                    <p>No items for sale.</p>
-	                </ul>
-	                    {% endif %}
-	            </ul>
+					<h1>{{ user.username }}</h1>
+					<a href="/marketplace/logout/">Logout</a>
+
+					<hr>
+	        <br>
+	        Items for sale:
+	        {% if user.item_set.all %}
+		        <ul>
+		        {% for item in user.item_set.all %}
+		        	{% if item.item_sold == False %}
+								<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a><br>
+								<a href="{% url 'marketplace:markSold' item.id %}"  class="btn btn-outline-secondary btn-sm">Mark as Sold</a>
+								<a href="{% url 'marketplace:delete' item.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+		          {% endif %}
+		        {% endfor %}
+		        </ul>
+	        {% else %}
+	         <p>No items for sale.</p>
+	        {% endif %}
+	        Items sold:
+	        {% if user.item_set.all %}
+	        	<ul>
+	          {% for item in user.item_set.all %}
+	          	{% if item.item_sold %}
+	              <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
+	            {% endif %}
+	          {% endfor %}
+	        {% else %}
+	        	<p>No items sold.</p>
+						</ul>
+          {% endif %}
 		</body>
 	{% else %}
     {% include 'marketplace/notauth.html' %}

@@ -2,7 +2,7 @@
 {% load static %}
 <html>
   <head>
-    <title>Hooslist: Map</title>
+    <title>Add Item</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
@@ -34,6 +34,7 @@
       </div>
       <div class="form" style="float:left; padding:50px">
         <center><h1> Create a new listing as {{user.username}}</h1><center>
+          <hr>
         <form action="/marketplace/add-item/" class = "form-group"  method="post" enctype="multipart/form-data">{% csrf_token %}
           <table id="add" class = "table table-striped">
             {{form.as_table}}

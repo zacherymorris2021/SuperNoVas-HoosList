@@ -1,5 +1,5 @@
 from django import forms
-from .models import Item, Message
+from .models import Item, Message, Seller
 
 
 class ItemAddForm(forms.ModelForm):
@@ -34,3 +34,24 @@ class SendMessageForm(forms.ModelForm):
         'text'
         ]
         widgets = {'receiver': forms.TextInput}
+
+class SendReplyForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = [
+        'text'
+        ]
+
+class UserRatingForm(forms.ModelForm):
+    class Meta:
+        model = Seller
+        exclude = ('user', 'posRate' , 'negRate',
+        'numTransactions')
+
+    options = [
+    ('positive', 'I had a positive shopping experience!'),
+    ('negative', 'I had a negative shopping experience!')
+    ]
+
+    user = forms.CharField(label="Seller")
+    question = forms.CharField(label="How was your experience with this user? ", widget=forms.Select(choices=options))

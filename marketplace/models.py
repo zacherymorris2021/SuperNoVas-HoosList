@@ -16,6 +16,8 @@ class Seller(models.Model):
     negRate=models.IntegerField(default=0)
     numTransactions = models.IntegerField(default=0)
 
+    
+
 class Item(models.Model):
     item_name = models.CharField (max_length=200)
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

@@ -12,20 +12,24 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
-	<body>
-		<div class="navBar">
-			{% include 'marketplace/navbar.html' %}
-		</div>
-		<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-			<h1> Was {{seller.username}} good or bad?</h1>
-			<form action="{% url 'marketplace:rate' seller.id %}" method="post">
-	        {% csrf_token %}
-	          <input type="radio" name="field"  value="1">
-	          <label>Good</label><br>
-						<input type="radio" name="field"  value="2">
-	          <label>Bad</label><br>
-	        <input type="submit" value="Vote">
-	     </form>
-		 </div>
-	</body>
+	{% if request.user.is_authenticated %}
+		<body>
+			<div class="navBar">
+				{% include 'marketplace/navbar.html' %}
+			</div>
+			<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
+				<h1> Was {{seller.username}} good or bad?</h1>
+				<form action="{% url 'marketplace:rate' seller.id %}" method="post">
+		        {% csrf_token %}
+		          <input type="radio" name="field"  value="1">
+		          <label>Good</label><br>
+							<input type="radio" name="field"  value="2">
+		          <label>Bad</label><br>
+		        <input type="submit" value="Vote">
+		     </form>
+			 </div>
+		</body>
+	{% else %}
+    {% include 'marketplace/notauth.html' %}
+	{% endif %}
 </html>
