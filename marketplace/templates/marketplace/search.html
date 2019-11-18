@@ -19,6 +19,7 @@
 			</div>
 			<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
 				<h1> Search results for <b> {{request.GET.q}}</b> </h1>
+				<hr>
 				{% if results %}
 				    <ul>
 				      {%for item in results %}

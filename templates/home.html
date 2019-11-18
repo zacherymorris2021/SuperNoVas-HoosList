@@ -17,7 +17,6 @@
         Welcome to Hooslist, a buying and selling website made for University of Virginia students.<br> <br>
         {% if user.is_authenticated %}
           <p>Logged in as {{ user.username }}</p>
-          <!-- <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a> -->
           <a class="btn btn-primary" href="/marketplace/logout/">Logout</a>
         {% else %}
           <a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">

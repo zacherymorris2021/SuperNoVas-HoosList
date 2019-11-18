@@ -34,6 +34,7 @@
     </div>
     <div class="itemInfo" style="float:left; padding:50px; width:25%">
       <h1>{{ item.item_name }}</h1>
+      <hr>
       <img src="{{ item.item_photo.url }}" width=100%> <br>
       Seller: <a id = "items" href="{% url 'marketplace:user' item.seller.id %}">{{ item.seller }}</a><br>
       Description: {{item.item_description}}<br>
