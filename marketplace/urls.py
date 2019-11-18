@@ -17,7 +17,6 @@ urlpatterns = [
     path('inbox/', views.inbox, name = 'inbox'),
     url(r'^advFilter/$', views.advFilter, name='advFilter'),
     path('message/', views.message, name = 'message')
-
 ]
 
 if settings.DEBUG:

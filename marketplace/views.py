@@ -94,8 +94,13 @@ def message(request):
             return redirect('marketplace:inbox')
     else:
         form = SendMessageForm()
-    if request.method == 'GET':
-        form.fields['receiver'].initial = request.GET['receiver']
+        #code inspired from https://djangosnippets.org/snippets/1810/
+        for key in request.GET:
+            try:
+                form.fields[key].initial = request.GET[key]
+            except KeyError:
+                pass
+        # end of inspired code
     context = {
     'form': form
     }
