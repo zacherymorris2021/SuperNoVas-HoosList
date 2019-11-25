@@ -47,14 +47,14 @@
       {% endif %}
       <hr>
       <img src="{{ item.item_photo.url }}" width=100%> <br><br>
+      {% if item.item_sold %}
+        <strong>Item has been sold.</strong> <br>
+      {% endif %}
       {{item.item_description}}<br><br>
       Pay with {{item.item_preferred_payment_method}}<br>
       Available for pickup at {{item.item_location}}
       {% if item.item_delivery %}
         Item can also be delivered. <br>
-      {% endif %}
-      {% if item.item_sold %}
-        <strong>Item has been sold.</strong> <br>
       {% endif %}
       <br><br>
       {% if user == item.seller %}
