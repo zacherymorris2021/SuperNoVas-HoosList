@@ -48,5 +48,6 @@
             right: 0; 
         } 
 
-        .buttoncolor {background-color: #2D3C68;} 
+        .buttoncolor {background-color: #2D3C68;}
+        .buttoncolor2 {background-color: rgb(45, 104, 50)} 
         .button-no-border {border: none;}
