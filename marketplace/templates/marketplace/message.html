@@ -11,6 +11,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 	</head>
 	{% if user.is_authenticated %}
 		<body>
@@ -25,7 +27,8 @@
 						<table id="add" class = "table table-striped">
 							{{form.as_table}}
 						</table>
-						<button style="background-color:#2D3C68" type='submit' class="btn btn-primary btn-block">Send</button>
+						<button style="background-color:#2D3C68" type='submit' class="btn btn-primary">Send</button>
+						<a href="{% url 'marketplace:inbox'%}" style="background-color:#2D3C68" class="btn btn-primary">Return to Inbox!</a>
 					</div>
 				</form>
 			</div>
