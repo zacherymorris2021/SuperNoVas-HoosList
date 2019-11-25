@@ -38,7 +38,7 @@ class SendMessageForm(forms.ModelForm):
         ]
         widgets = {
             'receiver': forms.TextInput,
-            'text': forms.Textarea
+            'text': forms.Textarea(attrs={'style':' resize:none; line-height:120%;', 'rows':5, 'cols':25})
             }
 
 class SendReplyForm(forms.ModelForm):
@@ -47,7 +47,7 @@ class SendReplyForm(forms.ModelForm):
         fields = [
         'text'
         ]
-        widgets = {'text': forms.Textarea(attrs={'style':'line-height:7px;'})}
+        widgets = {'text': forms.Textarea(attrs={'style':' resize:none; line-height:120%;', 'rows':5, 'cols':25})}
 
 class UserRatingForm(forms.ModelForm):
     class Meta:
