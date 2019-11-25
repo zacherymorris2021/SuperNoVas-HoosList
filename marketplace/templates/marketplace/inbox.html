@@ -13,6 +13,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" /> 
         <link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
       </head>
 
   {% if user.is_authenticated %}
@@ -21,7 +22,7 @@
 				{% include 'marketplace/navbar.html' %}
 			</div>
       <div style="padding-top:50px; padding-left:300px; padding-right:300px">
-        <h1>Inbox of {{user.username}}</h1>
+        <h1>Received Mail</h1>
         <hr>
         <div class="container h-100"> 
           <div class="position-relative h-100"> 
@@ -29,29 +30,44 @@
                   <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:outbox' %}">Click to See Sent Messages!</a>
               </div>  
               <div class="position-absolute top-right"> 
-                  <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:message' %}">Click to Send Message!</a> 
- 
+                  <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:message' %}">Click to Send a Message!</a> 
               </div>
           </div>
         </div>
         <br>
         <br>
         <hr>
-        {% if messages %}
-            {%for item in messages %}
-              <p> <b>From: {{item.sender}}</b><br>
-                Subject: {{ item.subject }} <br>
-                Received: {{item.timesent}}<br>
-                {{item.text}}<br>
-                <a class="btn btn-primary btn-sm buttoncolor button-no-border" href="{% url 'marketplace:reply' item.id %}">Click to Reply</a>
-              </p>
-              <hr>
-            {% endfor %}
-        {% else %}
-          <p>No messages to see.</p>
-        {% endif %}
-      </div>
-    </body>
+
+
+        <body>
+          <div class="column">
+            {% if messages %}
+              {%for item in messages %}
+                <div class="row-12"> 
+                  <div class="card">
+                    <h3>Message from {{item.sender}}</h3>
+                    <hr class="someClass">
+                    <p align="left"><b>Subject:</b> {{ item.subject }}</p>
+                    <p align="left"><b>Sent on:</b> {{item.timesent}}</p>
+                    <p align="left"><b>Message:</b> {{item.text}}</p>
+                    <a class="btn btn-primary btn-sm buttoncolor button-no-border" href="{% url 'marketplace:reply' item.id %}">Click to Reply</a>
+                  </div>
+                  <br>
+                </div>
+              {% endfor %}
+          </div>
+            {% else %}
+              <div class="column">
+                <div class="row">
+                  <div class="card">
+                    <p>No messages to see.</p>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+      </body>
+  </div>
+</body>
     {% else %}
       {% include 'marketplace/notauth.html' %}
     {% endif %}
