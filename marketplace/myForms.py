@@ -42,6 +42,7 @@ class SendReplyForm(forms.ModelForm):
         fields = [
         'text'
         ]
+        widgets = {'text': forms.Textarea}
 
 class UserRatingForm(forms.ModelForm):
     class Meta:
