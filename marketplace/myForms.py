@@ -34,6 +34,7 @@ class SendMessageForm(forms.ModelForm):
         'text'
         ]
         widgets = {'receiver': forms.TextInput}
+        widgets = {'text': forms.Textarea}
 
 class SendReplyForm(forms.ModelForm):
     class Meta:

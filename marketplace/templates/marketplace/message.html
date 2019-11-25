@@ -21,10 +21,12 @@
 				<center><h1> Send a Message</h1><center>
 					<hr>
 				<form action="/marketplace/message/" class = "form-group"  method="post" enctype="multipart/form-data">{% csrf_token %}
-					<table id="add" class = "table table-striped">
-						{{form.as_table}}
-					</table>
-				    <button style="background-color:gray" type='submit' class="btn btn-primary btn-block">Send</button>
+					<div class="card">
+						<table id="add" class = "table table-striped">
+							{{form.as_table}}
+						</table>
+						<button style="background-color:#2D3C68" type='submit' class="btn btn-primary btn-block">Send</button>
+					</div>
 				</form>
 			</div>
 		</body>
