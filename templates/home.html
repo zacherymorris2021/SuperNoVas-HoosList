@@ -9,6 +9,8 @@
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
     crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 </head>
 <body>
   {% include 'marketplace/navbar.html' %}
@@ -17,9 +19,9 @@
         Welcome to Hooslist, a buying and selling website made for University of Virginia students.<br> <br>
         {% if user.is_authenticated %}
           <p>Logged in as {{ user.username }}</p>
-          <a class="btn btn-primary" href="/marketplace/logout/">Logout</a>
+          <a class="btn btn-primary buttoncolor button-no-border" href="/marketplace/logout/">Logout</a>
         {% else %}
-          <a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">
+          <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'social:begin' 'google-oauth2' %}">
             Login </a><br>
         {% endif %}
         <hr>
