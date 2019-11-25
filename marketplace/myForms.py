@@ -8,8 +8,9 @@ class ItemAddForm(forms.ModelForm):
         widgets={
         'item_name':forms.TextInput(attrs={'style':'line-height:7px;'}),
         'item_description':forms.TextInput(attrs={'style':'padding:0px;'}),
-        'item_location':forms.TextInput(attrs={'style':'padding:0px;'})
-
+        'item_location':forms.TextInput(attrs={'style':'padding:0px;'}),
+        'latitude': forms.HiddenInput(),
+        'longitude': forms.HiddenInput()
         }
         fields = [
         'item_name',
@@ -21,6 +22,8 @@ class ItemAddForm(forms.ModelForm):
         'item_condition',
         'item_categories',
         'item_photo',
+        'latitude',
+        'longitude'
         ]
 
 class SendMessageForm(forms.ModelForm):
