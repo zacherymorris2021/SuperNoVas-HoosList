@@ -41,14 +41,14 @@
         <h1>{{ item.item_name }} (${{item.item_price}})</h1>
       {% endif %}
       {% if user == item.seller %}
-        Listed by <a id = "items" href="{% url 'marketplace:profile' item.seller.id %}">{{ item.seller }}</a> in {{item.item_condition}} condition
+        Listed by <a id = "items" href="{% url 'marketplace:profile' %}">{{ item.seller }}</a> in {{item.item_condition}} condition
       {% else %}
         Listed by <a id = "items" href="{% url 'marketplace:user' item.seller.id %}">{{ item.seller }}</a> in {{item.item_condition}} condition
       {% endif %}
       <hr>
       <img src="{{ item.item_photo.url }}" width=100%> <br><br>
       {{item.item_description}}<br><br>
-      Preferred method of payment: {{item.item_preferred_payment_method}}<br>
+      Pay with {{item.item_preferred_payment_method}}<br>
       Available for pickup at {{item.item_location}}
       {% if item.item_delivery %}
         Item can also be delivered. <br>
