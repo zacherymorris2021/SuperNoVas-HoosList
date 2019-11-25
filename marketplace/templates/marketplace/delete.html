@@ -21,15 +21,23 @@
 		            {% include 'marketplace/navbar.html' %}
 		    	</div>
 		      	<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-		        	<center><h1>Delete Item</h1></center>
+		        	<h1>Delete {{item.item_name}}</h1>
 		        		<hr>
 		        	<form method="POST" action="{% url 'marketplace:delete' item.id %}">{% csrf_token %}
-						<div class="card">
-		           	 		{{item.seller}}, are you sure you want to delete {{item.item_name}}?
-		            		<button type='submit' class="btn btn-primary btn-sm buttoncolor button-no-border">Yes, I do!</button>
-							<hr class="someClass">
-							<a href="{% url 'marketplace:profile'%}" class="btn btn-primary btn-sm buttoncolor button-no-border">No, take me back!</a>
-						</div>
+								<div class="card float-left" style="width: 50%; min-width: 18rem;">
+									<div class="card-header">
+										<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+									</div>
+							    <div class="card-body">
+										<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+							      <p class="card-text">{{item.item_description}}</p>
+							    </div>
+							  </div>
+								<div class=" float-right">
+									<strong>Are you SURE you want to delete {{item.item_name}}? This is a permanent action.</strong><br>
+
+		            		<button type='submit' class="btn btn-danger">Yes, delete!</button>
+							<a href="{% url 'marketplace:profile'%}" class="float-right btn btn-warning">No, back to profile!</a>
 		        	</form>
 				</div>
 			</body>
