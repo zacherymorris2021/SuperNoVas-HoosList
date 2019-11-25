@@ -22,16 +22,16 @@
 	        </div>
 	    <div style="padding-top:50px; padding-left:300px; padding-right: 300px">
 				<h1>
-					<span>{{user.username}}'s Profile</span>
+					<span>{{user.username}}'s profile</span>
 					<a class="btn btn-primary buttoncolor button-no-border float-right" href="{% url 'marketplace:logout'%}">Logout</a>
 				</h1>
 				<hr>
 
 
 				<div class="content"style="padding-top:50px;">
-					<h2><span>Your current listings</span>
+					<h4><span>Your current listings</span>
 						<a class="btn btn-primary buttoncolor button-no-border float-right" href="{% url 'marketplace:add_item' %}">New Listing</a>
-					</h2>
+					</h4>
 					<hr>
 					{% if user.item_set.all %}
 						<div class="card-deck">
@@ -60,7 +60,7 @@
 					{% endif %}
 				</div>
 				<div class="content"style="padding-top:50px;">
-					<h2>Recently Sold Items</h2>
+					<h4>Recently Sold Items</h4>
 					<hr>
 					{% if user.item_set.all %}
 						<div class="card-deck">
