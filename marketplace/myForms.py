@@ -21,8 +21,6 @@ class ItemAddForm(forms.ModelForm):
         'item_condition',
         'item_categories',
         'item_photo',
-        'latitude',
-        'longitude'
         ]
 
 class SendMessageForm(forms.ModelForm):
