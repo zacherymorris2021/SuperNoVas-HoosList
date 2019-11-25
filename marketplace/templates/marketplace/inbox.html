@@ -11,26 +11,38 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
         </script>
         <link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
-   </head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" /> 
+        <link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
+      </head>
+
   {% if user.is_authenticated %}
   <body>
 			<div class="navBar">
 				{% include 'marketplace/navbar.html' %}
 			</div>
       <div style="padding-top:50px; padding-left:300px; padding-right:300px">
-        <h1> Inbox</h1>
-        <a href="{% url 'marketplace:outbox' %}">Sent</a>
+        <h1>Inbox of {{user.username}}</h1>
         <hr>
-        <a href="{% url 'marketplace:message' %}">Send a Message</a>
-
-        <br><br>
+        <div class="container h-100"> 
+          <div class="position-relative h-100"> 
+              <div class="position-absolute top-left"> 
+                  <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:message' %}">Click to Send Message!</a> 
+              </div>  
+              <div class="position-absolute top-right"> 
+                  <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:outbox' %}">Click to See Sent Messages!</a> 
+              </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <hr>
         {% if messages %}
             {%for item in messages %}
               <p> <b>From: {{item.sender}}</b><br>
                 Subject: {{ item.subject }} <br>
                 Received: {{item.timesent}}<br>
                 {{item.text}}<br>
-                <a href="{% url 'marketplace:reply' item.id %}">Reply</a>
+                <a class="btn btn-primary btn-sm buttoncolor button-no-border" href="{% url 'marketplace:reply' item.id %}">Click to Reply</a>
               </p>
               <hr>
             {% endfor %}
