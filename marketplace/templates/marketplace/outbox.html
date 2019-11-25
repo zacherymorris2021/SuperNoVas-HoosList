@@ -22,22 +22,10 @@
 				{% include 'marketplace/navbar.html' %}
 			</div>
       <div style="padding-top:50px; padding-left:300px; padding-right:300px">
-        <h1>Sent</h1>
+        <h1><span>Sent</span>
+          <a class="btn btn-link" href="{% url 'marketplace:inbox' %}">Back to Inbox</a>
+        </h1>
         <hr>
-        <div class="container h-100">
-          <div class="position-relative h-100">
-              <div class="position-absolute top-left">
-                  <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:inbox' %}">Inbox</a>
-              </div>
-              <div class="position-absolute top-right">
-                  <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:message' %}">Compose ✎</a>
-              </div>
-          </div>
-        </div>
-        <br>
-        <br>
-        <hr>
-
         <body>
           <div class="column">
                 {% if messages %}
@@ -50,7 +38,6 @@
                           Sent by {{item.sender}} on {{item.timesent}}<h6><br>
                       <div class="card-body">
                         <p align="left">{{item.text}}</p>
-                        <a class="btn btn-primary btn-sm buttoncolor button-no-border float-right" href="{% url 'marketplace:reply' item.id %}">Reply to {{item.sender}}</a>
                       </div>
                     </div>
                     <br>
