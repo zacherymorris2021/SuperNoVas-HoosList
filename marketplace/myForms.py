@@ -21,8 +21,6 @@ class ItemAddForm(forms.ModelForm):
         'item_condition',
         'item_categories',
         'item_photo',
-        'latitude',
-        'longitude'
         ]
 
 class SendMessageForm(forms.ModelForm):
@@ -34,6 +32,7 @@ class SendMessageForm(forms.ModelForm):
         'text'
         ]
         widgets = {'receiver': forms.TextInput}
+        widgets = {'text': forms.Textarea}
 
 class SendReplyForm(forms.ModelForm):
     class Meta:
@@ -41,6 +40,7 @@ class SendReplyForm(forms.ModelForm):
         fields = [
         'text'
         ]
+        widgets = {'text': forms.Textarea}
 
 class UserRatingForm(forms.ModelForm):
     class Meta:

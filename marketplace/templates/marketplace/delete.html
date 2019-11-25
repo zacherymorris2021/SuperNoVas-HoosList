@@ -11,30 +11,32 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 	</head>
 	{% if user.is_authenticated %}
 		{% if request.user.username == creator %}
 			<body>
-		    <div class="navBar">
+		    	<div class="navBar">
 		            {% include 'marketplace/navbar.html' %}
-		    </div>
-		      <div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-		        <h1>Delete {{ item.item_name }}?</h1>
-		        <hr>
-		        <form method="POST" action="{% url 'marketplace:delete' item.id %}">
-		            {% csrf_token %}
-		            Are you sure you want to delete this item?
-		            <button style="background-color:gray" type='submit' class="btn btn-primary">Yes</button>
-		            <a href="/marketplace/profile/">   Cancel</a>
-		        </form>
-						<a href="{% url 'marketplace:markSold' item.id %}">Trying to mark this item as sold instead?</a>
-					</div>
+		    	</div>
+		      	<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
+		        	<center><h1>Delete Item</h1></center>
+		        		<hr>
+		        	<form method="POST" action="{% url 'marketplace:delete' item.id %}">{% csrf_token %}
+						<div class="card">
+		           	 		{{item.seller}}, are you sure you want to delete {{item.item_name}}?
+		            		<button type='submit' class="btn btn-primary btn-sm buttoncolor button-no-border">Yes, I do!</button>
+							<hr class="someClass">
+							<a href="{% url 'marketplace:profile'%}" class="btn btn-primary btn-sm buttoncolor button-no-border">No, take me back!</a>
+						</div>
+		        	</form>
 				</div>
 			</body>
     {% else %}
-			{% include 'marketplace/notauth2.html' %}
-		{% endif %}
+		{% include 'marketplace/notauth2.html' %}
+	{% endif %}
 	{% else %}
-    {% include 'marketplace/notauth.html' %}
+    	{% include 'marketplace/notauth.html' %}
   {% endif %}
 </html>

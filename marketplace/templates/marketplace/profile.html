@@ -11,44 +11,90 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 	</head>
+
 	{% if user.is_authenticated %}
 		<body>
 	        <div class="navBar">
 	                {% include 'marketplace/navbar.html' %}
 	        </div>
-	        <div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-					<h1>{{ user.username }}</h1>
-					<a href="/marketplace/logout/">Logout</a>
+	        <div style="padding-top:50px; padding-left:300px; padding-right: 300px">
+				<center><h1>Welcome to your profile, {{user.username}}</h1></center>
+				<hr>
+				<div class="container h-100"> 
+				  <div class="position-relative h-100"> 
+					  <div class="position-absolute top-left"> 
+						  <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:add_item' %}">Click to Add a Listing!</a>
+					  </div>  
+					  <div class="position-absolute top-right"> 
+							<a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:logout'%}">Click to Logout!</a> 
+					  </div>
+				  </div>
+				</div>
+				<br>
+				<br>
+				<hr>
+				
+				<body></body>
+				<div class="card">
+					<h3>Your items for sale</h3>
+					<hr class="someClass">
+					{% if user.item_set.all %}
+					<div class="d-flex justify-content-center">
+						<lu>
+						<p></p>
+						<hr>
+		        		{% for item in user.item_set.all %}
+		        			{% if item.item_sold == False %}
+								<li><div class="horizontalgap" style="width:5px"></div> <b>Item Name:</b> {{ item.item_name }}  
+								<div class="horizontalgap" style="width:10px"></div>
+								<div class="horizontalgap" style="width:5px"></div> <a href="{% url 'marketplace:detail' item.id %}"  class="btn btn-outline-dark btn-sm">Go to Listing</a>
+								<div class="horizontalgap" style="width:5px"></div> <a href="{% url 'marketplace:markSold' item.id %}"  class="btn btn-outline-success btn-sm">Mark as Sold</a>
+								<div class="horizontalgap" style="width:5px"></div> <a href="{% url 'marketplace:delete' item.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+								</li>
+								<hr>
+							  {% endif %} 
+						{% endfor %}
+						</lu>
+					</div>
+				</div>	
+					{% else %}
+						<div class="card">
+							<p>You have no items for sale.</p>
+						</div>
+					{% endif %}
+				
+					<br>
 
-					<hr>
-	        <br>
-	        Items for sale:
-	        {% if user.item_set.all %}
-		        <ul>
-		        {% for item in user.item_set.all %}
-		        	{% if item.item_sold == False %}
-								<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a><br>
-								<a href="{% url 'marketplace:markSold' item.id %}"  class="btn btn-outline-secondary btn-sm">Mark as Sold</a>
-								<a href="{% url 'marketplace:delete' item.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
-		          {% endif %}
-		        {% endfor %}
-		        </ul>
-	        {% else %}
-	         <p>No items for sale.</p>
-	        {% endif %}
-	        Items sold:
-	        {% if user.item_set.all %}
-	        	<ul>
-	          {% for item in user.item_set.all %}
-	          	{% if item.item_sold %}
-	              <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-	            {% endif %}
-	          {% endfor %}
-	        {% else %}
-	        	<p>No items sold.</p>
-						</ul>
-          {% endif %}
+				<div class="card">
+					<h3>Your items sold</h3>
+					<hr class="someClass">
+					{% if user.item_set.all %}
+						<div class="d-flex justify-content-center">
+	        			<lu>
+						<p></p>
+						<hr>
+	          			{% for item in user.item_set.all %}
+	          				{% if item.item_sold %}
+	              			<li>
+								<b>Item Name:</b> {{item.item_name}}
+								<a id = "items" href="{% url 'marketplace:detail' item.id %}"class="btn btn-outline-dark btn-sm">Go to Listing</a>
+							</li>
+							<hr>
+							{% endif %}
+						  {% endfor %}
+						</lu>
+					</div>
+				</div>
+	        		{% else %}
+						<div class="card">
+							<p>You haven't sold any items.</p>
+						</div>
+					{% endif %}
+			</body>
+			<br>
 		</body>
 	{% else %}
     {% include 'marketplace/notauth.html' %}
