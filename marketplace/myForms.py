@@ -5,13 +5,7 @@ from .models import Item, Message, Seller
 class ItemAddForm(forms.ModelForm):
     class Meta:
         model = Item
-        widgets={
-        'item_name':forms.TextInput(attrs={'style':'line-height:7px;'}),
-        'item_description':forms.TextInput(attrs={'style':'padding:0px;'}),
-        'item_location':forms.TextInput(attrs={'style':'padding:0px;'}),
-        'latitude': forms.HiddenInput(),
-        'longitude': forms.HiddenInput()
-        }
+
         fields = [
         'item_name',
         'item_description',
@@ -25,6 +19,14 @@ class ItemAddForm(forms.ModelForm):
         'latitude',
         'longitude'
         ]
+        widgets={
+        'item_name':forms.TextInput(attrs={'style':'line-height:7px;'}),
+        'item_description':forms.Textarea(attrs={'style':' resize:none; line-height:120%;', 'rows':5, 'cols':25}),
+        'item_location':forms.TextInput(attrs={'style':'padding:0px;'}),
+        'latitude':forms.TextInput(attrs={'readonly':'readonly'}),
+        'longitude':forms.TextInput(attrs={'readonly':'readonly'})
+        }
+
 
 class SendMessageForm(forms.ModelForm):
     class Meta:
@@ -34,8 +36,10 @@ class SendMessageForm(forms.ModelForm):
         'subject',
         'text'
         ]
-        widgets = {'receiver': forms.TextInput}
-        widgets = {'text': forms.Textarea}
+        widgets = {
+            'receiver': forms.TextInput,
+            'text': forms.Textarea
+            }
 
 class SendReplyForm(forms.ModelForm):
     class Meta:
@@ -43,7 +47,7 @@ class SendReplyForm(forms.ModelForm):
         fields = [
         'text'
         ]
-        widgets = {'text': forms.Textarea}
+        widgets = {'text': forms.Textarea(attrs={'style':'line-height:7px;'})}
 
 class UserRatingForm(forms.ModelForm):
     class Meta:

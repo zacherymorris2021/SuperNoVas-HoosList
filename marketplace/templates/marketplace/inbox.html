@@ -11,7 +11,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
         </script>
         <link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" /> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
         <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
       </head>
@@ -24,8 +24,8 @@
       <div style="padding-top:50px; padding-left:300px; padding-right:300px">
         <h1>Inbox</h1>
         <hr>
-        <div class="container h-100"> 
-          <div class="position-relative h-100"> 
+        <div class="container h-100">
+          <div class="position-relative h-100">
               <div class="position-absolute top-left">
                   <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:outbox' %}">Sent</a>
               </div>
@@ -43,14 +43,14 @@
           <div class="column">
             {% if messages %}
               {%for item in messages %}
-                <div class="row-12"> 
+                <div class="row-12">
                   <div class="card">
                     <h3>Message from {{item.sender}}</h3>
                     <hr class="someClass">
                     <p align="left"><b>Subject:</b> {{ item.subject }}</p>
                     <p align="left"><b>Sent on:</b> {{item.timesent}}</p>
                     <p align="left"><b>Message:</b> {{item.text}}</p>
-                    <a class="btn btn-primary btn-sm buttoncolor button-no-border" href="{% url 'marketplace:reply' item.id %}">Click to Reply</a>
+                    <a class="btn btn-primary btn-sm buttoncolor button-no-border" href="{% url 'marketplace:reply' item.id %}">Reply to {{item.sender}}</a>
                   </div>
                   <br>
                 </div>
