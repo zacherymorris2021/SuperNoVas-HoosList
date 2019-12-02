@@ -11,7 +11,6 @@ class ItemAddForm(forms.ModelForm):
         'item_description',
         'item_price',
         'item_delivery',
-        'item_location',
         'item_preferred_payment_method',
         'item_condition',
         'item_categories',
@@ -24,13 +23,12 @@ class ItemAddForm(forms.ModelForm):
         'item_description':forms.Textarea(attrs={'class':'form-control','style':' resize:none; line-height:120%;', 'rows':4}),
         'item_price':forms.NumberInput(attrs={'class':'form-control'}),
         'item_delivery':forms.CheckboxInput(attrs={'class':'form-control','style':'text-align:left'}),
-        'item_location':forms.TextInput(attrs={'class':'form-control','class':'form-control','style':'padding:0px;'}),
         'item_preferred_payment_method':forms.Select(attrs={'class':'form-control'}),
         'item_condition':forms.Select(attrs={'class':'form-control'}),
         'item_categories':forms.Select(attrs={'class':'form-control'}),
         'item_photo':forms.FileInput(attrs={'class':'form-control'}),
-        'latitude':forms.TextInput(attrs={'class':'form-control','readonly':'readonly'}),
-        'longitude':forms.TextInput(attrs={'class':'form-control','readonly':'readonly'})
+        'latitude':forms.HiddenInput(attrs={'id':'latitude', 'class':'form-control','readonly':'readonly'}),
+        'longitude':forms.HiddenInput(attrs={'id':'longitude', 'class':'form-control','readonly':'readonly'})
         }
 
         labels={
@@ -38,7 +36,6 @@ class ItemAddForm(forms.ModelForm):
         'item_description':'Description',
         'item_price':'Price',
         'item_delivery':'Delivery?',
-        'item_location':'Location',
         'item_preferred_payment_method':'Preferred Method of Payment',
         'item_condition':'Condition',
         'item_categories': 'Category',

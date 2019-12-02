@@ -25,7 +25,6 @@ class Item(models.Model):
     item_price = models.IntegerField(default=0)
     item_delivery = models.BooleanField(default=False)
     item_photo = models.ImageField(upload_to='media/', default = 'static/marketplace/default.png')
-    item_location = models.CharField(max_length=200)
     item_preferred_payment_method = models.CharField(max_length=10, choices=PAYMENT_METHODS, default='venmo')
     item_condition = models.CharField(max_length=10, choices=CONDITION_CHOICES, default='good')
     item_sold = models.BooleanField(default=False) #private for admins and seller
