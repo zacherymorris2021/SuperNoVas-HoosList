@@ -24,7 +24,9 @@
 					{% include 'marketplace/navbar.html' %}
 				</div>
 				<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-					<center><h2> Reply Page</h2><center>
+					<h2><span>Reply Page</span>
+					<a class="btn btn-link" href="{% url 'marketplace:inbox' %}">Back to Inbox</a>
+					</h2>
 						<hr>
 						<div class="card">
 							<div class= "ogMessage" style="text-align:left">
@@ -45,8 +47,6 @@
 								{{form.as_table}}
 							</table>
 							<button type='submit' class="btn btn-primary btn-sm buttoncolor button-no-border">Send Reply</button>
-							<hr class="someClass">
-							<a href="{% url 'marketplace:inbox'%}" class="btn btn-primary btn-sm buttoncolor button-no-border">Return to Inbox!</a>
 						</div>
 					</form>
 					<br>

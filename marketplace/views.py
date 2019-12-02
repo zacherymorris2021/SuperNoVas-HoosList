@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from .models import Item, Seller, Message
-from .myForms import ItemAddForm, SendMessageForm, SendReplyForm, UserRatingForm
+from .myForms import ItemAddForm, SendMessageForm, SendReplyForm
 from django.contrib.auth.models import User
 from .filters import ItemFilter
 from django.contrib import messages
@@ -161,30 +161,3 @@ def advFilter(request):
     item_list = Item.objects.all()
     item_filter = ItemFilter(request.GET, queryset=item_list)
     return render(request, 'marketplace/item_list.html', {'filter': item_filter})
-
-def userRating(request):
-    form=UserRatingForm()
-    return render(request, 'marketplace/user.html', {'form': form})
-
-def thank(request):
-    if request.method == "POST":
-        review = request.POST.get('question')
-        seller = request.POST.get('user')
-        print(review )
-        print(seller)
-        print(request.user)
-
-        # seller_list = Item.objects.all()
-
-        # search = get_object_or_404(Seller, id=seller)
-        #sellerSearch = get_object_or_404(User, id=seller)
-        #print(sellerSearch)
-
-        #if(review == 'positive'):
-        #    seller.Seller.posRate += 1
-        #    print(seller.Seller.posRate)
-        #else:
-        #    seller.negRate -= 1
-
-
-    return render(request, 'marketplace/thank.html')

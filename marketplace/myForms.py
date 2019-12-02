@@ -52,8 +52,9 @@ class SendMessageForm(forms.ModelForm):
         'text'
         ]
         widgets = {
-            'receiver': forms.TextInput,
-            'text': forms.Textarea(attrs={'style':' resize:none; line-height:120%;', 'rows':5, 'cols':25})
+            'receiver': forms.TextInput(attrs={'class':'form-control'}),
+            'subject': forms.TextInput(attrs={'class':'form-control'}),
+            'text': forms.Textarea(attrs={'class':'form-control','style':' resize:none; line-height:120%;', 'rows':7, 'cols':25})
             }
 
 class SendReplyForm(forms.ModelForm):
@@ -63,17 +64,3 @@ class SendReplyForm(forms.ModelForm):
         'text'
         ]
         widgets = {'text': forms.Textarea(attrs={'style':' resize:none; line-height:120%;', 'rows':5, 'cols':25})}
-
-class UserRatingForm(forms.ModelForm):
-    class Meta:
-        model = Seller
-        exclude = ('user', 'posRate' , 'negRate',
-        'numTransactions')
-
-    options = [
-    ('positive', 'I had a positive shopping experience!'),
-    ('negative', 'I had a negative shopping experience!')
-    ]
-
-    user = forms.CharField(label="Seller")
-    question = forms.CharField(label="How was your experience with this user? ", widget=forms.Select(choices=options))
