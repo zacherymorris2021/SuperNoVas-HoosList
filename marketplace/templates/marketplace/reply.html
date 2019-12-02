@@ -40,14 +40,10 @@
 						<br>
 
 					<form action="{% url 'marketplace:reply' message.id %}" class = "form-group"  method="post" enctype="multipart/form-data">{% csrf_token %}
-						<div class="card">
-						<h4>Your Reply</h4>
-						<hr class="modified">
-							<table id="add" class = "table table-striped">
+							<table id="add" class = "table table-borderless">
 								{{form.as_table}}
 							</table>
-							<button type='submit' class="btn btn-primary btn-sm buttoncolor button-no-border">Send Reply</button>
-						</div>
+							<button type='submit' class="float-right btn btn-primary btn-sm buttoncolor button-no-border">Send Reply</button>
 					</form>
 					<br>
 				</div>

@@ -63,4 +63,7 @@ class SendReplyForm(forms.ModelForm):
         fields = [
         'text'
         ]
-        widgets = {'text': forms.Textarea(attrs={'style':' resize:none; line-height:120%;', 'rows':5, 'cols':25})}
+        labels={
+        'text':'Reply'
+        }
+        widgets = {'text': forms.Textarea(attrs={'class':'form-control','style':' resize:none; line-height:120%;', 'rows':5, 'cols':25})}
