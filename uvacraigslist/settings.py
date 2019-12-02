@@ -169,8 +169,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+#MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+#MEDIA_URL = '/media/'
 
 #STATIC_URL = '/static/'
 django_heroku.settings(locals())
@@ -192,11 +192,11 @@ AWS_STORAGE_BUCKET_NAME = 'uva-craigslist'
 #AWS_S3_ENDPOINT_URL = f"https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com"
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 AWS_LOCATION = 'files'
-STATIC_URL = 'https://%s/static/' % (AWS_S3_CUSTOM_DOMAIN)
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 # General optimization for faster delivery
 AWS_IS_GZIPPED = True
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 
-DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'
+DEFAULT_FILE_STORAGE = 'uvacraigslist.storage_backends.MediaStorage'
