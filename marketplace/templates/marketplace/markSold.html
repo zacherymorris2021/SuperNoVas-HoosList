@@ -12,7 +12,6 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 	</head>
 	{% if user.is_authenticated %}
 		{% if request.user.username == creator %}
@@ -35,8 +34,10 @@
 							</div>
 							<div class="float-right" >
 								<strong>Are you SURE you want to mark {{item.item_name}} as sold? This is a permanent action.</strong><br>
-									<button type='submit' class="btn btn-danger">Yes, mark as sold!</button>
-									<a href="{% url 'marketplace:profile'%}" class="float-right btn btn-warning">No, back to profile!</a>
+									<div class="text-center">
+										<button type='submit' class="btn btn-danger">Yes, mark as sold!</button>
+										<a href="{% url 'marketplace:profile'%}" class="btn btn-warning">No, back to profile!</a>
+									</div>
 								</div>
 							</form>
 						</div>
