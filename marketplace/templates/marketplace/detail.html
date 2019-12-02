@@ -61,7 +61,7 @@
         <a href="{% url 'marketplace:markSold' item.id %}"  class="btn btn-outline-success btn-sm">Mark as Sold</a>
         <a href="{% url 'marketplace:delete' item.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
       {% else %}
-        <a href = "{% url 'marketplace:message' %}?receiver={{item.seller.username}}&subject={{item.item_name}}" style="padding-right: 10px" class="btn btn-primary btn-block btn-sm buttoncolor button-no-border">Message seller</a><br>
+        <a href = "{% url 'marketplace:message' item.seller.id %}?subject={{item.item_name}}" style="padding-right: 10px" class="btn btn-primary btn-block btn-sm buttoncolor button-no-border">Message seller</a><br>
       {% endif %}
     </div>
     <div id="map"></div>

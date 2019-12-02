@@ -114,7 +114,7 @@ def outbox(request):
     }
     return render(request, 'marketplace/outbox.html', context)
 
-def message(request):
+def message(request, user_id=-1):
     if request.method == "POST":
         form = SendMessageForm(request.POST)
         if form.is_valid():
@@ -123,7 +123,10 @@ def message(request):
             new_message.save()
             return redirect('marketplace:inbox')
     else:
-        form = SendMessageForm()
+        if user_id==-1:
+            form = SendMessageForm()
+        else:
+            form = SendMessageForm(initial={'receiver':user_id})
         #code inspired from https://djangosnippets.org/snippets/1810/
         for key in request.GET:
             try:

@@ -20,7 +20,7 @@ class ItemAddForm(forms.ModelForm):
         ]
         widgets={
         'item_name':forms.TextInput(attrs={'style':'line-height:7px;','class':'form-control'}),
-        'item_description':forms.Textarea(attrs={'class':'form-control','style':' resize:none; line-height:120%;', 'rows':4}),
+        'item_description':forms.Textarea(attrs={'class':'form-control','style':' resize:none; line-height:120%;', 'rows':3}),
         'item_price':forms.NumberInput(attrs={'class':'form-control'}),
         'item_delivery':forms.CheckboxInput(attrs={'class':'form-control','style':'text-align:left'}),
         'item_preferred_payment_method':forms.Select(attrs={'class':'form-control'}),
@@ -56,8 +56,10 @@ class SendMessageForm(forms.ModelForm):
             'subject': forms.TextInput(attrs={'class':'form-control'}),
             'text': forms.Textarea(attrs={'class':'form-control','style':' resize:none; line-height:120%;', 'rows':7, 'cols':25})
             }
-        def __init__(self):
-            self.fields['receiver'].queryset = User.objects.order_by(username)
+        labels={
+        'receiver':'To',
+        'text':'Message'
+        }
 
 class SendReplyForm(forms.ModelForm):
     class Meta:

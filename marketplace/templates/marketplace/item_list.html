@@ -65,18 +65,20 @@
 				{% if filter.qs %}
 					<div class="card-deck">
 						{% for item in filter.qs %}
-							<div class="card mt-3" style="min-width: 18rem;">
-								<div class="card-header">
-									<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+							{% if item.item_sold == False %}
+								<div class="card mt-3" style="min-width: 18rem;">
+									<div class="card-header">
+										<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+									</div>
+									<div class="card-body">
+										<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+										<p class="card-text">{{item.item_description}}</p>
+									</div>
+									<div class="card-footer">
+										<small class="text-muted">Seller: {{item.seller}}</small>
+									</div>
 								</div>
-								<div class="card-body">
-									<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
-									<p class="card-text">{{item.item_description}}</p>
-								</div>
-								<div class="card-footer">
-									<small class="text-muted">Seller: {{item.seller}}</small>
-								</div>
-							</div>
+							{% endif %}
 						{% endfor %}
 						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
 						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
