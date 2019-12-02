@@ -24,8 +24,7 @@
 				{% if latest_item_list %}
 					<div class="card-deck">
 						{% for item in latest_item_list %}
-							{% if item.item_sold %}
-							{% else %}
+							{% if item.item_sold == False %}
 							  <div class="card mt-3" style="min-width: 18rem;">
 									<div class="card-header">
 										<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
