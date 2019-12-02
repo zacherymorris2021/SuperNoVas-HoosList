@@ -12,89 +12,80 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 	</head>
 
 	{% if user.is_authenticated %}
 		<body>
-	        <div class="navBar">
+	    <div class="navBar">
 	                {% include 'marketplace/navbar.html' %}
 	        </div>
-	        <div style="padding-top:50px; padding-left:300px; padding-right: 300px">
-				<center><h1>Welcome to your profile, {{user.username}}</h1></center>
+	    <div style="padding-top:50px; padding-left:300px; padding-right: 300px">
+				<h2>
+					<span>{{user.username}}'s profile</span>
+					<a class="btn btn-primary buttoncolor button-no-border float-right" href="{% url 'marketplace:logout'%}">Logout</a>
+				</h2>
 				<hr>
-				<div class="container h-100"> 
-				  <div class="position-relative h-100"> 
-					  <div class="position-absolute top-left"> 
-						  <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:add_item' %}">Click to Add a Listing!</a>
-					  </div>  
-					  <div class="position-absolute top-right"> 
-							<a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:logout'%}">Click to Logout!</a> 
-					  </div>
-				  </div>
-				</div>
-				<br>
-				<br>
-				<hr>
-				
-				<body></body>
-				<div class="card">
-					<h3>Your items for sale</h3>
-					<hr class="someClass">
-					{% if user.item_set.all %}
-					<div class="d-flex justify-content-center">
-						<lu>
-						<p></p>
-						<hr>
-		        		{% for item in user.item_set.all %}
-		        			{% if item.item_sold == False %}
-								<li><div class="horizontalgap" style="width:5px"></div> <b>Item Name:</b> {{ item.item_name }}  
-								<div class="horizontalgap" style="width:10px"></div>
-								<div class="horizontalgap" style="width:5px"></div> <a href="{% url 'marketplace:detail' item.id %}"  class="btn btn-outline-dark btn-sm">Go to Listing</a>
-								<div class="horizontalgap" style="width:5px"></div> <a href="{% url 'marketplace:markSold' item.id %}"  class="btn btn-outline-success btn-sm">Mark as Sold</a>
-								<div class="horizontalgap" style="width:5px"></div> <a href="{% url 'marketplace:delete' item.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
-								</li>
-								<hr>
-							  {% endif %} 
-						{% endfor %}
-						</lu>
-					</div>
-				</div>	
-					{% else %}
-						<div class="card">
-							<p>You have no items for sale.</p>
-						</div>
-					{% endif %}
-				
-					<br>
 
-				<div class="card">
-					<h3>Your items sold</h3>
-					<hr class="someClass">
+
+				<div class="content"style="padding-top:50px;">
+					<h4><span>Your current listings</span>
+						<a class="btn btn-primary buttoncolor button-no-border float-right" href="{% url 'marketplace:add_item' %}">New Listing</a>
+					</h4>
+					<hr>
 					{% if user.item_set.all %}
-						<div class="d-flex justify-content-center">
-	        			<lu>
-						<p></p>
-						<hr>
-	          			{% for item in user.item_set.all %}
-	          				{% if item.item_sold %}
-	              			<li>
-								<b>Item Name:</b> {{item.item_name}}
-								<a id = "items" href="{% url 'marketplace:detail' item.id %}"class="btn btn-outline-dark btn-sm">Go to Listing</a>
-							</li>
-							<hr>
-							{% endif %}
-						  {% endfor %}
-						</lu>
-					</div>
-				</div>
-	        		{% else %}
-						<div class="card">
-							<p>You haven't sold any items.</p>
+						<div class="card-deck">
+							{% for item in user.item_set.all %}
+								{% if item.item_sold %}
+								{% else %}
+								  <div class="card mt-3" style="min-width: 18rem;">
+										<div class="card-header">
+											<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+										</div>
+								    <div class="card-body">
+											<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+								      <p class="card-text">{{item.item_description}}</p>
+								    </div>
+								    <div class="card-footer" style="text-align:center">
+											<a href="{% url 'marketplace:markSold' item.id %}"  class="btn btn-outline-success btn-sm">Mark as Sold</a>
+											<a href="{% url 'marketplace:delete' item.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+								    </div>
+								  </div>
+								{% endif %}
+							{% endfor %}
+							<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+							<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+							<div class="invisible card mt-3" style="min-width: 18rem;"></div>
 						</div>
 					{% endif %}
-			</body>
-			<br>
+				</div>
+				<div class="content"style="padding-top:50px;">
+					<h4>Recently Sold Items</h4>
+					<hr>
+					{% if user.item_set.all %}
+						<div class="card-deck">
+							{% for item in user.item_set.all %}
+								{% if item.item_sold %}
+								  <div class="card mt-3" style="min-width: 18rem;">
+										<div class="card-header">
+											<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+										</div>
+								    <div class="card-body">
+											<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+								      <p class="card-text">{{item.item_description}}</p>
+								    </div>
+								    <div class="card-footer">
+								      <small class="text-muted">Seller: {{item.seller}}</small>
+								    </div>
+								  </div>
+								{% endif %}
+							{% endfor %}
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					</div>
+
+					{% endif %}
+				</div>
 		</body>
 	{% else %}
     {% include 'marketplace/notauth.html' %}

@@ -40,6 +40,7 @@
           var myOptions = {
                 zoom: 17,
                 minZoom:15,
+                maxZoom:18,
                 center: uva,
                 draggable:true,
                 gestureHandling: 'greedy',
@@ -55,22 +56,24 @@
             var infowindow = new google.maps.InfoWindow();
 
             {% for item in item_list %}
-            var contentString =
-              '<h1 id="firstHeading" class="firstHeading">{{ item }}</h1>'+
-              '<div><b>Seller: </b>{{item.seller}}</div>'+
-              '<a href="{% url 'marketplace:detail' item.id %}">Details</a>';
-              var marker = new google.maps.Marker({
-                  draggable: false,
-                  position: new google.maps.LatLng({{item.latitude}}, {{item.longitude}}),
-                  map: map,
-                  title: '{{ item }}',
-                  info: contentString,
-              });
-
-                google.maps.event.addListener(marker, 'click', function () {
-                    infowindow.setContent(this.info);
-                    infowindow.open(map, this);
+              {% if item.item_sold == False %}
+                var contentString =
+                  '<h3 id="firstHeading" class="firstHeading">{{ item }}</h3>'+
+                  '<div><b>Seller: </b>{{item.seller}}</div>'+
+                  '<a href="{% url 'marketplace:detail' item.id %}">Details</a>';
+                var marker = new google.maps.Marker({
+                    draggable: false,
+                    position: new google.maps.LatLng({{item.latitude}}, {{item.longitude}}),
+                    map: map,
+                    title: '{{ item }}',
+                    info: contentString,
                 });
+
+                  google.maps.event.addListener(marker, 'click', function () {
+                      infowindow.setContent(this.info);
+                      infowindow.open(map, this);
+                  });
+              {% endif %}
             {% endfor %}
           }
 

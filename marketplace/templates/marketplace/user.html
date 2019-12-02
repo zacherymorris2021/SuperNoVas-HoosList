@@ -13,52 +13,73 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
 	{% if user.is_authenticated %}
-		<body>
-			<div class="navBar">
-				{% include 'marketplace/navbar.html' %}
+	<div class="navBar">
+							{% include 'marketplace/navbar.html' %}
 			</div>
-			<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-			<h1>{{ seller.username }}</h1>
-			<a href = "{% url 'marketplace:message' %}?receiver={{seller.username}} " style="padding-right: 10px">
-			Send a message</a><br>
-			    Items for sale:
-	        {% if seller.item_set.all %}
-	    		    <ul>
-	    		    {% for item in seller.item_set.all %}
-								{% if item.item_sold == False %}
-	    		       	<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-								{% endif %}
-	    		    {% endfor %}
-	    		    </ul>
-	    		{% else %}
-	    		    <p>No items for sale.</p>
-	    		{% endif %}
-					Items sold:
-					{% if seller.item_set.all %}
-						<ul>
-							{% for item in seller.item_set.all %}
-								{% if item.item_sold %}
-									<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-								{% endif %}
-	    		    {% endfor %}
-	  		    </ul>
-					{% endif %}
-				</ul>
+	<div style="padding-top:50px; padding-left:300px; padding-right: 300px">
+		<h2>
+			<span>{{seller.username}}</span>
+			<a class="btn btn-primary buttoncolor button-no-border float-right" href = "{% url 'marketplace:message' %}?receiver={{seller.username}}">Message this seller</a>
+		</h2>
+		<hr>
 
 
-				<!--
-				<form action="/marketplace/thanks" method="post">
-					{% csrf_token %}
-					<input type="text" name="postiveRating" disabled hidden class="form-control" value={{seller.posRate}}>
-					<input type="text" name="posRating" disabled hidden class="form-control" value={{seller.positive}}>
-					<input type="text" name="sellerName" disabled hidden class="form-control" placeholder="Seller" value={{seller.username}}>
-					{{form}}
-					 <input type="submit" value="Submit">
-				<form> --->
-
-
+		<div class="content"style="padding-top:50px;">
+			<h4><span>Current Listings</span></h4>
+			{% if seller.item_set.all %}
+				<div class="card-deck">
+					{% for item in seller.item_set.all %}
+						{% if item.item_sold %}
+						{% else %}
+							<div class="card mt-3" style="min-width: 18rem;">
+								<div class="card-header">
+									<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+								</div>
+								<div class="card-body">
+									<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+									<p class="card-text">{{item.item_description}}</p>
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">Seller: {{item.seller}}</small>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+				</div>
+			{% endif %}
+		</div>
+		<hr>
+		<div class="content"style="padding-top:50px;">
+			<h4>Past listings</h4>
+			{% if seller.item_set.all %}
+				<div class="card-deck">
+					{% for item in seller.item_set.all %}
+						{% if item.item_sold %}
+							<div class="card mt-3" style="min-width: 18rem;">
+								<div class="card-header">
+									<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+								</div>
+								<div class="card-body">
+									<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+									<p class="card-text">{{item.item_description}}</p>
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">Seller: {{item.seller}}</small>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+				<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+				<div class="invisible card mt-3" style="min-width: 18rem;"></div>
 			</div>
-		</body>
+			{% endif %}
+		</div>
+</body>
+
 	{% else %}
     {% include 'marketplace/notauth.html' %}
 	{% endif %}

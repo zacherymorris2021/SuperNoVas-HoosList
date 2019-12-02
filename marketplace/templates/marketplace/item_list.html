@@ -14,7 +14,6 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 	</head>
 	{% if user.is_authenticated %}
     <body>
@@ -24,56 +23,69 @@
       <div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
         <form method="get">
 					<div class="well">
-						<h4 style="margin-top: 0">Filter</h4>
+						<h2 style="margin-top: 0">Advanced Search</h2>
 						<hr>
 						<div class="row">
 							<div class="form-group col-sm-4 col-md-3">
-								{{ filter.form.item_name.label_tag }}
+								Name contains:
 								{% render_field filter.form.item_name class="form-control" %}
 							</div>
 							<div class="form-group col-sm-4 col-md-3">
-								{{ filter.form.item_description.label_tag }}
+								Description contains:
 								{% render_field filter.form.item_description class="form-control" %}
 							</div>
 							<div class="form-group col-sm-4 col-md-3">
-								{{ filter.form.item_categories.label_tag }}
+								Category:
 								{% render_field filter.form.item_categories class="form-control" %}
 							</div>
 							<div class="form-group col-sm-8 col-md-3">
-								{{ filter.form.item_condition.label_tag }}
+								Condition:
 								{% render_field filter.form.item_condition class="form-control" %}
 							</div>
 							<div class="form-group col-sm-4 col-md-3">
-								{{ filter.form.item_price.label_tag }}
+								Price is exactly:
 								{% render_field filter.form.item_price class="form-control" %}
 							</div>
 							<div class="form-group col-sm-8 col-md-3">
-								{{ filter.form.item_price__lt.label_tag }}
+							  Price is less than:
 								{% render_field filter.form.item_price__lt class="form-control" %}
 							</div>
 							<div class="form-group col-sm-8 col-md-3">
-								{{ filter.form.item_price__gt.label_tag }}
+								Price is greater than:
 								{% render_field filter.form.item_price__gt class="form-control" %}
 							</div>
 							<div class="form-group col-sm-8 col-md-3">
-								{{ filter.form.item_preferred_payment_method.label_tag }}
+								Preferred method of payment:
 								{% render_field filter.form.item_preferred_payment_method class="form-control" %}
 							</div>
 						</div>
-						<button type="submit" class="btn btn-primary btn-block btn-sm buttoncolor button-no-border">
-							<span class="glyphicon glyphicon-search"></span> Search
-						</button>
-        </form>
+						<button type="submit" class="btn float-right btn-primary">Search</button>
+        </form><br><br>
 				<hr>
 				{% if filter.qs %}
-					Items that match your search:
-	        <ul>
-	          {% for item in filter.qs %}
-	            <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-	          {% endfor %}
-	        </ul>
+					<div class="card-deck">
+						{% for item in filter.qs %}
+							{% if item.item_sold == False %}
+								<div class="card mt-3" style="min-width: 18rem;">
+									<div class="card-header">
+										<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+									</div>
+									<div class="card-body">
+										<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+										<p class="card-text">{{item.item_description}}</p>
+									</div>
+									<div class="card-footer">
+										<small class="text-muted">Seller: {{item.seller}}</small>
+									</div>
+								</div>
+							{% endif %}
+						{% endfor %}
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					</div>
 				{% else %}
-					No items match your query. Please broaden your search.
+				  <p>No items match your query.</p>
 				{% endif %}
       </div>
     </body>
