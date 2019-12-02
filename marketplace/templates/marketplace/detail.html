@@ -52,7 +52,7 @@
       {% endif %}
       {{item.item_description}}<br><br>
       Pay with {{item.item_preferred_payment_method}}<br>
-      Available for pickup at {{item.item_location}}
+      Available for pickup (see map)
       {% if item.item_delivery %}
         Item can also be delivered. <br>
       {% endif %}
@@ -71,9 +71,9 @@
         var item = {lat: parseFloat("{{ item.latitude }}"),  lng: parseFloat("{{ item.longitude }}")};
         var myOptions = {
               zoom: 17,
-              minZoom:15,
+              minZoom:16,
               center: item,
-              draggable:true,
+              draggable:false,
               gestureHandling: 'greedy',
               mapTypeId: google.maps.MapTypeId.TRAFFIC
           }
