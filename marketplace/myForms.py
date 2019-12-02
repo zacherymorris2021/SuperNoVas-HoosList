@@ -21,7 +21,7 @@ class ItemAddForm(forms.ModelForm):
         ]
         widgets={
         'item_name':forms.TextInput(attrs={'style':'line-height:7px;'}),
-        'item_description':forms.Textarea(attrs={'style':' resize:none; line-height:120%;', 'rows':5, 'cols':25}),
+        'item_description':forms.Textarea(attrs={'style':' resize:none; line-height:120%;', 'rows':4, 'cols':25}),
         'item_location':forms.TextInput(attrs={'style':'padding:0px;'}),
         'latitude':forms.TextInput(attrs={'readonly':'readonly'}),
         'longitude':forms.TextInput(attrs={'readonly':'readonly'})
