@@ -16,7 +16,7 @@
 	<div class="navBar">
 							{% include 'marketplace/navbar.html' %}
 			</div>
-	<div style="padding-top:50px; padding-left:300px; padding-right: 300px">
+	<div style="padding-top:50px; padding-bottom:50px; padding-left:300px; padding-right: 300px">
 		<h2>
 			<span>{{seller.username}}</span>
 			<a class="btn btn-primary buttoncolor button-no-border float-right" href = "{% url 'marketplace:message' %}?receiver={{seller.username}}">Message this seller</a>

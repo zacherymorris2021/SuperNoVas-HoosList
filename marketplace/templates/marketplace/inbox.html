@@ -21,10 +21,10 @@
 			<div class="navBar">
 				{% include 'marketplace/navbar.html' %}
 			</div>
-      <div style="padding-top:50px; padding-left:300px; padding-right:300px">
+      <div style="padding-top:50px; padding-bottom:50px; padding-left:300px; padding-right:300px">
         <h2><span>Inbox</span>
-          <a class="btn btn-link" href="{% url 'marketplace:outbox' %}">Sent</a>
-          <a class=" float-right btn btn-danger  button-no-border" href="{% url 'marketplace:message' %}">Compose ✎</a>
+          <a class="btn btn-danger  button-no-border" href="{% url 'marketplace:message' %}">Compose ✎</a>
+          <a class="float-right btn btn-secondary" href="{% url 'marketplace:outbox' %}">Sent Messages</a>
         </h2>
         <hr>
 
