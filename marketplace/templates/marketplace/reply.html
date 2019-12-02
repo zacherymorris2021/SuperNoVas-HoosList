@@ -24,7 +24,7 @@
 					{% include 'marketplace/navbar.html' %}
 				</div>
 				<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-					<center><h1> Reply Page</h1><center>
+					<center><h2> Reply Page</h2><center>
 						<hr>
 						<div class="card">
 							<div class= "ogMessage" style="text-align:left">
@@ -36,7 +36,7 @@
 							</div>
 						</div>
 						<br>
-						
+
 					<form action="{% url 'marketplace:reply' message.id %}" class = "form-group"  method="post" enctype="multipart/form-data">{% csrf_token %}
 						<div class="card">
 						<h4>Your Reply</h4>

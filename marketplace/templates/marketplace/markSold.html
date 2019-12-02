@@ -20,7 +20,7 @@
 		            {% include 'marketplace/navbar.html' %}
 		    	</div>
 					<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-						<h1>Mark {{item.item_name}} as Sold</h1>
+						<h2>Mark {{item.item_name}} as Sold</h2>
 							<hr>
 						<form method="POST" action="{% url 'marketplace:markSold' item.id %}">{% csrf_token %}
 							<div class="card float-left" style="width: 50%; min-width: 18rem;">

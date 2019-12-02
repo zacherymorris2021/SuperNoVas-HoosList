@@ -36,9 +36,9 @@
     </div>
     <div class="itemInfo" style="float:left; padding:50px; width:25%">
       {% if item.item_sold %}
-        <h1>{{ item.item_name }} (sold)</h1>
+        <h2>{{ item.item_name }} (sold)</h2>
       {% else %}
-        <h1>{{ item.item_name }} (${{item.item_price}})</h1>
+        <h2>{{ item.item_name }} (${{item.item_price}})</h2>
       {% endif %}
       {% if user == item.seller %}
         Listed by <a id = "items" href="{% url 'marketplace:profile' %}">{{ item.seller }}</a> in {{item.item_condition}} condition

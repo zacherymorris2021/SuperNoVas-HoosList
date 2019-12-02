@@ -33,14 +33,12 @@
               {%for item in messages %}
                 <div class="row-12">
                   <div class="card">
-                    <h4 align="left" class="card-title">
-                      {{item.subject}}</h4>
-                      <h6 align="left" class="card-subtitle">
-                        Sent by {{item.sender}} on {{item.timesent}}<h6><br>
-                    <div class="card-body">
-                      <p align="left">{{item.text}}</p>
-                      <a class="btn btn-primary btn-sm buttoncolor button-no-border float-right" href="{% url 'marketplace:reply' item.id %}">Reply to {{item.sender}}</a>
-                    </div>
+                    <h3>Message from {{item.sender}}</h3>
+                    <hr class="someClass">
+                    <p align="left"><b>Subject:</b> {{ item.subject }}</p>
+                    <p align="left"><b>Sent on:</b> {{item.timesent}}</p>
+                    <p align="left"><b>Message:</b> {{item.text}}</p>
+                    <a class="btn btn-primary btn-sm buttoncolor button-no-border" href="{% url 'marketplace:reply' item.id %}">Click to Reply</a>
                   </div>
                   <br>
                 </div>
