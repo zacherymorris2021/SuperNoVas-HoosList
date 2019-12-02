@@ -18,7 +18,8 @@
 				{% include 'marketplace/navbar.html' %}
 			</div>
 			<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-				<h2>Items currently for sale</h2>
+				<h2><span>Items currently for sale</span>
+				<a href="{% url 'marketplace:advFilter' %}" class="btn float-right btn-danger">Advanced Search<a></h2>
 				<hr>
 				{% if latest_item_list %}
 					<div class="card-deck">

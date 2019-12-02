@@ -12,7 +12,6 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 	</head>
 	{% if user.is_authenticated %}
 		{% if request.user.username == creator %}
@@ -21,7 +20,7 @@
 		            {% include 'marketplace/navbar.html' %}
 		    	</div>
 		      	<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-		        	<h1>Delete {{item.item_name}}</h1>
+		        	<h2>Delete {{item.item_name}}</h2>
 		        		<hr>
 		        	<form method="POST" action="{% url 'marketplace:delete' item.id %}">{% csrf_token %}
 								<div class="card float-left" style="width: 50%; min-width: 18rem;">
@@ -35,9 +34,10 @@
 							  </div>
 								<div class=" float-right">
 									<strong>Are you SURE you want to delete {{item.item_name}}? This is a permanent action.</strong><br>
-
-		            		<button type='submit' class="btn btn-danger">Yes, delete!</button>
-							<a href="{% url 'marketplace:profile'%}" class="float-right btn btn-warning">No, back to profile!</a>
+										<div class="text-center">
+		            			<button type='submit' class="btn btn-danger">Yes, delete!</button>
+											<a href="{% url 'marketplace:profile'%}" class="btn btn-warning">No, back to profile!</a>
+										</div>
 		        	</form>
 				</div>
 			</body>

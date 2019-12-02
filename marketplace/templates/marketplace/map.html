@@ -40,6 +40,7 @@
           var myOptions = {
                 zoom: 17,
                 minZoom:15,
+                maxZoom:18,
                 center: uva,
                 draggable:true,
                 gestureHandling: 'greedy',
@@ -56,7 +57,7 @@
 
             {% for item in item_list %}
             var contentString =
-              '<h1 id="firstHeading" class="firstHeading">{{ item }}</h1>'+
+              '<h3 id="firstHeading" class="firstHeading">{{ item }}</h3>'+
               '<div><b>Seller: </b>{{item.seller}}</div>'+
               '<a href="{% url 'marketplace:detail' item.id %}">Details</a>';
               var marker = new google.maps.Marker({

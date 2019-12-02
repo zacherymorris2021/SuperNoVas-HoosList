@@ -12,7 +12,6 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 	</head>
 
 	{% if user.is_authenticated %}
@@ -21,10 +20,10 @@
 	                {% include 'marketplace/navbar.html' %}
 	        </div>
 	    <div style="padding-top:50px; padding-left:300px; padding-right: 300px">
-				<h1>
+				<h2>
 					<span>{{user.username}}'s profile</span>
 					<a class="btn btn-primary buttoncolor button-no-border float-right" href="{% url 'marketplace:logout'%}">Logout</a>
-				</h1>
+				</h2>
 				<hr>
 
 
@@ -46,9 +45,9 @@
 											<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
 								      <p class="card-text">{{item.item_description}}</p>
 								    </div>
-								    <div class="card-footer">
-											<div class="horizontalgap" style="width:5px"></div> <a href="{% url 'marketplace:markSold' item.id %}"  class="btn btn-outline-success btn-sm">Mark as Sold</a>
-											<div class="horizontalgap" style="width:5px"></div> <a href="{% url 'marketplace:delete' item.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+								    <div class="card-footer" style="text-align:center">
+											<a href="{% url 'marketplace:markSold' item.id %}"  class="btn btn-outline-success btn-sm">Mark as Sold</a>
+											<a href="{% url 'marketplace:delete' item.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
 								    </div>
 								  </div>
 								{% endif %}
@@ -80,10 +79,11 @@
 								  </div>
 								{% endif %}
 							{% endfor %}
-						</div>
 						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
 						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
 						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					</div>
+
 					{% endif %}
 				</div>
 		</body>
