@@ -8,5 +8,5 @@ dj-database-url
 pillow
 django-filter
 django-widget-tweaks
-django-storage
+django-storages
 boto3
