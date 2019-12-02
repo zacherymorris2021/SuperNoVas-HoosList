@@ -10,9 +10,9 @@
 		</script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
 		</script>
-		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
-		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
+		
 	</head>
 	{% if user.is_authenticated %}
 		<body>
@@ -30,7 +30,6 @@
 							{{form.as_table}}
 						</table>
 						</div>
-						<br>
 						<button type='submit'style='width:100px;float:right;' class="float-right btn btn-primary btn-sm buttoncolor button-no-border">Send</button>
 
 				</form>
