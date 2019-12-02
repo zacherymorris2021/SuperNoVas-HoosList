@@ -42,7 +42,7 @@
           </table>
           <input class="form-control" id="locationtext" placeholder="Set item location"></input>
           <br>
-            <button type='submit' class="btn btn-primary btn-block btn-sm buttoncolor button-no-border">Add Item</button>
+            <button onClick="this.form.submit(); this.disabled=true; this.value='Posting…'; " type='submit' class="btn btn-primary btn-block btn-sm buttoncolor button-no-border">Add Item</button>
           </div>
         </form>
       <div id="map"></div>
