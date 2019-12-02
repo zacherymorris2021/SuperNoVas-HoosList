@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'social_django',
     'widget_tweaks',
+
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -170,8 +172,31 @@ USE_TZ = True
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
 django_heroku.settings(locals())
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Used to authenticate with S3
+AWS_ACCESS_KEY_ID = "AKIATGGV6FWHCJJCE2W4"
+AWS_SECRET_ACCESS_KEY = "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"
+
+# Configure which endpoint to send files to, and retrieve files from.
+AWS_STORAGE_BUCKET_NAME = 'uva-craigslist'
+#AWS_S3_REGION_NAME = 'sfo2'
+#AWS_S3_ENDPOINT_URL = f"https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com"
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+AWS_LOCATION = 'files'
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# General optimization for faster delivery
+AWS_IS_GZIPPED = True
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+DEFAULT_FILE_STORAGE = 'uvacraigslist.storage_backends.MediaStorage'
