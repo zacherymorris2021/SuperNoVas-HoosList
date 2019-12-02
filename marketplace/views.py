@@ -163,3 +163,9 @@ def advFilter(request):
     item_list = Item.objects.all()
     item_filter = ItemFilter(request.GET, queryset=item_list)
     return render(request, 'marketplace/item_list.html', {'filter': item_filter})
+
+def custom_404 (request):
+    return render(request,'404.html', status=404)
+
+def custom_500 (request):
+    return render(request,'500.html', status=500)
