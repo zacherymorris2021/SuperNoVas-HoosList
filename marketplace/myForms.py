@@ -20,11 +20,29 @@ class ItemAddForm(forms.ModelForm):
         'longitude'
         ]
         widgets={
-        'item_name':forms.TextInput(attrs={'style':'line-height:7px;'}),
-        'item_description':forms.Textarea(attrs={'style':' resize:none; line-height:120%;', 'rows':4, 'cols':25}),
-        'item_location':forms.TextInput(attrs={'style':'padding:0px;'}),
-        'latitude':forms.TextInput(attrs={'readonly':'readonly'}),
-        'longitude':forms.TextInput(attrs={'readonly':'readonly'})
+        'item_name':forms.TextInput(attrs={'style':'line-height:7px;','class':'form-control'}),
+        'item_description':forms.Textarea(attrs={'class':'form-control','style':' resize:none; line-height:120%;', 'rows':4}),
+        'item_price':forms.NumberInput(attrs={'class':'form-control'}),
+        'item_delivery':forms.CheckboxInput(attrs={'class':'form-control','style':'text-align:left'}),
+        'item_location':forms.TextInput(attrs={'class':'form-control','class':'form-control','style':'padding:0px;'}),
+        'item_preferred_payment_method':forms.Select(attrs={'class':'form-control'}),
+        'item_condition':forms.Select(attrs={'class':'form-control'}),
+        'item_categories':forms.Select(attrs={'class':'form-control'}),
+        'item_photo':forms.FileInput(attrs={'class':'form-control'}),
+        'latitude':forms.TextInput(attrs={'class':'form-control','readonly':'readonly'}),
+        'longitude':forms.TextInput(attrs={'class':'form-control','readonly':'readonly'})
+        }
+
+        labels={
+        'item_name':'Name',
+        'item_description':'Description',
+        'item_price':'Price',
+        'item_delivery':'Delivery?',
+        'item_location':'Location',
+        'item_preferred_payment_method':'Preferred Method of Payment',
+        'item_condition':'Condition',
+        'item_categories': 'Category',
+        'item_photo':'Photo',
         }
 
 
