@@ -21,5 +21,17 @@ If someone's [sent you a message](https://uvacraigslist.herokuapp.com/marketplac
 
 As a fun quirk, check out where people are posting items by going to the [map](https://uvacraigslist.herokuapp.com/marketplace/map/).
 
+## For Our Professors
+
+Since our standard login only allows @virgina.edu gmail accounts, please follow these steps to gain access to our site:
+1. Navigate to the [admin console](https://uvacraigslist.herokuapp.com/admin/login/?next=/marketplace/)
+2. Log in with the following credentials. 
+  
+       username: admin
+      
+       password: passwordpassword
+       
+ 3. You should now be redirected to the main site logged in as admin!
+
 ## Contact
 If you run into issues or questions, contact the dev team at [uvacraigslist@gmail.com](mailto:uvacraigslist@gmail.com). We're happy to help!
