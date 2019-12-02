@@ -198,3 +198,5 @@ AWS_IS_GZIPPED = True
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
+
+DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'
