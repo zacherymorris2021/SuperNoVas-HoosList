@@ -21,16 +21,18 @@
       </ul>
     </div>
     <div class="nav navbar-nav navbar-right">
-        {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'marketplace:profile' %}">Profile</a>
-          </li>
-        {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">Log In</a>
-          </li>
-        {% endif %}
-
+      <form action="{%url 'marketplace:search' %}" method = "GET" style="padding-right: 10px">
+          <input width=align="right" class="form-control" type ="text" name= 'q' placeholder="Search..." value = "{{request.GET.q}}">
+      </form>
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'marketplace:profile' %}">Profile</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Log In</a>
+        </li>
+      {% endif %}
     </div>
   </div>
 </nav>
