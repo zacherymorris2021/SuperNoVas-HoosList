@@ -6,7 +6,7 @@ Github repo: [SupernoVAs](https://github.com/uva-cs3240-f19/project-102-supernov
 
 ## Main Features
 
-As a UVA-affiliated user, you have the ability to log in with your @virginia.edu email, browse listings, add your own, and contact sellers about their listings. Every page requires you to be logged in to protect the safety of the sellers. 
+As a UVA-affiliated user, you have the ability to log in with your @virginia.edu email, browse listings, add your own items, and contact sellers about their listings. Every page requires you to be logged in to protect the safety of the sellers. 
 
 You can either [browse all products](https://uvacraigslist.herokuapp.com/marketplace/) or [filter by various fields](https://uvacraigslist.herokuapp.com/marketplace/advFilter/), such as item name, price, and category. Messaging is also done within the web app.
 
