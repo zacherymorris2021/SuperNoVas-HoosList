@@ -39,6 +39,9 @@
 									<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
 									<p class="card-text">{{item.item_description}}</p>
 								</div>
+								<div class="card-footer">
+									<small class="text-muted">Seller: {{item.seller}}</small>
+								</div>
 							</div>
 						{% endif %}
 					{% endfor %}

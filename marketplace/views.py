@@ -88,8 +88,7 @@ def markSold(request, item_id):
 
 def user(request, seller_id ):
     seller = get_object_or_404(User, pk=seller_id)
-    form = UserRatingForm()
-    return render(request, 'marketplace/user.html',{'seller':seller, 'form':form})
+    return render(request, 'marketplace/user.html',{'seller':seller})
 
 def filter(request):
     template = 'marketplace/filter.html'

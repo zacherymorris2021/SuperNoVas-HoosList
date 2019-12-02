@@ -52,10 +52,12 @@ class SendMessageForm(forms.ModelForm):
         'text'
         ]
         widgets = {
-            'receiver': forms.TextInput(attrs={'class':'form-control'}),
+            'receiver': forms.Select(attrs={'class':'form-control'}),
             'subject': forms.TextInput(attrs={'class':'form-control'}),
             'text': forms.Textarea(attrs={'class':'form-control','style':' resize:none; line-height:120%;', 'rows':7, 'cols':25})
             }
+        def __init__(self):
+            self.fields['receiver'].queryset = User.objects.order_by(username)
 
 class SendReplyForm(forms.ModelForm):
     class Meta:
