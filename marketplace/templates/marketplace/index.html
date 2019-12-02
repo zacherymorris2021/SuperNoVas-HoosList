@@ -18,25 +18,59 @@
 				{% include 'marketplace/navbar.html' %}
 			</div>
 			<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-				<h2>Items currently for sale</h2>
+				<h2><span>Items currently for sale</span>
+				<a href="{% url 'marketplace:advFilter' %}" class="btn float-right btn-danger">Advanced Search<a></h2>
 				<hr>
 				{% if latest_item_list %}
 					<div class="card-deck">
 						{% for item in latest_item_list %}
-						  <div class="card mt-3" style="min-width: 18rem;">
-								<div class="card-header">
-									<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
-								</div>
-						    <div class="card-body">
-									<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
-						      <p class="card-text">{{item.item_description}}</p>
-						    </div>
-						    <div class="card-footer">
-						      <small class="text-muted">Seller: {{item.seller}}</small>
-						    </div>
-						  </div>
+							{% if item.item_sold == False %}
+							  <div class="card mt-3" style="min-width: 18rem;">
+									<div class="card-header">
+										<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+									</div>
+							    <div class="card-body">
+										<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+							      <p class="card-text">{{item.item_description}}</p>
+							    </div>
+							    <div class="card-footer">
+							      <small class="text-muted">Seller: {{item.seller}}</small>
+							    </div>
+							  </div>
+							{% endif %}
 						{% endfor %}
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
 					</div>
+				{% endif %}
+			</div>
+			<div class="content"style="padding-top:50px; padding-bottom:50px; padding-left:300px; padding-right: 300px">
+				<h2>Recently Sold Items</h2>
+				<hr>
+				{% if latest_item_list %}
+					<div class="card-deck">
+						{% for item in latest_item_list %}
+							{% if item.item_sold %}
+							  <div class="card mt-3" style="min-width: 18rem;">
+									<div class="card-header">
+										<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+									</div>
+							    <div class="card-body">
+										<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+							      <p class="card-text">{{item.item_description}}</p>
+							    </div>
+							    <div class="card-footer">
+							      <small class="text-muted">Seller: {{item.seller}}</small>
+							    </div>
+							  </div>
+							{% endif %}
+						{% endfor %}
+
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+				</div>
 				{% endif %}
 			</div>
 		</body>

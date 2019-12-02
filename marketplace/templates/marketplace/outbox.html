@@ -11,10 +11,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
         </script>
         <link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" /> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
         <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
-   </head> 
+   </head>
 
   {% if user.is_authenticated %}
     <body>
@@ -22,29 +22,17 @@
 				{% include 'marketplace/navbar.html' %}
 			</div>
       <div style="padding-top:50px; padding-left:300px; padding-right:300px">
-        <h1> Sent Mail</h1>
+        <h2><span>Sent</span>
+          <a class="btn btn-link" href="{% url 'marketplace:inbox' %}">Back to Inbox</a>
+        </h2>
         <hr>
-        <div class="container h-100"> 
-          <div class="position-relative h-100"> 
-              <div class="position-absolute top-left"> 
-                  <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:inbox' %}">Click to go back to Inbox!</a> 
-              </div>  
-              <div class="position-absolute top-right"> 
-                  <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'marketplace:message' %}">Click to Send a Message!</a> 
-              </div>
-          </div>
-        </div>
-        <br>
-        <br>
-        <hr>
-
         <body>
           <div class="column">
                 {% if messages %}
                   {%for item in messages %}
-                  <div class="row-12"> 
+                  <div class="row-12">
                     <div class="card">
-                      <h3>Message sent to {{item.receiver}}</h3>
+                      <h3>Message to {{item.receiver}}</h3>
                       <hr class="someClass">
                       <p align="left"><b>Subject:</b> {{ item.subject }}</p>
                       <p align="left"><b>Sent on:</b> {{item.timesent}}</p>
@@ -53,7 +41,7 @@
                     <br>
                   </div>
                   {% endfor %}
-              
+
           </div>
               {% else %}
                 <div class="column">

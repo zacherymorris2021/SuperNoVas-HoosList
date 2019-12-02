@@ -6,10 +6,6 @@
       <a class="navbar-brand" id="title" href="{% url 'home' %}">
           <img src="{% static 'marketplace/images/orangelogo.png'%}" id = "title" height="30" class="d-inline-block align-top" alt="">
       </a>
-
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'marketplace:advFilter' %}">Search</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'marketplace:index' %}">Browse</a>
         </li>
@@ -25,19 +21,18 @@
       </ul>
     </div>
     <div class="nav navbar-nav navbar-right">
-        <form action="{%url 'marketplace:search' %}" method = "GET" style="padding-right: 10px">
+      <form action="{%url 'marketplace:search' %}" method = "GET" style="padding-right: 10px">
           <input width=align="right" class="form-control" type ="text" name= 'q' placeholder="Search..." value = "{{request.GET.q}}">
-        </form>
-        {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'marketplace:profile' %}">Profile</a>
-          </li>
-        {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">Log In</a>
-          </li>
-        {% endif %}
-
+      </form>
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'marketplace:profile' %}">Profile</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Log In</a>
+        </li>
+      {% endif %}
     </div>
   </div>
 </nav>

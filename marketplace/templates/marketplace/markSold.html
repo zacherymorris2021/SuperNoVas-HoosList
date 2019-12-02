@@ -12,7 +12,6 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 	</head>
 	{% if user.is_authenticated %}
 		{% if request.user.username == creator %}
@@ -20,19 +19,29 @@
 		    	<div class="navBar">
 		            {% include 'marketplace/navbar.html' %}
 		    	</div>
-		      	<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-		        	<center><h1>Updating Item as Sold</h1></center>
-		        		<hr>
-		        	<form method="POST" action="{% url 'marketplace:markSold' item.id %}">{% csrf_token %}
-						<div class="card">
-							{{item.seller}}, are you sure you want to mark {{item.item_name}} as sold?
-							<p></p>
-							<button type='submit' class="btn btn-primary btn-sm buttoncolor button-no-border">Yes, I do!</button>
-							<hr class="someClass">
-							<a href="{% url 'marketplace:profile'%}" class="btn btn-primary btn-sm buttoncolor button-no-border">No, take me back!</a>
+					<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
+						<h2>Mark {{item.item_name}} as Sold</h2>
+							<hr>
+						<form method="POST" action="{% url 'marketplace:markSold' item.id %}">{% csrf_token %}
+							<div class="card float-left" style="width: 50%; min-width: 18rem;">
+								<div class="card-header">
+									<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+								</div>
+								<div class="card-body">
+									<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+									<p class="card-text">{{item.item_description}}</p>
+								</div>
+							</div>
+							<div class="float-right" >
+								<strong>Are you SURE you want to mark {{item.item_name}} as sold? This is a permanent action.</strong><br>
+									<div class="text-center">
+										<button type='submit' class="btn btn-danger">Yes, mark as sold!</button>
+										<a href="{% url 'marketplace:profile'%}" class="btn btn-warning">No, back to profile!</a>
+									</div>
+								</div>
+							</form>
 						</div>
-		        	</form>
-				</div>
+
 			</body>
     {% else %}
 			{% include 'marketplace/notauth2.html' %}

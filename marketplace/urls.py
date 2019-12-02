@@ -18,8 +18,8 @@ urlpatterns = [
     path('outbox/', views.outbox, name = 'outbox'),
     url(r'^advFilter/$', views.advFilter, name='advFilter'),
     path('message/', views.message, name = 'message'),
+    path('message/<int:user_id>/', views.message, name = 'message'),
     path('reply/<int:message_id>/', views.reply, name = 'reply'),
-    path('thanks/', views.thank, name = 'Thank you!'),
     path('<int:item_id>/delete/', views.delete, name='delete'),
     path('<int:item_id>/markSold/', views.markSold, name='markSold')
 ]

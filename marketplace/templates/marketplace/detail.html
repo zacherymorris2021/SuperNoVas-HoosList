@@ -36,25 +36,33 @@
     </div>
     <div class="itemInfo" style="float:left; padding:50px; width:25%">
       {% if item.item_sold %}
-        <h1>{{ item.item_name }} (sold)</h1>
+        <h2>{{ item.item_name }} (sold)</h2>
       {% else %}
-        <h1>{{ item.item_name }}</h1>
+        <h2>{{ item.item_name }} (${{item.item_price}})</h2>
+      {% endif %}
+      {% if user == item.seller %}
+        Listed by <a id = "items" href="{% url 'marketplace:profile' %}">{{ item.seller }}</a> in {{item.item_condition}} condition
+      {% else %}
+        Listed by <a id = "items" href="{% url 'marketplace:user' item.seller.id %}">{{ item.seller }}</a> in {{item.item_condition}} condition
       {% endif %}
       <hr>
-      <img src="{{ item.item_photo.url }}" width=100%> <br>
-      Seller: <a id = "items" href="{% url 'marketplace:user' item.seller.id %}">{{ item.seller }}</a><br>
-      Description: {{item.item_description}}<br>
-      Condition: {{item.item_condition}}<br>
-      Price: ${{item.item_price}}<br>
-      Preferred method of payment: {{item.item_preferred_payment_method}}<br>
-      Location: {{item.item_location}}<br>
-      {% if item.item_delivery %}
-        Item can be delivered. <br>
-      {% endif %}
+      <img src="{{ item.item_photo.url }}" width=100%> <br><br>
       {% if item.item_sold %}
-        <b>Item has been sold.</b> <br>
+        <strong>Item has been sold.</strong> <br>
       {% endif %}
-      <a href = "{% url 'marketplace:message' %}?receiver={{item.seller.username}}&subject={{item.item_name}}" style="padding-right: 10px" class="btn btn-primary btn-block btn-sm buttoncolor button-no-border">Message seller</a><br>
+      {{item.item_description}}<br><br>
+      Pay with {{item.item_preferred_payment_method}}<br>
+      Available for pickup (see map)<br>
+      {% if item.item_delivery %}
+        Item can also be delivered. <br>
+      {% endif %}
+      <br><br>
+      {% if user == item.seller %}
+        <a href="{% url 'marketplace:markSold' item.id %}"  class="btn btn-outline-success btn-sm">Mark as Sold</a>
+        <a href="{% url 'marketplace:delete' item.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+      {% else %}
+        <a href = "{% url 'marketplace:message' item.seller.id %}?subject={{item.item_name}}" style="padding-right: 10px" class="btn btn-primary btn-block btn-sm buttoncolor button-no-border">Message seller</a><br>
+      {% endif %}
     </div>
     <div id="map"></div>
     <script>
@@ -63,9 +71,9 @@
         var item = {lat: parseFloat("{{ item.latitude }}"),  lng: parseFloat("{{ item.longitude }}")};
         var myOptions = {
               zoom: 17,
-              minZoom:15,
+              minZoom:16,
               center: item,
-              draggable:true,
+              draggable:false,
               gestureHandling: 'greedy',
               mapTypeId: google.maps.MapTypeId.TRAFFIC
           }
