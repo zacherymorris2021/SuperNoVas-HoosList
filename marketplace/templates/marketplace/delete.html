@@ -35,9 +35,10 @@
 							  </div>
 								<div class=" float-right">
 									<strong>Are you SURE you want to delete {{item.item_name}}? This is a permanent action.</strong><br>
-
-		            		<button type='submit' class="btn btn-danger">Yes, delete!</button>
-							<a href="{% url 'marketplace:profile'%}" class="float-right btn btn-warning">No, back to profile!</a>
+										<div class="text-center">
+		            			<button type='submit' class="btn btn-danger">Yes, delete!</button>
+											<a href="{% url 'marketplace:profile'%}" class="btn btn-warning">No, back to profile!</a>
+										</div>
 		        	</form>
 				</div>
 			</body>

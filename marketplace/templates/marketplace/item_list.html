@@ -14,7 +14,6 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 	</head>
 	{% if user.is_authenticated %}
     <body>
@@ -24,7 +23,7 @@
       <div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
         <form method="get">
 					<div class="well">
-						<h4 style="margin-top: 0">Filter</h4>
+						<h4 style="margin-top: 0">Advanced Search</h4>
 						<hr>
 						<div class="row">
 							<div class="form-group col-sm-4 col-md-3">
@@ -60,20 +59,31 @@
 								{% render_field filter.form.item_preferred_payment_method class="form-control" %}
 							</div>
 						</div>
-						<button type="submit" class="btn btn-primary btn-block btn-sm buttoncolor button-no-border">
-							<span class="glyphicon glyphicon-search"></span> Search
-						</button>
-        </form>
+						<button type="submit" class="btn float-right btn-primary button-no-border">Search</button>
+        </form><br>
 				<hr>
 				{% if filter.qs %}
-					Items that match your search:
-	        <ul>
-	          {% for item in filter.qs %}
-	            <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-	          {% endfor %}
-	        </ul>
+					<div class="card-deck">
+						{% for item in filter.qs %}
+							<div class="card mt-3" style="min-width: 18rem;">
+								<div class="card-header">
+									<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+								</div>
+								<div class="card-body">
+									<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+									<p class="card-text">{{item.item_description}}</p>
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">Seller: {{item.seller}}</small>
+								</div>
+							</div>
+						{% endfor %}
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					</div>
 				{% else %}
-					No items match your query. Please broaden your search.
+				  <p>No items match your query.</p>
 				{% endif %}
       </div>
     </body>
