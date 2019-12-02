@@ -19,7 +19,7 @@ If you like the kinds of items that someone has posted, check out their posting 
 
 If someone's [sent you a message](https://uvacraigslist.herokuapp.com/marketplace/inbox/), hit the "reply" button to easily send a message with the receipient and subject already filled out. Their message is also shown above your reply field, so there's no need to go back to see what you're replying to.
 
-As a fun quirk, check out where people are posting items by going to the [map].(https://uvacraigslist.herokuapp.com/marketplace/map/)
+As a fun quirk, check out where people are posting items by going to the [map](https://uvacraigslist.herokuapp.com/marketplace/map/).
 
 ## Contact
 If you run into issues or questions, contact the dev team at [uvacraigslist@gmail.com](mailto:uvacraigslist@gmail.com). We're happy to help!
