@@ -36,6 +36,14 @@ class Item(models.Model):
         return self.item_name
 
 
+class RatingInfo(models.Model):
+    seller = models.ForeignKey(Seller, on_delete = models.CASCADE)
+    info_field = models.CharField (max_length=200)
+    count = models.PositiveIntegerField(default=0)
+    def __str__(self):
+        return self.seller.seller_name+"\'s "+self.info_field+" votes"
+
+
 
 class Message(models.Model):
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name = "sender", on_delete=models.CASCADE)
@@ -46,3 +54,4 @@ class Message(models.Model):
 
     def __str__(self):
         return self.subject
+

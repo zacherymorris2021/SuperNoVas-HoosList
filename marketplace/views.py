@@ -102,6 +102,7 @@ def filter(request):
     }
     return render(request, template, context)
 
+
 def inbox(request):
     context = {
         'messages': Message.objects.filter(receiver_id=request.user.id).order_by('-timesent')
@@ -169,3 +170,4 @@ def custom_404 (request):
 
 def custom_500 (request):
     return render(request,'500.html', status=500)
+

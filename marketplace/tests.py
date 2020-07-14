@@ -311,5 +311,3 @@ class logTest(TestCase):
         resp = self.client.get('/marketplace/profile/')
         self.assertEquals(resp.status_code, 200)
 
-
-#messaging tests
