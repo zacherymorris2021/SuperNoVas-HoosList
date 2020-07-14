@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<title>Message</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+		</script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+		</script>
+    <link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
+
+	</head>
+	{% if user.is_authenticated %}
+		<body>
+			<div class="navBar">
+				{% include 'marketplace/navbar.html' %}
+			</div>
+			<div class="content"style="padding-top:50px; padding-bottom:50px; padding-left:300px; padding-right: 300px">
+				<h2><span>Compose New Message</span>
+					<a href="{% url 'marketplace:inbox'%}" class="btn float-right btn-link ">Back to Inbox</a>
+				</h2>
+					<hr>
+				<form action="/marketplace/message/" class = "form-group"  method="post" enctype="multipart/form-data">{% csrf_token %}
+					<div class="card">
+						<table id="add" class = "table table-striped">
+							{{form.as_table}}
+						</table>
+						</div>
+						<button type='submit'style='width:100px;float:right;' class="float-right btn btn-primary btn-sm buttoncolor button-no-border">Send</button>
+
+				</form>
+			</div>
+		</body>
+	{% else %}
+    {% include 'marketplace/notauth.html' %}
+	{% endif %}
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<title>Profile Page</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+		</script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+		</script>
+		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
+	</head>
+
+	{% if user.is_authenticated %}
+		<body>
+	    <div class="navBar">
+	                {% include 'marketplace/navbar.html' %}
+	        </div>
+	    <div style="padding-top:50px; padding-bottom:50px; padding-left:300px; padding-right: 300px">
+				<h2>
+					<span>{{user.username}}'s profile</span>
+					<a class="btn btn-primary buttoncolor button-no-border float-right" href="{% url 'marketplace:logout'%}">Logout</a>
+				</h2>
+				<hr>
+
+
+				<div class="content"style="padding-top:50px;">
+					<h4><span>Your current listings</span>
+						<a class="btn btn-primary buttoncolor button-no-border float-right" href="{% url 'marketplace:add_item' %}">New Listing</a>
+					</h4>
+					<hr>
+					{% if user.item_set.all %}
+						<div class="card-deck">
+							{% for item in user.item_set.all %}
+								{% if item.item_sold %}
+								{% else %}
+								  <div class="card mt-3" style="min-width: 18rem;">
+										<div class="card-header">
+											<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+										</div>
+								    <div class="card-body">
+											<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+								      <p class="card-text">{{item.item_description}}</p>
+								    </div>
+								    <div class="card-footer" style="text-align:center">
+											<a href="{% url 'marketplace:markSold' item.id %}"  class="btn btn-outline-success btn-sm">Mark as Sold</a>
+											<a href="{% url 'marketplace:delete' item.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+								    </div>
+								  </div>
+								{% endif %}
+							{% endfor %}
+							<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+							<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+							<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						</div>
+					{% endif %}
+				</div>
+				<div class="content"style="padding-top:50px;">
+					<h4>Recently Sold Items</h4>
+					<hr>
+					{% if user.item_set.all %}
+						<div class="card-deck">
+							{% for item in user.item_set.all %}
+								{% if item.item_sold %}
+								  <div class="card mt-3" style="min-width: 18rem;">
+										<div class="card-header">
+											<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+										</div>
+								    <div class="card-body">
+											<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+								      <p class="card-text">{{item.item_description}}</p>
+								    </div>
+								    <div class="card-footer">
+								      <small class="text-muted">Seller: {{item.seller}}</small>
+								    </div>
+								  </div>
+								{% endif %}
+							{% endfor %}
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					</div>
+
+					{% endif %}
+				</div>
+		</body>
+	{% else %}
+    {% include 'marketplace/notauth.html' %}
+	{% endif %}
+</html>

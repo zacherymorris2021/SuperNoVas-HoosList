@@ -2,7 +2,7 @@
 {% load static %}
 <html>
 	<head>
-		<title>Hooslist: All Products</title>
+		<title>Browse All Products</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 		</script>
@@ -12,41 +12,69 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
+	{% if user.is_authenticated %}
+		<body>
+			<div class="navBar">
+				{% include 'marketplace/navbar.html' %}
+			</div>
+			<div class="content"style="padding-top:50px; padding-bottom:50px; padding-left:300px; padding-right: 300px">
+				<h2><span>Items currently for sale</span>
+				<a href="{% url 'marketplace:advFilter' %}" class="btn float-right btn-danger">Advanced Search<a></h2>
+				<hr>
+				{% if latest_item_list %}
+					<div class="card-deck">
+						{% for item in latest_item_list %}
+							{% if item.item_sold == False %}
+							  <div class="card mt-3" style="min-width: 18rem;">
+									<div class="card-header">
+										<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+									</div>
+							    <div class="card-body">
+										<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+							      <p class="card-text">{{item.item_description}}</p>
+							    </div>
+							    <div class="card-footer">
+							      <small class="text-muted">Seller: {{item.seller}}</small>
+							    </div>
+							  </div>
+							{% endif %}
+						{% endfor %}
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+						<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					</div>
+				{% endif %}
+			</div>
+			<div class="content"style="padding-top:50px; padding-bottom:50px; padding-left:300px; padding-right: 300px">
+				<h2>Recently Sold Items</h2>
+				<hr>
+				{% if latest_item_list %}
+					<div class="card-deck">
+						{% for item in latest_item_list %}
+							{% if item.item_sold %}
+							  <div class="card mt-3" style="min-width: 18rem;">
+									<div class="card-header">
+										<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+									</div>
+							    <div class="card-body">
+										<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+							      <p class="card-text">{{item.item_description}}</p>
+							    </div>
+							    <div class="card-footer">
+							      <small class="text-muted">Seller: {{item.seller}}</small>
+							    </div>
+							  </div>
+							{% endif %}
+						{% endfor %}
 
-	<body>
-		<div class="navBar">
-			{% include 'marketplace/navbar.html' %}
-		</div>
-		<h2> Filter by </h2>
-		<form method = "GET" action = "{% url 'marketplace:filter' %}" >
-			{% csrf_token %}
-			<select name = "f" value = {{request.GET.f}}>
-					<option value = furniture> Furniture </option>
-					<option value = textbooks> Textbooks </option>
-					<option value = clothing> Clothing </option>
-					<option value = kitchen> Kitchen </option>
-					<option value = supplies> Class Supplies </option>
-					<option value = dorm> Dorm </option>
-					<option value = uva > UVA Gear </option>
-					<option value = electronics> Electronics </option>
-
-
-			</select>
-			<button type = "submit"> Filter </button>
-		</form>
-
-
-		<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-			<h2>Items currently for sale</h2>
-			{% if latest_item_list %}
-			    <ul>
-			    {% for item in latest_item_list %}
-			        <li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-			    {% endfor %}
-			    </ul>
-			{% else %}
-			    <p>No items are available.</p>
-			{% endif %}
-		</div>
-	</body>
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+				</div>
+				{% endif %}
+			</div>
+		</body>
+	{% else %}
+  	{% include 'marketplace/notauth.html' %}
+  {% endif %}
 </html>

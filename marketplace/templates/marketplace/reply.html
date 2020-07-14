@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<title>Reply to {{message.sender}}</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+		</script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+		</script>
+		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css\reply.css'%}">
+
+	</head>
+
+	{% if user.is_authenticated %}
+		{% if user == message.receiver %}
+			<body>
+				<div class="navBar">
+					{% include 'marketplace/navbar.html' %}
+				</div>
+				<div class="content"style="padding-top:50px; padding-bottom:50px; padding-left:300px; padding-right: 300px">
+					<h2><span>Reply Page</span>
+					<a class="btn btn-secondary float-right" href="{% url 'marketplace:inbox' %}">Back to Inbox</a>
+					</h2>
+						<hr>
+						<div class="card">
+							<div class= "ogMessage" style="text-align:left">
+								<center><h4>Message {{message.sender}} Sent You</h4></center>
+								<hr class="someClass">
+								<p align="left"><b>Subject:</b> {{message.subject}}</p>
+                      			<p align="left"><b>Sent on:</b> {{message.timesent}}</p>
+                      			<p align="left"><b>Message:</b> {{message.text}}</p>
+							</div>
+						</div>
+						<br>
+
+					<form action="{% url 'marketplace:reply' message.id %}" class = "form-group"  method="post" enctype="multipart/form-data">{% csrf_token %}
+							<table id="add" class = "table table-borderless">
+								{{form.as_table}}
+							</table>
+							<button type='submit' class="float-right btn btn-primary btn-sm buttoncolor button-no-border">Send Reply</button>
+					</form>
+					<br>
+				</div>
+			</body>
+			{% else %}
+				{% include 'marketplace/notauth3.html' %}
+			{% endif %}
+		{% else %}
+	    {% include 'marketplace/notauth.html' %}
+	  {% endif %}
+</html>

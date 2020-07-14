@@ -3,8 +3,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.template import loader
 from django.db.models import Q
-from .models import Item, Seller, RatingInfo
-from .myForms import ItemAddForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from .models import Item, Seller, Message
+from .myForms import ItemAddForm, SendMessageForm, SendReplyForm
+from django.contrib.auth.models import User
+from .filters import ItemFilter
+from django.contrib import messages
 
 # views
 def index(request):
@@ -24,12 +29,19 @@ def add_item(request):
         form = ItemAddForm(request.POST, request.FILES)
         if form.is_valid():
             new_item = form.save(commit=False)
+            new_item.seller = request.user
             new_item.save()
             return redirect('/marketplace')
     else:
         form = ItemAddForm()
     return render(request, 'marketplace/add-item.html', {'form': form})
 
+def map(request):
+    item_list = Item.objects.order_by('-item_add_date')
+    context={
+        'item_list': item_list,
+    }
+    return render(request, 'marketplace/map.html', context)
 
 def search(request):
     template = 'marketplace/search.html'
@@ -43,25 +55,40 @@ def search(request):
     }
     return render(request, template, context)
 
-def user(request, seller_id):
-    seller = get_object_or_404(Seller, pk=seller_id)
-    return render(request, 'marketplace/user.html',{'seller':seller})
+def logout_user(request):
+    logout(request)
+    return redirect('home')
 
-def rate(request, seller_id):
-    seller = get_object_or_404(Seller, pk=seller_id)
-    try:
-        selected_rating_field = seller.ratinginfo_set.get(pk=request.POST['field'])
-    except (KeyError, RatingInfo.DoesNotExist):
-        return render(request, 'marketplace/rate.html', {
-            'seller': seller,
-            'error_message': "Try again.",
-        })
-    else:
-        selected_rating_field.count +=1
-        seller.num_transactions +=1
-        selected_rating_field.save()
-        seller.save()
-    return HttpResponseRedirect(reverse('marketplace:user', args=(seller.id,)))
+def profile(request):
+    return render(request, 'marketplace/profile.html', {})
+
+def delete(request, item_id):
+    item=get_object_or_404(Item, pk=item_id)
+    creator=item.seller.username
+    if request.method=="POST" and request.user.is_authenticated and request.user.username==creator:
+        item.delete()
+        return HttpResponseRedirect(reverse('marketplace:profile'))
+    context={'item': item,
+            'creator': creator,
+            }
+    return render(request, 'marketplace/delete.html', context)
+
+
+def markSold(request, item_id):
+    item=get_object_or_404(Item, pk=item_id)
+    creator=item.seller.username
+    if request.method=="POST" and request.user.is_authenticated and request.user.username==creator:
+        item.item_sold=True
+        item.save()
+        return HttpResponseRedirect(reverse('marketplace:profile'))
+    context={'item': item,
+            'creator': creator,
+            }
+    return render(request, 'marketplace/markSold.html', context)
+
+def user(request, seller_id ):
+    seller = get_object_or_404(User, pk=seller_id)
+    return render(request, 'marketplace/user.html',{'seller':seller})
 
 def filter(request):
     template = 'marketplace/filter.html'
@@ -74,3 +101,73 @@ def filter(request):
         'filters' : filters
     }
     return render(request, template, context)
+
+
+def inbox(request):
+    context = {
+        'messages': Message.objects.filter(receiver_id=request.user.id).order_by('-timesent')
+    }
+    return render(request, 'marketplace/inbox.html', context)
+
+def outbox(request):
+    context = {
+        'messages': Message.objects.filter(sender_id=request.user.id).order_by('-timesent')
+    }
+    return render(request, 'marketplace/outbox.html', context)
+
+def message(request, user_id=-1):
+    if request.method == "POST":
+        form = SendMessageForm(request.POST)
+        if form.is_valid():
+            new_message = form.save(commit=False)
+            new_message.sender = request.user
+            new_message.save()
+            return redirect('marketplace:inbox')
+    else:
+        if user_id==-1:
+            form = SendMessageForm()
+        else:
+            form = SendMessageForm(initial={'receiver':user_id})
+        #code inspired from https://djangosnippets.org/snippets/1810/
+        for key in request.GET:
+            try:
+                form.fields[key].initial = request.GET[key]
+            except KeyError:
+                pass
+        # end of inspired code
+    context = {
+    'form': form
+    }
+    return render(request, 'marketplace/message.html', context)
+
+def reply(request, message_id):
+
+    ogMessage = get_object_or_404(Message, id=message_id)
+    if request.method == "POST":
+        form = SendReplyForm(request.POST)
+        if form.is_valid():
+            new_message = form.save(commit=False)
+            new_message.sender = request.user
+            new_message.receiver = ogMessage.sender
+            new_message.subject = "RE: " + ogMessage.subject
+            new_message.save()
+            return redirect('marketplace:inbox')
+    else:
+        form = SendReplyForm()
+    context = {
+        'form' : form,
+        'message' : ogMessage
+    }
+    return render(request, 'marketplace/reply.html', context)
+
+def advFilter(request):
+    item_list = Item.objects.all()
+    item_filter = ItemFilter(request.GET, queryset=item_list)
+    return render(request, 'marketplace/item_list.html', {'filter': item_filter})
+
+def custom_404 (request):
+    return render(request,'404.html', status=404)
+
+def custom_500 (request):
+    return render(request,'500.html', status=500)
+

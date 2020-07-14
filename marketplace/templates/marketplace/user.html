@@ -2,7 +2,7 @@
 {% load static %}
 <html>
 	<head>
-		<title>{{seller.seller_name}}</title>
+		<title>{{seller.username}}</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 		</script>
@@ -12,42 +12,75 @@
 		</script>
 		<link rel="stylesheet" type="text/css" href="{% static 'marketplace/style.css'%}">
 	</head>
-	<body>
-		<div class="navBar">
-			{% include 'marketplace/navbar.html' %}
+	{% if user.is_authenticated %}
+	<div class="navBar">
+							{% include 'marketplace/navbar.html' %}
+			</div>
+	<div style="padding-top:50px; padding-bottom:50px; padding-left:300px; padding-right: 300px">
+		<h2>
+			<span>{{seller.username}}</span>
+			<a class="btn btn-primary buttoncolor button-no-border float-right" href = "{% url 'marketplace:message' %}?receiver={{seller.username}}">Message this seller</a>
+		</h2>
+		<hr>
+
+
+		<div class="content"style="padding-top:50px;">
+			<h4><span>Current Listings</span></h4>
+			{% if seller.item_set.all %}
+				<div class="card-deck">
+					{% for item in seller.item_set.all %}
+						{% if item.item_sold %}
+						{% else %}
+							<div class="card mt-3" style="min-width: 18rem;">
+								<div class="card-header">
+									<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+								</div>
+								<div class="card-body">
+									<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+									<p class="card-text">{{item.item_description}}</p>
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">Seller: {{item.seller}}</small>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+					<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+				</div>
+			{% endif %}
 		</div>
-		<div class="content"style="padding-top:50px; padding-left:300px; padding-right: 300px">
-		<h1>{{ seller.seller_name }}</h1>
-			Seller rating:<br>
-			{% for field in seller.ratinginfo_set.all %}
-				{{field.count}} {{field.info_field}} votes<br>
-			{% endfor %}
-				<!-- display only if > 3 transactions -->
-			<a href = "{% url 'marketplace:rate' seller.pk %}">Rate this seller</a>
-			<br><br>
-		    Items for sale:
-        {% if seller.item_set.all %}
-    		    <ul>
-    		    {% for item in seller.item_set.all %}
-							{% if item.item_sold == False %}
-    		       	<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-							{% endif %}
-    		    {% endfor %}
-    		    </ul>
-    		{% else %}
-    		    <p>No items for sale.</p>
-    		{% endif %}
-				Items sold:
-				{% if seller.item_set.all %}
-					<ul>
-						{% for item in seller.item_set.all %}
-							{% if item.item_sold %}
-								<li><a id = "items" href="{% url 'marketplace:detail' item.id %}">{{ item.item_name }}</a></li>
-							{% endif %}
-    		    {% endfor %}
-  		    </ul>
-				{% endif %}
-		</ul>
+		<hr>
+		<div class="content"style="padding-top:50px;">
+			<h4>Past listings</h4>
+			{% if seller.item_set.all %}
+				<div class="card-deck">
+					{% for item in seller.item_set.all %}
+						{% if item.item_sold %}
+							<div class="card mt-3" style="min-width: 18rem;">
+								<div class="card-header">
+									<h5><a href="{% url 'marketplace:detail' item.id %}">{{item.item_name}}</a></h5>
+								</div>
+								<div class="card-body">
+									<img src="{{ item.item_photo.url }}" class="card-img-top" alt="no image">
+									<p class="card-text">{{item.item_description}}</p>
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">Seller: {{item.seller}}</small>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+				<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+				<div class="invisible card mt-3" style="min-width: 18rem;"></div>
+			</div>
+			{% endif %}
 		</div>
-	</body>
+</body>
+
+	{% else %}
+    {% include 'marketplace/notauth.html' %}
+	{% endif %}
 </html>

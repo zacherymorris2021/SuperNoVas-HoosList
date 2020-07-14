@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {% load static %}
 <html>
 <head>
@@ -8,20 +9,21 @@
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
     crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css\style-sheet.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css\outbox-message-cards.css'%}">
 </head>
-<body>
+<body style="background-color:#e9ecef;">
   {% include 'marketplace/navbar.html' %}
-      <div style="text-align:center;" class="jumbotron">
-        <p><img src="{% static 'biglogo.png'%}" alt="Logo"></p><br>
+      <div style="text-align:center; padding-top:10%;" class="jumbotron">
+        <a href="{% url 'marketplace:index' %}"><img src="{% static 'biglogo.png'%}" alt="Logo"></a><br>
+        <strong>Welcome to Hooslist, a buying and selling website made for University of Virginia students.</strong><br><br>
         {% if user.is_authenticated %}
           <p>Logged in as {{ user.username }}</p>
-          <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+          <a class="btn btn-primary buttoncolor button-no-border" href="/marketplace/logout/">Logout</a>
         {% else %}
-          <a class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">
-            Sign Up </a><br>
-          Already have an account?
-              <a href="{% url 'social:begin' 'google-oauth2' %}">Login</a><br>
+          <a class="btn btn-primary buttoncolor button-no-border" href="{% url 'social:begin' 'google-oauth2' %}">
+            Login </a><br>
         {% endif %}
       </div>
-    </body>
+   </body>
 </html>
