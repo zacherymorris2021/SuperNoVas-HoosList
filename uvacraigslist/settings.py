@@ -183,8 +183,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Used to authenticate with S3
-AWS_ACCESS_KEY_ID = "AKIATGGV6FWHCJJCE2W4"
-AWS_SECRET_ACCESS_KEY = "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"
+AWS_ACCESS_KEY_ID = ""
+AWS_SECRET_ACCESS_KEY = ""
 
 # Configure which endpoint to send files to, and retrieve files from.
 AWS_STORAGE_BUCKET_NAME = 'uva-craigslist'
